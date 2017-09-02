@@ -513,18 +513,12 @@
 <p>Both <code>Particle</code> and <code>MagneticParticle</code> are assumed to <strong>always</strong> have a velocity vector of measure 1 during evolution. This simplifies the formulas used internally to a significant amount.</p>
 <p>However, during ray-splitting, the a <code>MagneticParticle</code> may be in areas with different angular velocities (result of the <a href="../tutorials/ray-splitting/#ray-splitting-functions">ω_new</a> function). Physically, in such a situation, the velocity measure of the particle could also change. This change depends on the forces acting on the particle (e.g. magnetic field) as well as the relation of the momentum with the velocity (functional type of kinetic energy).</p>
 <p>In any case, such a change is not accounted for internally by <code>DynamicalBilliards</code>. However it is very easy to implement this by "re-normalizing" the angular velocities you use. Since the "code" velocity has measure one, the rotation radius is given by</p>
-<p>
-<script type="math/tex; mode=display">
+<span>\[
 r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
-</script>
-</p>
-<p>then one simply has to adjust the values of <code>ω</code> given in the code with</p>
-<p>
-<script type="math/tex; mode=display">
+\]</span><p>then one simply has to adjust the values of <code>ω</code> given in the code with</p>
+<span>\[
 \omega_\text{code} = \frac{\omega_\text{real}}{v_\text{real}}
-</script>
-</p>
-<p>After getting the timeseries from <code>construct()</code>:</p>
+\]</span><p>After getting the timeseries from <code>construct()</code>:</p>
 <div class="codehilite"><pre><span></span><span class="c"># These are the &quot;code&quot;-data. |v| = 1 always</span>
 <span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span> <span class="o">=</span> <span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">ttotal</span><span class="p">,</span> <span class="n">ray_splt</span><span class="p">)</span>
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span><span class="p">)</span>
@@ -641,9 +635,7 @@ r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
       
       <script>app.initialize({url:{base:".."}})</script>
       
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-      
-        <script src="../assets/mathjaxhelper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
     

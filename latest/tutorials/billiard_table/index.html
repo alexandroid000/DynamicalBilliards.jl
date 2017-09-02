@@ -383,10 +383,9 @@
 
 <p>and then you create your obstacles one by one and add them to it. All obstacles that are already defined in the package can be found at the <a href="../../basic/library/#obstacles">Obstacles page</a> of the library. The function <code>billiard_polygon</code> creates a polygonal billiard table.  However, for the example of this page, we will create a hexagonal billiard with a disk in the middle step-by-step.</p>
 <p>The first step is to define the six walls of the billiard table. A <code>FiniteWall</code> object needs to be supplemented with a start point, an end point, a normal vector and, optionally, a name. The vertex points of a regular hexagon of radius <code>r</code> are given by the formula:</p>
-<p>$$
-(x,y) = \left( r\cos\left(\frac{2\pi i}{6}\right), r\cos\left(\frac{2\pi i}{6}\right) \right)\,, \quad \text{for i $\in$ {1,...,6}}
-$$</p>
-<p>To create each wall object, we will implement the following loop, choosing a size of 2.0:</p>
+<span>\[
+(x,y) = \left( r\cos\left(\frac{2\pi i}{6}\right), r\cos\left(\frac{2\pi i}{6}\right) \right)\,, \quad \text{for i $\in$ \{1,...,6\}}
+\]</span><p>To create each wall object, we will implement the following loop, choosing a size of 2.0:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
 <span class="n">hexagon_vertex</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span> <span class="p">[</span><span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">),</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">6</span><span class="p">]</span>
 <span class="n">hexver</span> <span class="o">=</span> <span class="n">hexagon_vertex</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
@@ -501,9 +500,7 @@ $$</p>
       
       <script>app.initialize({url:{base:"../.."}})</script>
       
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-      
-        <script src="../../assets/mathjaxhelper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
     
