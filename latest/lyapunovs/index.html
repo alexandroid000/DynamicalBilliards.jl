@@ -368,7 +368,7 @@
                 
                   <h1>Lyapunov Exponents</h1>
                 
-                <p>The Finite Time Lyapunov Spectrum (FTLS) for a 2D billiard system consists of a set of 4 numbers <span>\(\lambda_i \, , \{ i = 1, ...,4 \}\)</span> that characterizes the chaoticity of the billiard. They depend on the initial condition and the total time of integration.</p>
+                <p>The Finite Time Lyapunov Spectrum (FTLS) for a 2D billiard system consists of a set of 4 numbers <span>\(\lambda_i \, , \{ i = 1, ...,4 \}\)</span> that characterize the chaoticity of the billiard. They depend on the initial condition and the total time of integration.</p>
 <p>It can be shown theoretically that two of these exponents must be zero (<span>\(\lambda_2\)</span> =<span>\(\lambda_3\)</span> = 0) and the other two are paired in such a way that they sum up to zero, i.e. <span>\(\lambda_1 =  -\lambda_4\)</span>).</p>
 <p>The function provided to calculate the FTLS is</p>
 <div class="codehilite"><pre><span></span> <span class="n">lyapunovspectrum</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">Particle</span><span class="p">,</span> <span class="n">bt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">Obstacle</span><span class="p">},</span> <span class="n">t</span><span class="o">::</span><span class="kt">Float64</span><span class="p">)</span>
