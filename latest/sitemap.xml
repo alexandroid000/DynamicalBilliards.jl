@@ -53,14 +53,6 @@
 
     
     <url>
-     <loc>/basic/library/</loc>
-     <lastmod>2017-09-18</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
      <loc>/physics/</loc>
      <lastmod>2017-09-18</lastmod>
      <changefreq>daily</changefreq>
@@ -69,7 +61,7 @@
 
     
     <url>
-     <loc>/lyapunovs/</loc>
+     <loc>/basic/library/</loc>
      <lastmod>2017-09-18</lastmod>
      <changefreq>daily</changefreq>
     </url>

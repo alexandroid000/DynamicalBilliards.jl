@@ -360,18 +360,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../basic/library/" title="Library" class="md-nav__link">
-      Library
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../../physics/" title="Physics" class="md-nav__link">
       Physics
     </a>
@@ -384,8 +372,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
-      Lyapunov Exponents
+    <a href="../../basic/library/" title="Library" class="md-nav__link">
+      Library
     </a>
   </li>
 
@@ -461,7 +449,7 @@
 <p>The "Julia-logo" billiard, accessed by <code class="codehilite">billiard_julia()</code> simply wraps this code:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">DynamicalBilliardsPlotting</span><span class="p">,</span> <span class="n">PyPlot</span>
 
-<span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">[]</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}[]</span>
 <span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">w</span> <span class="kp">in</span> <span class="n">bt</span>
   <span class="n">plot_obstacle</span><span class="p">(</span><span class="n">w</span><span class="p">;</span> <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">)</span>
@@ -529,9 +517,9 @@
 <p><a id='Semi-Periodic-Billiard-1'></a></p>
 <h2 id="semi-periodic-billiard">Semi-Periodic Billiard</h2>
 <p><code class="codehilite">DynamicalBilliards.jl</code> allows for your system to be periodic in only some specific directions. For example, the following code produces a billiard that is periodic in only the x-direction:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">DynamicalBilliardsPlotting</span>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
 <span class="n">o</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.0</span>
-<span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">[]</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}[]</span>
 
 <span class="n">sp</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span><span class="p">,</span><span class="n">o</span><span class="p">];</span> <span class="n">ep</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">];</span> <span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">o</span><span class="p">]</span>
 <span class="n">leftw</span> <span class="o">=</span> <span class="n">PeriodicWall</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="s">&quot;Left periodic boundary&quot;</span><span class="p">)</span>
@@ -629,13 +617,13 @@
           </a>
         
         
-          <a href="../../basic/library/" title="Library" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../physics/" title="Physics" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Library
+                Physics
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

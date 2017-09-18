@@ -371,18 +371,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../library/" title="Library" class="md-nav__link">
-      Library
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../../physics/" title="Physics" class="md-nav__link">
       Physics
     </a>
@@ -395,8 +383,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
-      Lyapunov Exponents
+    <a href="../library/" title="Library" class="md-nav__link">
+      Library
     </a>
   </li>
 
@@ -492,18 +480,18 @@
 <p><a id='Straight-Propagation-1'></a></p>
 <h2 id="straight-propagation">Straight Propagation</h2>
 <p>The usage of this package revolves around a single function:</p>
-<div class="codehilite"><pre><span></span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">AbstractParticle</span><span class="p">,</span> <span class="n">bt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">Obstacle</span><span class="p">},</span> <span class="n">t</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Float64</span><span class="p">})</span>
+<div class="codehilite"><pre><span></span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">AbstractParticle</span><span class="p">,</span> <span class="n">bt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">Obstacle</span><span class="p">},</span> <span class="n">t</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="n">Float</span><span class="p">})</span>
 </pre></div>
 
 
-<p>which evolves a particle <code class="codehilite">p</code> inside a billiard table <code class="codehilite">bt</code>. If the given <code class="codehilite">t</code> is of type <code class="codehilite">Float64</code>, the evolution happens for <code class="codehilite">t</code> amount of time. If however <code class="codehilite">t</code> is of type <code class="codehilite">Int</code>, the evolution happens for <code class="codehilite">t</code> number of collisions (other types are not supported).</p>
+<p>which evolves a particle <code class="codehilite">p</code> inside a billiard table <code class="codehilite">bt</code>. If the given <code class="codehilite">t</code> is of type <code class="codehilite">AbstractFloat</code>, the evolution happens for <code class="codehilite">t</code> amount of time. If however <code class="codehilite">t</code> is of type <code class="codehilite">Int</code>, the evolution happens for <code class="codehilite">t</code> number of collisions (other types are not supported).</p>
 <p>The first step is to define the billiard table <code class="codehilite">bt</code>, which is the system the particle <code class="codehilite">p</code> will propagate in. A billiard table is simply a collection (<code class="codehilite">Vector</code>) of <code class="codehilite">Obstacle</code>s. The most convenient way is to use one of the pre-defined billiard tables offered by the package. For example, let's create a periodic Sinai billiard with disk radius of 0.3 and with one side of length 2 and one of length 1:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
 <span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_sinai</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<p><em>(for more information about defining billiard tables visit the <a href="../../tutorials/billiard_table">tutorial on defining your own billiard table</a>)</em></p>
+<p>For more information about defining billiard tables visit the <a href="../../tutorials/billiard_table">tutorial on defining your own billiard table</a>). You should definitely look up that page if you want to customly define a table instead of using the <a href="../basic/library/#standard-billiards">predefined ones</a>.</p>
 <p>Afterwards, you want to create a particle inside that billiard system. For that, the function <code class="codehilite">randominside(bt::Vector{Obstacle})</code> is provided, which returns a particle with random initial conditions inside the billiard table.</p>
 <div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 </pre></div>

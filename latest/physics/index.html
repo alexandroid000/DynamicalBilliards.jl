@@ -299,18 +299,6 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../basic/library/" title="Library" class="md-nav__link">
-      Library
-    </a>
-  </li>
-
-    
-      
-      
-      
-
   
 
 
@@ -385,8 +373,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
-      Lyapunov Exponents
+    <a href="../basic/library/" title="Library" class="md-nav__link">
+      Library
     </a>
   </li>
 
@@ -494,21 +482,27 @@
 <li>The <code class="codehilite">relocate!()</code> process is always finite (and very swift!).</li>
 </ol>
 <p>These are solved with the following approach: after the minimum collision time has been calculated, a "test propagation" is done on the position of the particle. If the <code class="codehilite"><span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">obst</span><span class="p">)</span></code> with the colliding obstacle is found to be "wrong", the collision time is reduced by the <code class="codehilite"><span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">timeprec</span><span class="p">(</span><span class="n">T</span><span class="p">)</span></code> function, with <code class="codehilite">T</code> being the parametric type of both the particle and the obstacle. For the case of magnetic propagation, the function <code class="codehilite">timeprec_severe(T)</code> is used instead. This process is repeated until the <code class="codehilite">distance()</code> is "correct", which is followed by the real propagation of the particle for the adjusted time.</p>
-<p>??? info "Definition of time-precision functions"     For <code class="codehilite">T&lt;:AbstractFloat</code>, <code class="codehilite">timeprec(T) = eps(T)^(4/5)</code> and <code class="codehilite">timeprec_severe(T) = sqrt(eps(T))</code></p>
+<div class="admonition info">
+<p class="admonition-title">Definition of time-precision functions</p>
+<p>For <code class="codehilite">T&lt;:AbstractFloat</code>, <code class="codehilite">timeprec(T) = eps(T)^(4/5)</code> and <code class="codehilite">timeprec_severe(T) = sqrt(eps(T))</code></p>
+</div>
 <p>This means that the precision of evolution cannot be greater than the respective precision functions. The current values have been chosen such that the time-adjusting loop happens only once for almost all cases.</p>
 <p>Adjusting the global accuracy of <code class="codehilite">DynamicalBilliards</code> is very easy and can be done in two ways:</p>
 <ol>
 <li>Choose the floating precision you would like, by initializing your billiard table with parametric type <code class="codehilite">T</code>, e.g. <code class="codehilite">bt = billiard_sinai(Float16(0.3))</code>. This choice will propagate to the entire <code class="codehilite">bt</code>, all particles resulting from <code class="codehilite">randominside()</code>, <strong>as well as the entire evolution process</strong>.</li>
 <li>Re-define the functions <code class="codehilite">timeprec(T)</code> and <code class="codehilite">timeprec_severe(T)</code>. Decreasing their values will make the evolution process slower, but the resulting numbers given by <code class="codehilite">evolve!()</code> will be more precise.</li>
 </ol>
-<p>??? warning "Limits of numerical precision"     It is not advisable to lower <code class="codehilite">timeprec(T)</code> to <code class="codehilite">10eps(T)</code> or less or lower     <code class="codehilite">timeprec_severe(T)</code> to <code class="codehilite">eps(T)^(3/4)</code> or less, as these choice tend to make     the package very slow.</p>
+<div class="admonition warning">
+<p class="admonition-title">Limits of numerical precision</p>
+<p>It is not advisable to lower <code class="codehilite">timeprec(T)</code> to <code class="codehilite">10eps(T)</code> or less, or lower <code class="codehilite">timeprec_severe(T)</code> to <code class="codehilite">eps(T)^(3/4)</code> or less, as these choice tend to make the package very slow.</p>
+</div>
 <hr />
 <p><a id='Ray-Splitting-Functions-1'></a></p>
 <h2 id="ray-splitting-functions">Ray-Splitting Functions</h2>
 <p>If <code class="codehilite">T</code> is the transmission probability function, then the condition for transmission is simply: <code class="codehilite">T(φ, pflag, ω) &gt; rand()</code>. If it returns <code class="codehilite">true</code>, transmission (i.e. ray-splitting) will happen. As it has already been discussed in the <a href="../tutorials/ray-splitting">Ray-Splitting tutorial</a>, the condition of total internal reflection must be taken care of by the user.</p>
 <p>The <a href="../tutorials/ray-splitting/#ray-splitting-functions">three key functions</a> given to the <code class="codehilite">ray-splitter</code> dictionary must have some properties in order to have physical meaning, like for example that the scattering probability function is even towards φ. One of these properties is absolutely <strong>mandatory</strong> for this package to work properly. This is the property of total internal reflection, i.e. if the refraction angle is calculated to be greater/equal than π/2, no transmission can happen. <strong>This condition is not assured internally</strong> and therefore you must be sure that your transmission probability function satisfies it. In the above example, the function <code class="codehilite">T</code> makes sure to return 0 in that case.</p>
 <p>In order to test if the <code class="codehilite">raysplitter</code> dictionary you have defined has physical meaning, the function <code class="codehilite">isphysical()</code> is provided:</p>
-<div class="codehilite"><pre><span></span>    <span class="n">isphysical</span><span class="p">(</span><span class="n">raysplitter</span><span class="o">::</span><span class="kt">Dict</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Any</span><span class="p">};</span> <span class="n">only_mandatory</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">isphysical</span><span class="p">(</span><span class="n">raysplitter</span><span class="o">::</span><span class="kt">Dict</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Any</span><span class="p">};</span> <span class="n">only_mandatory</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
 </pre></div>
 
 
@@ -597,7 +591,7 @@ r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../basic/library/" title="Library" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../tutorials/examples/" title="Examples" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -606,19 +600,19 @@ r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Library
+                Examples
               </span>
             </div>
           </a>
         
         
-          <a href="../lyapunovs/" title="Lyapunov Exponents" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../basic/library/" title="Library" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Lyapunov Exponents
+                Library
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

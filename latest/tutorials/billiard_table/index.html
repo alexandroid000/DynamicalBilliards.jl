@@ -314,18 +314,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../basic/library/" title="Library" class="md-nav__link">
-      Library
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../../physics/" title="Physics" class="md-nav__link">
       Physics
     </a>
@@ -338,8 +326,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
-      Lyapunov Exponents
+    <a href="../../basic/library/" title="Library" class="md-nav__link">
+      Library
     </a>
   </li>
 
@@ -374,15 +362,20 @@
                 
                   <h1>Defining a Billiard Table</h1>
                 
-                <p>A billiard table <code class="codehilite">bt</code> is a vector of Obstacles: <code class="codehilite">bt::Vector{Obstacle}</code>.  The abstract Type <code class="codehilite">Obstacle</code> is the supertype of all objects that a particle may collide with.</p>
+                <p>A billiard table <code class="codehilite">bt</code> is a vector of Obstacles: <code class="codehilite">bt::Vector{Obstacle{T}} where {T&lt;:AbstractFloat}</code>. The abstract Type <code class="codehilite">Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code class="codehilite">T</code>.</p>
 <p>There are many premade functions that construct well-known billiards, like the periodic Sinai billiard. You can find all of them at the <a href="../../basic/library/#standard-billiards">Standard Billiards page</a>.</p>
 <p>To create a custom billiard, you start with an empty Vector:</p>
-<div class="codehilite"><pre><span></span>bt = Obstacle[]
+<div class="codehilite"><pre><span></span>bt = Obstacle{T}[]
 </pre></div>
 
 
-<p>and then you create your obstacles one by one and add them to it. All obstacles that are already defined in the package can be found at the <a href="../../basic/library/#obstacles">Obstacles page</a> of the library. The function <code class="codehilite">billiard_polygon</code> creates a polygonal billiard table.  However, for the example of this page, we will create a hexagonal billiard with a disk in the middle step-by-step.</p>
-<p>The first step is to define the six walls of the billiard table. A <code class="codehilite">FiniteWall</code> object needs to be supplemented with a start point, an end point, a normal vector and, optionally, a name. The vertex points of a regular hexagon of radius <code class="codehilite">r</code> are given by the formula:</p>
+<p>and then you create your obstacles one by one and add them to it. All obstacles that are already defined in the package can be found at the <a href="../../basic/library/#obstacles">Obstacles page</a> of the library. The function <code class="codehilite">billiard_polygon</code> creates a polygonal billiard table. However, for the example of this page, we will create a hexagonal billiard with a disk in the middle step-by-step.</p>
+<p>The first step is to define the six walls of the billiard table. A <code class="codehilite">FiniteWall</code> object needs to be supplemented with a start point, an end point, a normal vector and, optionally, a name.</p>
+<div class="admonition danger">
+<p class="admonition-title">Convex Polygons</p>
+<p>Notice that even though all walls are "finite" (e.g. <code class="codehilite">FiniteWall</code>), they are considered infinite when calculating the collision time. This means that the only billiard tables allowed for this package are <a href="https://en.wikipedia.org/wiki/Convex_polygon"><em>convex</em> polygons</a>. <strong>Do not</strong> create a non-convex billiard table as it will silently error during evolution.</p>
+</div>
+<p>The vertex points of a regular hexagon of radius <code class="codehilite">r</code> are given by the formula:</p>
 <span>\[
 (x,y) = \left( r\cos\left(\frac{2\pi i}{6}\right), r\cos\left(\frac{2\pi i}{6}\right) \right)\,, \quad \text{for i $\in$ \{1,...,6\}}
 \]</span><p>To create each wall object, we will implement the following loop, choosing a size of 2.0:</p>
@@ -402,7 +395,7 @@
 
 
 <p>The <code class="codehilite">normal</code> vector of a <code class="codehilite">Wall</code> obstacle is necessary to be supplemented by the user because it must point towards where the particle is expected to come from. If <code class="codehilite">w</code> is the vector (wall) pointing from start- to end-point then the vector <code class="codehilite">[-w[2], w[1]]</code> is pointing to the left of <code class="codehilite">w</code> and the vector <code class="codehilite">[w[2], -[w1]]</code> is pointing to the right. Both are normal to <code class="codehilite">w</code>, but you have to know which one to pick. In this case this is very easy, since the normal has to simply point towards the origin.</p>
-<p>We add a disk by specifying a center and radius (and optionally a name): </p>
+<p>We add a disk by specifying a center and radius (and optionally a name):</p>
 <div class="codehilite"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.8</span><span class="p">)</span>
 <span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
 </pre></div>
@@ -416,7 +409,7 @@
 </pre></div>
 
 
-<p>The billiard table now works for straight or magnetic propagation.  To expand this to ray-splitting you have to use ray-splitting Obstacles (<a href="../../tutorials/ray-splitting">see the tutorial on Ray-Splitting</a>).  Additional information on how to define your own <code class="codehilite">Obstacle</code> sub-type is given in the tutorial on <a href="../../tutorials/own_obstacle">Cefining your own Obstacles</a>.</p>
+<p>The billiard table now works for straight or magnetic propagation. To expand this to ray-splitting you have to use ray-splitting Obstacles (<a href="../../tutorials/ray-splitting">see the tutorial on Ray-Splitting</a>). Additional information on how to define your own <code class="codehilite">Obstacle</code> sub-type is given in the tutorial on <a href="../../tutorials/own_obstacle">Cefining your own Obstacles</a>.</p>
 <p>If you make any billiard system that you think is common and missing from this package, you are more than welcome to submit a PR extending the <code class="codehilite">StandardBilliards.jl</code> library with your contribution!</p>
                 
                   
