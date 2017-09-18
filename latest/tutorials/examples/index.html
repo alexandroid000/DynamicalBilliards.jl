@@ -455,10 +455,10 @@
                 
                   <h1>Examples</h1>
                 
-                <p>This section has some examples of usage of <code>DynamicalBilliards.jl</code>, with some brief comments.</p>
+                <p>This section has some examples of usage of <code class="codehilite">DynamicalBilliards.jl</code>, with some brief comments.</p>
 <p><a id='Julia-logo-Billiard-1'></a></p>
 <h2 id="julia-logo-billiard">Julia-logo Billiard</h2>
-<p>The "Julia-logo" billiard, accessed by <code>billiard_julia()</code> simply wraps this code:</p>
+<p>The "Julia-logo" billiard, accessed by <code class="codehilite">billiard_julia()</code> simply wraps this code:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">DynamicalBilliardsPlotting</span><span class="p">,</span> <span class="n">PyPlot</span>
 
 <span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">[]</span>
@@ -523,12 +523,12 @@
 </pre></div>
 
 
-<p>gives the value of <code>2.1899...</code> which is very close to the analytic result:</p>
+<p>gives the value of <code class="codehilite">2.1899...</code> which is very close to the analytic result:</p>
 <p><span>\(\text{m.f.p.} =  \frac{1-\pi r^2 }{2r} \stackrel{r=0.2}{=} 2.18584\)</span></p>
 <p>which you can find for example <a href="http://www.cmls.polytechnique.fr/perso/golse/Surveys/FGIcmp03.pdf">here</a>.</p>
 <p><a id='Semi-Periodic-Billiard-1'></a></p>
 <h2 id="semi-periodic-billiard">Semi-Periodic Billiard</h2>
-<p><code>DynamicalBilliards.jl</code> allows for your system to be periodic in only some specific directions. For example, the following code produces a billiard that is periodic in only the x-direction:</p>
+<p><code class="codehilite">DynamicalBilliards.jl</code> allows for your system to be periodic in only some specific directions. For example, the following code produces a billiard that is periodic in only the x-direction:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">DynamicalBilliardsPlotting</span>
 <span class="n">o</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.0</span>
 <span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">[]</span>

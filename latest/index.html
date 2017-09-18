@@ -436,7 +436,7 @@
                   <h1>Introduction</h1>
                 
                 <p><img alt="DynamicalBilliards Logo: The Julia billiard" src="http://i.imgur.com/NKgzYrt.gif" /></p>
-<p><code>DynamicalBilliards.jl</code> is an easy-to-use, modular and extendable Julia package for Dynamical Billiard systems in two dimensions.</p>
+<p><code class="codehilite">DynamicalBilliards.jl</code> is an easy-to-use, modular and extendable Julia package for Dynamical Billiard systems in two dimensions.</p>
 <div class="admonition tip">
 <p class="admonition-title">Logo billiard</p>
 <p>Checkout the <a href="#julia-billiard-animation">Julia billiard animation</a> code to see how to create the animated billiard of our logo.</p>
@@ -448,10 +448,10 @@
 <hr />
 <p><a id='Installation-1'></a></p>
 <h2 id="installation">Installation</h2>
-<p>This package is registered, simply use <code>Pkg.add("DynamicalBilliards")</code> to install it. The <a href="https://datseris.github.io/DynamicalBilliards.jl/stable/">stable documentation</a> accompanies the version installed with <code>Pkg.add()</code>.</p>
+<p>This package is registered, simply use <code class="codehilite">Pkg.add(&quot;DynamicalBilliards&quot;)</code> to install it. The <a href="https://datseris.github.io/DynamicalBilliards.jl/stable/">stable documentation</a> accompanies the version installed with <code class="codehilite">Pkg.add()</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Plotting</p>
-<p>Plotting in <code>DynamicalBilliards</code> is done through <code>PyPlot</code> and it is available on-demand only. Simply use the function <code>DynamicalBilliards.enableplotting()</code> and it will define and bring into scope all the relevant names. Notice that you must be able to <code>using PyPlot</code> for plotting to work. If you are not sure about how to install PyPlot, simply run the commands: <code>ENV["PYTHON"]=""; Pkg.add("PyCall"); Pkg.add("PyPlot"); using PyPlot;</code></p>
+<p>Plotting in <code class="codehilite">DynamicalBilliards</code> is done through <code class="codehilite">PyPlot</code> and it is available on-demand only. Simply use the function <code class="codehilite">DynamicalBilliards.enableplotting()</code> and it will define and bring into scope all the relevant names. Notice that you must be able to <code class="codehilite">using PyPlot</code> for plotting to work. If you are not sure about how to install PyPlot, simply run the commands: <code class="codehilite">ENV[&quot;PYTHON&quot;]=&quot;&quot;; Pkg.add(&quot;PyCall&quot;); Pkg.add(&quot;PyPlot&quot;); using PyPlot;</code></p>
 </div>
 <p>After the first installation, it is advised to run the tests to be sure that everything works as expected.</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
@@ -464,8 +464,8 @@
 <hr />
 <p><a id='Usage-1'></a></p>
 <h2 id="usage">Usage</h2>
-<p>It is highly suggested to first visit the <a href="./basic/basic_usage">Basic Usage</a> section, for a general overview of how to use <code>DynamicalBilliards.jl</code>. The very important discussion about <a href="./physics/#numerical-precision">numerical precision</a> is done in the <a href="./physics">Physics</a> page.</p>
-<p>The following tutorials offer detailed descriptions for various aspects of <code>DynamicalBilliards.jl</code>:</p>
+<p>It is highly suggested to first visit the <a href="./basic/basic_usage">Basic Usage</a> section, for a general overview of how to use <code class="codehilite">DynamicalBilliards.jl</code>. The very important discussion about <a href="./physics/#numerical-precision">numerical precision</a> is done in the <a href="./physics">Physics</a> page.</p>
+<p>The following tutorials offer detailed descriptions for various aspects of <code class="codehilite">DynamicalBilliards.jl</code>:</p>
 <ul>
 <li><a href="./tutorials/billiard_table">How to define your custom Billiard Table</a></li>
 <li><a href="./tutorials/ray-splitting">Using Ray-Splitting billiards</a></li>
