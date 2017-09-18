@@ -71,9 +71,7 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href=".." title="DynamicalBilliards.jl" class="md-header-nav__button md-logo">
           
-            
-              <i class="md-icon">group work</i>
-            
+            <i class="md-icon md-icon--home"></i>
           
         </a>
       </div>
@@ -159,9 +157,7 @@
   <label class="md-nav__title md-nav__title--site" for="drawer">
     <div class="md-nav__button md-logo">
       
-        
-          <i class="md-icon">group work</i>
-        
+        <i class="md-icon md-icon--home"></i>
       
     </div>
     DynamicalBilliards.jl
@@ -474,10 +470,7 @@
 <ol>
 <li>Calculate the <code class="codehilite">collisiontime()</code> for <strong>all</strong> obstacles in the billiard table.</li>
 <li>Find the smallest time, and the obstacle corresponding to that.</li>
-<li><code class="codehilite">relocate!()</code> the particle, so that it is on the correct side of the obstacle</li>
-</ol>
-<p>to-be-collided with.</p>
-<ol>
+<li><code class="codehilite">relocate!()</code> the particle, so that it is on the correct side of the obstacle to-be-collided with.</li>
 <li>Check whether there is transmission or not (only for ray-splitting): <code class="codehilite">T(φ) &gt; rand()</code></li>
 <li>
 <p><code class="codehilite">resolvecollision!()</code> between the particle and obstacle:</p>
@@ -501,7 +494,7 @@
 <li>The <code class="codehilite">relocate!()</code> process is always finite (and very swift!).</li>
 </ol>
 <p>These are solved with the following approach: after the minimum collision time has been calculated, a "test propagation" is done on the position of the particle. If the <code class="codehilite"><span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">obst</span><span class="p">)</span></code> with the colliding obstacle is found to be "wrong", the collision time is reduced by the <code class="codehilite"><span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">timeprec</span><span class="p">(</span><span class="n">T</span><span class="p">)</span></code> function, with <code class="codehilite">T</code> being the parametric type of both the particle and the obstacle. For the case of magnetic propagation, the function <code class="codehilite">timeprec_severe(T)</code> is used instead. This process is repeated until the <code class="codehilite">distance()</code> is "correct", which is followed by the real propagation of the particle for the adjusted time.</p>
-<p>??? info "Definition of time-precision functions"     <code class="codehilite">timeprec(T) = eps(T)^(4/5)</code> and <code class="codehilite">timeprec_severe(T) = sqrt(eps(T))</code></p>
+<p>??? info "Definition of time-precision functions"     For <code class="codehilite">T&lt;:AbstractFloat</code>, <code class="codehilite">timeprec(T) = eps(T)^(4/5)</code> and <code class="codehilite">timeprec_severe(T) = sqrt(eps(T))</code></p>
 <p>This means that the precision of evolution cannot be greater than the respective precision functions. The current values have been chosen such that the time-adjusting loop happens only once for almost all cases.</p>
 <p>Adjusting the global accuracy of <code class="codehilite">DynamicalBilliards</code> is very easy and can be done in two ways:</p>
 <ol>
