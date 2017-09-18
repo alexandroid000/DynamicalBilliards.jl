@@ -343,6 +343,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#numerical-precision" title="Numerical Precision" class="md-nav__link">
+    Numerical Precision
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ray-splitting-functions" title="Ray-Splitting Functions" class="md-nav__link">
     Ray-Splitting Functions
   </a>
@@ -410,6 +417,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#numerical-precision" title="Numerical Precision" class="md-nav__link">
+    Numerical Precision
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ray-splitting-functions" title="Ray-Splitting Functions" class="md-nav__link">
     Ray-Splitting Functions
   </a>
@@ -455,30 +469,43 @@
 <p>Firstly one defines a billiard table and (if desired) the <a href="../tutorials/ray-splitting/#ray-splitter-dictionary">ray-splitting dictionary</a>. Then one creates a particle inside the defined billiard table. The algorithm followed for the propagation of a particle is the following:</p>
 <ol>
 <li>Calculate the <code>collisiontime()</code> for <strong>all</strong> obstacles in the billiard table.</li>
-<li>Choose the smallest time and <code>propagate!()</code> the particle for that amount of time. The obstacle corresponding to that minimum time is <code>colobst</code>.</li>
-<li>
-<p><code>resolvecollision!()</code> between the particle and <code>colobst</code>:</p>
+<li>Find the smallest time, and the obstacle corresponding to that.</li>
+<li><code>relocate!()</code> the particle, so that it is on the correct side of the obstacle</li>
+</ol>
+<p>to-be-collided with.</p>
 <ol>
 <li>Check whether there is transmission or not (only for ray-splitting): <code>T(φ) &gt; rand()</code></li>
-<li><code>relocate!()</code> the particle accordingly so that it is on the correct side of the billiard table.</li>
-<li>For no transmission (or no ray-splitting), perform <code>specular!()</code> reflection or <code>periodicity!()</code> conditions.</li>
-<li>Otherwise, implement the ray-splitting algorithm (not discussed here).</li>
-</ol>
-</li>
 <li>
-<p>Continue the loop 1-3 for a given amount of time.</p>
+<p><code>resolvecollision!()</code> between the particle and obstacle:</p>
+<ul>
+<li>If transmission happens, once again <code>relocate!()</code> the particle accordingly and implement the ray-splitting algorithm (not discussed here).</li>
+<li>For no transmission (or no ray-splitting), perform <code>specular!()</code> reflection or <code>periodicity!()</code> conditions based on the colliding obstacle.</li>
+<li>Continue this loop for a given amount of time.</li>
+</ul>
 </li>
 </ol>
 <p>In the standard billiard case, one can always exclude the collision with the previous obstacle. However, in both magnetic or ray-splitting cases this is not true anymore. Therefore the same algorithm is applied on all 3 cases for the sake of simplicity.</p>
-<p>Notice that the <code>relocate!()</code> step is actually very important because it takes care that there is not particle "leakage": particles being outside the billiard table due to the finite precision of floating numbers.</p>
-<div class="admonition danger">
-<p class="admonition-title">Inefficiency </p>
-<p>The first step of the algorithm is <strong>very inefficient</strong> for large billiard tables, since many of the obstacles could be safely excluded from search. If you have better solutions on how to find the minimum collision time you are more than welcome to submit a Pull Request or open an issue to discuss about it. Unfortunately, in the present literature, such an algorithm exists only for the periodic Sinai billiard specifically.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Speed vs. Accuracy</p>
-<p><code>DynamicalBilliards.jl</code> was made under the consideration of as much accuracy as possible. There are numerous actions performed internally such that the particle propagation is accurate (bounded by <code>Float64</code> precision of course), and will not result in any kind of unexpected behavior, like for example particle leakage. Of course, this is a direct trade-off in the expense of speed.</p>
-</div>
+<p>Notice that the <code>relocate!()</code> step is <em>very</em> important because it takes care that there is not particle "leakage": particles being outside the billiard table due to the finite precision of floating numbers.</p>
+<hr />
+<p><a id='Numerical-Precision-1'></a></p>
+<h2 id="numerical-precision">Numerical Precision</h2>
+<p>All core types of <code>DynamicalBilliards.jl</code> are parametrically constructed, with parameter <code>T&lt;:AbstractFloat</code>. This means that the fields of all particles are obstacles contain numbers strictly of type <code>T</code>.</p>
+<p>The main concerns during evolution are:</p>
+<ol>
+<li>The particle must neve leaks out of the billiard table. This is simply translated to the <code>distance()</code> function being <strong>always</strong> positive <strong>after</strong> any collision.</li>
+<li>The collision time is never infinite, besides the cases of <a href="../physics/#pinned-particles">pinned particles</a> in a magnetic billiard.</li>
+<li>The <code>relocate!()</code> process is always finite (and very swift!).</li>
+</ol>
+<p>These are solved with the following approach: after the minimum collision time has been calculated, a "test propagation" is done on the position of the particle. If the <code>distance(p, obst)</code> with the colliding obstacle is found to be "wrong", the collision time is reduced by the <code>DynamicalBilliards.timeprec(T)</code> function, with <code>T</code> being the parametric type of both the particle and the obstacle. For the case of magnetic propagation, the function <code>timeprec_severe(T)</code> is used instead. This process is repeated until the <code>distance()</code> is "correct", which is followed by the real propagation of the particle for the adjusted time.</p>
+<p>??? info "Definition of time-precision functions"     <code>timeprec(T) = eps(T)^(4/5)</code> and <code>timeprec_severe(T) = sqrt(eps(T))</code></p>
+<p>This means that the precision of evolution cannot be greater than the respective precision functions. The current values have been chosen such that the time-adjusting loop happens only once for almost all cases.</p>
+<p>Adjusting the global accuracy of <code>DynamicalBilliards</code> is very easy and can be done in two ways:</p>
+<ol>
+<li>Choose the floating precision you would like, by initializing your billiard table with parametric type <code>T</code>, e.g. <code>bt = billiard_sinai(Float16(0.3))</code>. This choice will propagate to the entire <code>bt</code>, all particles resulting from <code>randominside()</code>, <strong>as well as the entire evolution process</strong>.</li>
+<li>Re-define the functions <code>timeprec(T)</code> and <code>timeprec_severe(T)</code>. Decreasing their values will make the evolution process slower, but the resulting numbers given by <code>evolve!()</code> will be more precise.</li>
+</ol>
+<p>??? warning "Limits of numerical precision"     It is not advisable to lower <code>timeprec(T)</code> to <code>10eps(T)</code> or less or lower     <code>timeprec_severe(T)</code> to <code>eps(T)^(3/4)</code> or less, as these choice tend to make     the package very slow.</p>
+<hr />
 <p><a id='Ray-Splitting-Functions-1'></a></p>
 <h2 id="ray-splitting-functions">Ray-Splitting Functions</h2>
 <p>If <code>T</code> is the transmission probability function, then the condition for transmission is simply: <code>T(φ, pflag, ω) &gt; rand()</code>. If it returns <code>true</code>, transmission (i.e. ray-splitting) will happen. As it has already been discussed in the <a href="../tutorials/ray-splitting">Ray-Splitting tutorial</a>, the condition of total internal reflection must be taken care of by the user.</p>
@@ -499,15 +526,17 @@
 </ul>
 <p>The first property is mandatory and must hold for correct propagation. The above tests are done for all possible combinations of arguments.</p>
 <p>They keyword <code>only_mandatory</code> notes whether the rest of the properties should be tested or not.</p>
+<hr />
 <p><a id='Pinned-Particles-1'></a></p>
 <h2 id="pinned-particles">Pinned Particles</h2>
 <p>In the case of propagation with magnetic field, a particle may be "pinned" (collision-less): There are no possible collisions that take place and the particle will revolve in circles forever. This can happen for specific initial conditions depending on your billiard table and the angular velocity ω.</p>
 <p>In such event, the convention followed by <code>DynamicalBilliards.jl</code> is the following: <code>evolve!()</code> returns the expected output, however all returned vectors have only 2 entries. The collision times always have the entries <code>0.0, Inf</code>. All other returned vectors have the initial conditions, repeated once.</p>
-<p><code>evolve!()</code> can be given an additional <code>true</code> optional argument in the case of magnetic propagation. If you are using ray-splitting it is the 5th argument, otherwise it is the 4th argument. This optional argument throws a <code>warn()</code> message whenever a pinned particle is evolved.</p>
+<p><code>evolve!()</code> can be given an additional <code>warning</code> keyword argument in the case of magnetic propagation, e.g. <code>warning = true</code>. This optional argument throws a <code>warn()</code> message whenever a pinned particle is evolved.</p>
 <div class="admonition warning">
 <p class="admonition-title">Using <code>construct()</code></p>
 <p>When using the syntax <code>construct(evolve!(p, bt, t)...)</code> be sure that there aren't any pinned particles given to evolve. If there are any, construct will result in an error.</p>
 </div>
+<hr />
 <p><a id='Velocity-measure-1'></a></p>
 <h2 id="velocity-measure">Velocity measure</h2>
 <p>Both <code>Particle</code> and <code>MagneticParticle</code> are assumed to <strong>always</strong> have a velocity vector of measure 1 during evolution. This simplifies the formulas used internally to a significant amount.</p>

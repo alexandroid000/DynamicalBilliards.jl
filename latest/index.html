@@ -445,28 +445,27 @@
 <p>The above will be referred to as the "standard" billiard. The <a href="https://en.wikipedia.org/wiki/Dynamical_billiards">wikipedia page</a> has many examples of different types of billiards. Also, the <a href="http://www.scholarpedia.org/article/Dynamical_billiards">scholarpedia</a> entry is a good read on the subject. In general, the standard billiard can be extended in many ways.</p>
 <p>The types that are currently offered by this package, besides the standard one, are magnetic and ray-splitting billiards. In a magnetic billiard the particle's orbit is a circle (like electrons in a perpendicular magnetic field). In ray-splitting (a.k.a. semiclassical) billiards the particle may propagate <em>through</em> an obstacle, given some arbitrary transmission and refraction law.</p>
 <p>This package does not support finite-sized particles and, as a result, there is also no support for collision between particles.</p>
+<hr />
 <p><a id='Installation-1'></a></p>
 <h2 id="installation">Installation</h2>
-<hr />
 <p>This package is registered, simply use <code>Pkg.add("DynamicalBilliards")</code> to install it. The <a href="https://datseris.github.io/DynamicalBilliards.jl/stable/">stable documentation</a> accompanies the version installed with <code>Pkg.add()</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Plotting</p>
 <p>Plotting in <code>DynamicalBilliards</code> is done through <code>PyPlot</code> and it is available on-demand only. Simply use the function <code>DynamicalBilliards.enableplotting()</code> and it will define and bring into scope all the relevant names. Notice that you must be able to <code>using PyPlot</code> for plotting to work. If you are not sure about how to install PyPlot, simply run the commands: <code>ENV["PYTHON"]=""; Pkg.add("PyCall"); Pkg.add("PyPlot"); using PyPlot;</code></p>
 </div>
-<p>The master branch of <code>DynamicalBilliards</code> is used for development purposes. Use <code>Pkg.checkout("DynamicalBilliards")</code>, if you want to contribute to the development of the package.</p>
-<p>After the first installation, it is advised to run the short tests to be sure that everything works as expected. This will only take about 2 minutes:</p>
+<p>After the first installation, it is advised to run the tests to be sure that everything works as expected.</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">test_options</span><span class="p">(</span><span class="n">print_info</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">long_tests</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">test_options</span><span class="p">(</span><span class="n">print_info</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">long_tests</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
 <span class="n">Pkg</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="s">&quot;DynamicalBilliards&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>If you do not want to see what tests are done, use <code>print_info = false</code>. If you use this package for scientific research, you should run the long tests at least once. To do this, pass the keyword argument <code>long_tests = true</code> to the <code>test_options</code> function. These tests take on average 10-20 minutes to complete.</p>
+<p>The long tests take on average 4 minutes to complete, while the shorts need some seconds.</p>
+<hr />
 <p><a id='Usage-1'></a></p>
 <h2 id="usage">Usage</h2>
-<hr />
-<p>For a crash course on how to use <code>DynamicalBilliards.jl</code>, you should visit the <a href="./basic/basic_usage">Basic Usage</a> section.</p>
-<p>If however, you want to make the most out it, the following tutorials offer detailed descriptions:</p>
+<p>It is highly suggested to first visit the <a href="./basic/basic_usage">Basic Usage</a> section, for a general overview of how to use <code>DynamicalBilliards.jl</code>. The very important discussion about <a href="./physics/#numerical-precision">numerical precision</a> is done in the <a href="./physics">Physics</a> page.</p>
+<p>The following tutorials offer detailed descriptions for various aspects of <code>DynamicalBilliards.jl</code>:</p>
 <ul>
 <li><a href="./tutorials/billiard_table">How to define your custom Billiard Table</a></li>
 <li><a href="./tutorials/ray-splitting">Using Ray-Splitting billiards</a></li>
@@ -474,7 +473,7 @@
 <li><a href="./tutorials/own_obstacle">Creating your own Obstacle Type</a></li>
 <li><a href="./tutorials/examples">Examples page</a></li>
 </ul>
-<p>The <a href="./basic/library">Library</a> section has the docstrings of all exported names in convenient groups.</p>
+<p>The <a href="./basic/library">Library</a> section has the docstrings of all exported names in convenient groups and the <a href="./physics">Physics</a> briefly discusses physical aspects of billiard systems as well as inner workings of the package.</p>
 <p><a id='Julia-Billiard-Animation-1'></a></p>
 <h2 id="julia-billiard-animation">Julia Billiard Animation</h2>
 <p>The animation of a particle inside a "Julia" billiard was generated with the code:</p>

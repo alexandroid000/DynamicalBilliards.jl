@@ -488,9 +488,9 @@
 <li>Get the output by evolving the particle.</li>
 </ol>
 <p>Adding more complexity in your billiard table does not add complexity in your code. For example, to implement a ray-splitting billiard you only need to define one additional variable, a dictionary <code>Dict{Int, Vector{Function}}</code>. After reading through this basic usage page, you will be able to use all aspects of <code>DynamicalBilliards.jl</code> with minimal effort.</p>
+<hr />
 <p><a id='Straight-Propagation-1'></a></p>
 <h2 id="straight-propagation">Straight Propagation</h2>
-<hr />
 <p>The usage of this package revolves around a single function:</p>
 <div class="codehilite"><pre><span></span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">AbstractParticle</span><span class="p">,</span> <span class="n">bt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">Obstacle</span><span class="p">},</span> <span class="n">t</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Float64</span><span class="p">})</span>
 </pre></div>
@@ -535,13 +535,13 @@
 </pre></div>
 
 
+<hr />
 <p><a id='Magnetic-Propagation-1'></a></p>
 <h2 id="magnetic-propagation">Magnetic Propagation</h2>
-<hr />
 <p>The are only two differences between magnetic and straight propagation. Firstly, the particle type is not <code>Particle</code> anymore, but <code>MagneticParticle</code>. The latter has an extra field called <code>omega</code> which is the cyclic frequency of rotation (equivalently, the angular velocity). In order to create a <code>MagneticParticle</code> (without using the constructors), you simply provide this extra information to the <code>randominside()</code> function:</p>
 <div class="codehilite"><pre><span></span><span class="n">ω</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
-<span class="n">typeof</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="c"># MagneticParticle</span>
+<span class="n">typeof</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="c"># MagneticParticle{Float64}</span>
 <span class="n">p</span><span class="o">.</span><span class="n">omega</span>   <span class="c"># 0.5</span>
 </pre></div>
 
@@ -556,9 +556,9 @@
 
 <p>As you can see, the second difference is that the additional argument of the angular velocity must also be provided to the <code>construct()</code> function, in order for it to construct circular motion instead of straight motion between collisions. (Note: <code>evolve!()</code> returns 4 arguments for magnetic propagation, making the ellipsis syntax extremely useful!).</p>
 <p>The final optional argument <code>dt</code> is the time-step at which the timeseries are constructed (since they are made up of sines and cosines).</p>
+<hr />
 <p><a id='Ray-Splitting-1'></a></p>
 <h2 id="ray-splitting">Ray-Splitting</h2>
-<hr />
 <p>No matter how complex ray-splitting processes you want, and irrespectively of how many obstacles in the billiard table can perform ray-splitting, there is only a single difference on the main function call: The <code>evolve!()</code> function is supplemented with a fourth argument, called "ray_splitter":</p>
 <div class="codehilite"><pre><span></span><span class="n">ray_splitter</span><span class="o">::</span><span class="kt">Dict</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Any</span><span class="p">}</span>
 </pre></div>
@@ -566,9 +566,9 @@
 
 <p>This argument is simply a dictionary which handles all ray-splitting processes in the billiard system. It is a map of the Obstacle index within the billiard table a container of the ray-splitting functions: (φ is the angle of incidence)</p>
 <ul>
-<li>T(φ, where, ω) : Transmission probability.</li>
-<li>θ(φ, where, ω) : Transmission (aka diffraction) angle.</li>
-<li>new_ω(ω, where) : Angular velocity after transmission.</li>
+<li>T(φ, pflag, ω) : Transmission probability.</li>
+<li>θ(φ, pflag, ω) : Transmission (aka diffraction) angle.</li>
+<li>new_ω(ω, pflag) : Angular velocity after transmission.</li>
 </ul>
 <p>Assuming you have defined a billiard table and a ray-splitter dictionary, the implementation is exactly the same as in the two previous cases: the ray-splitting dictionary is passed to <code>evolve!()</code> as a fourth argument.</p>
 <div class="codehilite"><pre><span></span><span class="n">ray_splitter</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="mi">5</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">,</span> <span class="n">baz</span><span class="p">))</span>
@@ -578,9 +578,9 @@
 
 
 <p>For more information and instructions on defining the "ray_splitter" dictionary visit the <a href="../../tutorials/ray-splitting">Ray-Splitting tutorial here</a>.</p>
+<hr />
 <p><a id='Visualizing-1'></a></p>
 <h2 id="visualizing">Visualizing</h2>
-<hr />
 <p>The functions <code>plot_obstacle(obst::Obstacle; kwargs...)</code>, <code>plot_billiard(bt::Vector{Obstacle})</code> and <code>plot_particle(p::AbstractParticle; kwargs...)</code> are provided in order to plot the respective elements <strong>on the current PyPlot figure</strong>. The <code>kwargs...</code> are keywords passed directly into <code>PyPlot</code>'s constructors (like e.g. <code>linewidth = 2.0</code>).</p>
 <p><a href="../../tutorials/visualizing">The tutorial on visualizing</a> has step-by-step descriptions on how to handle all plotting offered by <code>DynamicalBilliards.jl</code>.</p>
 <p><a id='Introduction-animation-1'></a></p>
