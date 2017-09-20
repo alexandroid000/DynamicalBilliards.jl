@@ -498,21 +498,22 @@
 
 
 <p>If you want to specify the initial conditions yourself, simply pass them to the <code class="codehilite">Particle</code> constructor, like <code class="codehilite">p = Particle(x0, y0, φ0)</code>. Now you are ready to evolve this particle:</p>
-<div class="codehilite"><pre><span></span><span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span> <span class="o">=</span> <span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="mf">1000.0</span> <span class="c"># subtype of AbstractFloat</span>
+<span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span> <span class="o">=</span> <span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
 </pre></div>
 
 
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The behavior of <code class="codehilite">evolve!</code> depends on the type of the third argument, which represents total amount. If it is <code class="codehilite">Float64</code>, it represents total amoount of time, but if it is <code class="codehilite">Int</code> it represents total amount of collisions.</p>
+<p class="admonition-title">Type of <code class="codehilite">t</code></p>
+<p>The behavior of <code class="codehilite">evolve!</code> depends on the type of the third argument, which represents total amount. If it is <code class="codehilite">AbstractFloat</code>, it represents total amount of time, but if it is <code class="codehilite">Int</code> it represents total numnber of collisions.</p>
 </div>
 <p>The return values of the <code class="codehilite">evolve!()</code> function need some brief explaining: As noted by the "!" at the end of the function, it changes its argument <code class="codehilite">p</code>. Most importantly however, this function also returns the main output expected by a billiard system. This output is a tuple of three vectors:</p>
 <ul>
-<li><code class="codehilite">ct::Vector{Float64}</code> : Collision times.</li>
-<li><code class="codehilite">poss::Vector{SVector{2}}</code> : Positions during collisions.</li>
-<li><code class="codehilite">vels::Vector{SVector{2}})</code> : Velocities <strong>exactly after</strong> the collisions (e.g. after reflection).</li>
+<li><code class="codehilite">ct::Vector{T}</code> : Collision times.</li>
+<li><code class="codehilite">poss::Vector{SVector{2,T}}</code> : Positions during collisions.</li>
+<li><code class="codehilite">vels::Vector{SVector{2,T}}</code> : Velocities <strong>exactly after</strong> the collisions (e.g. after reflection).</li>
 </ul>
-<p>The time <code class="codehilite">ct[i]</code> is the time necessary to reach state <code class="codehilite">poss[i], vels[i]</code> starting from the state <code class="codehilite">poss[i-1], vels[i-1]</code>. That is why <code class="codehilite">ct[1]</code> is always 0 since <code class="codehilite">poss[1], vels[1]</code> are the initial conditions.</p>
+<p>with <code class="codehilite">T&lt;:AbstractFloat</code> (more on that on the <a href="../../physics/#numerical-precision">Numerical Precision</a> section). The time <code class="codehilite">ct[i]</code> is the time necessary to reach state <code class="codehilite">poss[i], vels[i]</code> starting from the state <code class="codehilite">poss[i-1], vels[i-1]</code>. That is why <code class="codehilite">ct[1]</code> is always 0 since <code class="codehilite">poss[1], vels[1]</code> are the initial conditions.</p>
 <p>If this output is not convenient for you, the function <code class="codehilite">construct(ct, poss, vels)</code> is provided, which constructs the (continuous) timeseries of the position and velocity, as well as the time-vector, when given the main output of <code class="codehilite">evolve!()</code>:</p>
 <div class="codehilite"><pre><span></span><span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">)</span>
 </pre></div>
@@ -543,7 +544,7 @@
 
 
 <p>As you can see, the second difference is that the additional argument of the angular velocity must also be provided to the <code class="codehilite">construct()</code> function, in order for it to construct circular motion instead of straight motion between collisions. (Note: <code class="codehilite">evolve!()</code> returns 4 arguments for magnetic propagation, making the ellipsis syntax extremely useful!).</p>
-<p>The final optional argument <code class="codehilite">dt</code> is the time-step at which the timeseries are constructed (since they are made up of sines and cosines).</p>
+<p>The final <em>optional argument</em> <code class="codehilite">dt</code> is the time-step at which the timeseries are constructed (since they are made up of sines and cosines).</p>
 <hr />
 <p><a id='Ray-Splitting-1'></a></p>
 <h2 id="ray-splitting">Ray-Splitting</h2>
