@@ -61,6 +61,14 @@
 
     
     <url>
+     <loc>/lyapunovs/</loc>
+     <lastmod>2017-09-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
      <loc>/basic/library/</loc>
      <lastmod>2017-09-30</lastmod>
      <changefreq>daily</changefreq>
