@@ -474,27 +474,38 @@
 <hr />
 <p><a id='Numerical-Precision-1'></a></p>
 <h2 id="numerical-precision">Numerical Precision</h2>
-<p>All core types of <code class="codehilite">DynamicalBilliards.jl</code> are parametrically constructed, with parameter <code class="codehilite"><span class="n">T</span><span class="o">&lt;:</span><span class="kt">AbstractFloat</span></code>. This means that the fields of all particles are obstacles contain numbers strictly of type <code class="codehilite">T</code>.</p>
+<p>All core types of <code class="codehilite">DynamicalBilliards.jl</code> are parametrically constructed, with parameter <code class="codehilite">T&lt;:AbstractFloat</code>. This means that the fields of all particles are obstacles contain numbers strictly of type <code class="codehilite">T</code>.</p>
 <p>The main concerns during evolution are:</p>
 <ol>
-<li>The particle must neve leaks out of the billiard table. This is simply translated to the <code class="codehilite">distance()</code> function being <strong>always</strong> positive <strong>after</strong> any collision.</li>
+<li>The particle must never leak out of the billiard table. This is simply translated to the <code class="codehilite">distance()</code> function being <strong>always</strong> positive <strong>after</strong> any collision.</li>
 <li>The collision time is never infinite, besides the cases of <a href="../physics/#pinned-particles">pinned particles</a> in a magnetic billiard.</li>
 <li>The <code class="codehilite">relocate!()</code> process is always finite (and very swift!).</li>
 </ol>
-<p>These are solved with the following approach: after the minimum collision time has been calculated, a "test propagation" is done on the position of the particle. If the <code class="codehilite"><span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">obst</span><span class="p">)</span></code> with the colliding obstacle is found to be "wrong", the collision time is reduced by the <code class="codehilite"><span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">timeprec</span><span class="p">(</span><span class="n">T</span><span class="p">)</span></code> function, with <code class="codehilite">T</code> being the parametric type of both the particle and the obstacle. For the case of magnetic propagation, the function <code class="codehilite">timeprec_severe(T)</code> is used instead. This process is repeated until the <code class="codehilite">distance()</code> is "correct", which is followed by the real propagation of the particle for the adjusted time.</p>
-<div class="admonition info">
-<p class="admonition-title">Definition of time-precision functions</p>
-<p>For <code class="codehilite">T&lt;:AbstractFloat</code>, <code class="codehilite">timeprec(T) = eps(T)^(4/5)</code> and <code class="codehilite">timeprec_severe(T) = sqrt(eps(T))</code></p>
-</div>
-<p>This means that the precision of evolution cannot be greater than the respective precision functions. The current values have been chosen such that the time-adjusting loop happens only once for almost all cases.</p>
-<p>Adjusting the global accuracy of <code class="codehilite">DynamicalBilliards</code> is very easy and can be done in two ways:</p>
+<p>These are solved with the following approach: after the minimum collision time has been calculated, a "test propagation" is done on the position of the particle. If the <code class="codehilite">distance(p, obst)</code> with the colliding obstacle is found to be "wrong", the collision time is reduced by the <code class="codehilite">DynamicalBilliards.timeprec(T)</code> function, with <code class="codehilite">T</code> being the parametric type of both the particle and the obstacle. This reduction happens geometrically, i.e. the time adjusting increment is self-multiplied by 10 at each recursive relocating step.</p>
+<ul>
+<li>Magnetic propagation and straight propagation both use <code class="codehilite">timeprec(T)</code>. For both cases the maximum number of geometric iterations is 1 (for the default value of <code class="codehilite">timeprec(T)</code>.</li>
+<li>
+<p>This <code class="codehilite">timeprec</code> cannot be used with <code class="codehilite">PeriodicWall</code> and RaySplitting obstacles with <code class="codehilite">MagneticParticle</code>s because when relocating forward in time you get progressively shallower and shallower angles. This mean that you need huge changes in time for even tiny changes in <code class="codehilite">distance</code>.</p>
+<ul>
+<li>For this special case the function <code class="codehilite">timeprec_forward(T)</code> is used instead. This function results to on average 3-5 geometric relocation steps.</li>
+</ul>
+</li>
+</ul>
+<p>The current definition of these functions is:</p>
+<div class="codehilite"><pre><span></span><span class="n">timeprec</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="n">T</span><span class="p">})</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span> <span class="o">=</span> <span class="n">eps</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">timeprec_forward</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="n">T</span><span class="p">})</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span> <span class="o">=</span> <span class="n">eps</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">timeprec_forward</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="kt">BigFloat</span><span class="p">})</span> <span class="o">=</span> <span class="kt">BigFloat</span><span class="p">(</span><span class="mf">1e-12</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Adjusting the global precision of <code class="codehilite">DynamicalBilliards</code> is very easy and can be done in two ways:</p>
 <ol>
 <li>Choose the floating precision you would like, by initializing your billiard table with parametric type <code class="codehilite">T</code>, e.g. <code class="codehilite">bt = billiard_sinai(Float16(0.3))</code>. This choice will propagate to the entire <code class="codehilite">bt</code>, all particles resulting from <code class="codehilite">randominside()</code>, <strong>as well as the entire evolution process</strong>.</li>
 <li>Re-define the functions <code class="codehilite">timeprec(T)</code> and <code class="codehilite">timeprec_severe(T)</code>. Decreasing their values will make the evolution process slower, but the resulting numbers given by <code class="codehilite">evolve!()</code> will be more precise.</li>
 </ol>
-<div class="admonition warning">
-<p class="admonition-title">Limits of numerical precision</p>
-<p>It is not advisable to lower <code class="codehilite">timeprec(T)</code> to <code class="codehilite">10eps(T)</code> or less, or lower <code class="codehilite">timeprec_severe(T)</code> to <code class="codehilite">eps(T)^(3/4)</code> or less, as these choice tend to make the package very slow.</p>
+<div class="admonition danger">
+<p class="admonition-title">BigFloats</p>
+<p>Evolution with <code class="codehilite">BigFloat</code> in <code class="codehilite">DynamicalBilliards</code> is at on average 3 orders of magnitude slower than with <code class="codehilite">Float64</code>.</p>
 </div>
 <hr />
 <p><a id='Ray-Splitting-Functions-1'></a></p>
