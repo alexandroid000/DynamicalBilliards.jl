@@ -501,11 +501,11 @@
 <p>Adjusting the global precision of <code class="codehilite">DynamicalBilliards</code> is very easy and can be done in two ways:</p>
 <ol>
 <li>Choose the floating precision you would like, by initializing your billiard table with parametric type <code class="codehilite">T</code>, e.g. <code class="codehilite">bt = billiard_sinai(Float16(0.3))</code>. This choice will propagate to the entire <code class="codehilite">bt</code>, all particles resulting from <code class="codehilite">randominside()</code>, <strong>as well as the entire evolution process</strong>.</li>
-<li>Re-define the functions <code class="codehilite">timeprec(T)</code> and <code class="codehilite">timeprec_severe(T)</code>. Decreasing their values will make the evolution process slower, but the resulting numbers given by <code class="codehilite">evolve!()</code> will be more precise.</li>
+<li>Re-define the functions <code class="codehilite">timeprec(T)</code> and <code class="codehilite">timeprec_forward(T)</code>. Decreasing their values will make the evolution process slower, but the resulting numbers given by <code class="codehilite">evolve!()</code> will be more precise. There are no guarantees if you follow this method as it may lead to breaking code if <code class="codehilite">timeprec_forward</code> becomes too small.</li>
 </ol>
 <div class="admonition danger">
 <p class="admonition-title">BigFloats</p>
-<p>Evolution with <code class="codehilite">BigFloat</code> in <code class="codehilite">DynamicalBilliards</code> is at on average 3 orders of magnitude slower than with <code class="codehilite">Float64</code>.</p>
+<p>Evolution with <code class="codehilite">BigFloat</code> in <code class="codehilite">DynamicalBilliards</code> is on average 3 to 4 orders of magnitude slower than with <code class="codehilite">Float64</code>.</p>
 </div>
 <hr />
 <p><a id='Ray-Splitting-Functions-1'></a></p>
