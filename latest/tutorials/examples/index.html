@@ -459,7 +459,8 @@
 <p><a id='Julia-logo-Billiard-1'></a></p>
 <h2 id="julia-logo-billiard">Julia-logo Billiard</h2>
 <p>The "Julia-logo" billiard, accessed by <code class="codehilite">billiard_julia()</code> simply wraps this code:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">DynamicalBilliardsPlotting</span><span class="p">,</span> <span class="n">PyPlot</span>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
+<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
 
 <span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}[]</span>
 <span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">()</span>

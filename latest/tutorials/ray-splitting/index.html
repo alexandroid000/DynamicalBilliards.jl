@@ -557,7 +557,8 @@
 <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="n">raysplitter</span><span class="p">)</span><span class="o">...</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
-<span class="k">using</span> <span class="n">DynamicalBilliardsPlotting</span><span class="p">,</span> <span class="n">PyPlot</span>
+<span class="k">using</span> <span class="n">PyPlot</span>
+<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">)</span>
 </pre></div>
