@@ -487,8 +487,8 @@
 <hr />
 <p><a id='Numerical-Precision-1'></a></p>
 <h2 id="numerical-precision">Numerical Precision</h2>
-<p>All core types of <code class="codehilite">DynamicalBilliards.jl</code> are parametrically constructed, with parameter <code class="codehilite">T&lt;:AbstractFloat</code>. This means that the fields of all particles are obstacles contain numbers strictly of type <code class="codehilite">T</code>.</p>
-<p>The main concerns during evolution are:</p>
+<p>All core types of <code class="codehilite">DynamicalBilliards.jl</code> are parametrically constructed, with parameter <code class="codehilite">T&lt;:AbstractFloat</code>. This means that the fields of all particles and obstacles contain numbers strictly of type <code class="codehilite">T</code>. You will understand why this choice happened as you continue reading this paragraph.</p>
+<p>The main concerns during evolution in a billiard table are:</p>
 <ol>
 <li>The particle must never leak out of the billiard table. This is simply translated to the <code class="codehilite">distance()</code> function being <strong>always</strong> positive <strong>after</strong> any collision.</li>
 <li>The collision time is never infinite, besides the cases of <a href="../physics/#pinned-particles">pinned particles</a> in a magnetic billiard.</li>

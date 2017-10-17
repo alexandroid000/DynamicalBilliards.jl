@@ -249,9 +249,34 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Defining a Billiard Table
+      </label>
+    
     <a href="./" title="Defining a Billiard Table" class="md-nav__link md-nav__link--active">
       Defining a Billiard Table
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#convex-billiards" title="Convex Billiards" class="md-nav__link">
+    Convex Billiards
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -360,6 +385,20 @@
   
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#convex-billiards" title="Convex Billiards" class="md-nav__link">
+    Convex Billiards
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -378,22 +417,18 @@
                 <p>A billiard table <code class="codehilite">bt</code> is a vector of Obstacles: <code class="codehilite">bt::Vector{Obstacle{T}} where {T&lt;:AbstractFloat}</code>. The abstract Type <code class="codehilite">Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code class="codehilite">T</code>.</p>
 <p>There are many premade functions that construct well-known billiards, like the periodic Sinai billiard. You can find all of them at the <a href="../../basic/library/#standard-billiards">Standard Billiards page</a>.</p>
 <p>To create a custom billiard, you start with an empty Vector:</p>
-<div class="codehilite"><pre><span></span>bt = Obstacle{T}[]
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="n">T</span><span class="p">}[]</span>  <span class="c"># T&lt;: AbstractFloat</span>
 </pre></div>
 
 
-<p>and then you create your obstacles one by one and add them to it. All obstacles that are already defined in the package can be found at the <a href="../../basic/library/#obstacles">Obstacles page</a> of the library. The function <code class="codehilite">billiard_polygon</code> creates a polygonal billiard table. However, for the example of this page, we will create a hexagonal billiard with a disk in the middle step-by-step.</p>
-<p>The first step is to define the six walls of the billiard table. A <code class="codehilite">FiniteWall</code> object needs to be supplemented with a start point, an end point, a normal vector and, optionally, a name.</p>
-<div class="admonition danger">
-<p class="admonition-title">Convex Polygons</p>
-<p>Notice that even though all walls are "finite" (e.g. <code class="codehilite">FiniteWall</code>), they are considered infinite when calculating the collision time. This means that the only billiard tables allowed for this package are <a href="https://en.wikipedia.org/wiki/Convex_polygon"><em>convex</em> polygons</a>. <strong>Do not</strong> create a non-convex billiard table as it will silently error during evolution.</p>
-</div>
+<p>and then you create your obstacles one by one and add them to it. All obstacles that are already defined in the package can be found at the <a href="../../basic/library/#obstacles">Obstacles page</a> of the library. The function <a href="../../basic/library/#DynamicalBilliards.billiard_polygon"><code class="codehilite">billiard_polygon</code></a> creates a polygonal billiard table. However, for the example of this page, we will create a hexagonal billiard with a disk in the middle step-by-step.</p>
+<p>The first step is to define the six walls of the billiard table. An <a href="../../basic/library/#DynamicalBilliards.InfiniteWall"><code class="codehilite">InfiniteWall</code></a> object needs to be supplemented with a start point, an end point, a normal vector and, optionally, a name.</p>
 <p>The vertex points of a regular hexagon of radius <code class="codehilite">r</code> are given by the formula:</p>
 <span>\[
 (x,y) = \left( r\cos\left(\frac{2\pi i}{6}\right), r\cos\left(\frac{2\pi i}{6}\right) \right)\,, \quad \text{for i $\in$ \{1,...,6\}}
 \]</span><p>To create each wall object, we will implement the following loop, choosing a size of 2.0:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-<span class="n">hexagon_vertex</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span> <span class="p">[</span><span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">),</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">6</span><span class="p">]</span>
+<div class="codehilite"><pre><span></span><span class="n">hexagon_vertex</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span> <span class="p">[</span><span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">),</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">6</span><span class="p">]</span>
 <span class="n">hexver</span> <span class="o">=</span> <span class="n">hexagon_vertex</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="n">eachindex</span><span class="p">(</span><span class="n">hexver</span><span class="p">)</span>
@@ -401,7 +436,7 @@
   <span class="n">ending</span> <span class="o">=</span> <span class="n">hexver</span><span class="p">[</span><span class="n">mod1</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span><span class="p">(</span><span class="n">hexver</span><span class="p">))]</span>
   <span class="n">w</span> <span class="o">=</span> <span class="n">ending</span> <span class="o">-</span> <span class="n">starting</span>
   <span class="n">normal</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-  <span class="n">wall</span> <span class="o">=</span> <span class="n">FiniteWall</span><span class="p">(</span><span class="n">starting</span><span class="p">,</span> <span class="n">ending</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="s">&quot;wall </span><span class="si">$i</span><span class="s">&quot;</span><span class="p">)</span>
+  <span class="n">wall</span> <span class="o">=</span> <span class="n">InfiniteWall</span><span class="p">(</span><span class="n">starting</span><span class="p">,</span> <span class="n">ending</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="s">&quot;wall </span><span class="si">$i</span><span class="s">&quot;</span><span class="p">)</span>
   <span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">wall</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
@@ -415,15 +450,24 @@
 
 
 <p>To make sure the billiard looks as you would expect, use the function <code class="codehilite">plot_billiard(bt)</code>. Create a particle inside that billiard and evolve it:</p>
-<div class="codehilite"><pre><span></span><span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
+<span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 <span class="n">ω</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 
 
-<p>The billiard table now works for straight or magnetic propagation. To expand this to ray-splitting you have to use ray-splitting Obstacles (<a href="../../tutorials/ray-splitting">see the tutorial on Ray-Splitting</a>). Additional information on how to define your own <code class="codehilite">Obstacle</code> sub-type is given in the tutorial on <a href="../../tutorials/own_obstacle">Cefining your own Obstacles</a>.</p>
-<p>If you make any billiard system that you think is common and missing from this package, you are more than welcome to submit a PR extending the <code class="codehilite">StandardBilliards.jl</code> library with your contribution!</p>
+<p>The billiard table now works for straight or magnetic propagation. To expand this to ray-splitting you have to use ray-splitting Obstacles (<a href="../../tutorials/ray-splitting">see the tutorial on Ray-Splitting</a>). Additional information on how to define your own <code class="codehilite">Obstacle</code> sub-type is given in the tutorial on <a href="../../tutorials/own_obstacle">Defining your own Obstacles</a>.</p>
+<p>If you make <em>any</em> billiard system that you think is cool and missing from this package, you are more than welcome to submit a PR extending the <code class="codehilite">StandardBilliards.jl</code> library with your contribution!</p>
+<p><a id='Convex-Billiards-1'></a></p>
+<h2 id="convex-billiards">Convex Billiards</h2>
+<p>These 2 types of walls used by <code class="codehilite">DynamicalBilliards</code> that behave differently during evolution:</p>
+<ol>
+<li><a href="../../basic/library/#DynamicalBilliards.InfiniteWall"><code class="codehilite">InfiniteWall</code></a> : This wall is not actually infinite. It has a starting and ending position. However, when the collision time is calculated, this wall is assumed to be a line (i.e. <em>infinite</em>). This is absolutely fine, as long as the billiards used are <a href="https://en.wikipedia.org/wiki/Convex_polygon"><em>convex</em> polygons</a>. <a href="../../basic/library/#DynamicalBilliards.SplitterWall"><code class="codehilite">SplitterWall</code></a>, <a href="../../basic/library/#DynamicalBilliards.PeriodicWall"><code class="codehilite">PeriodicWall</code></a> and <a href="../../basic/library/#DynamicalBilliards.RandomWall"><code class="codehilite">RandomWall</code></a> behave like <code class="codehilite">InfiniteWall</code> during evolution.</li>
+<li><code class="codehilite">FiniteWall</code> : This wall is indeed finite in every sense of the word. This means that during collision time estimation, if the collision point that was calculated lies <em>outside</em> of the boundaries of the <code class="codehilite">FiniteWall</code>, then the returned collision time is <code class="codehilite">Inf</code> (no collision). <code class="codehilite">FiniteWall</code> is slower than <code class="codehilite">InfiniteWall</code> for that reason.</li>
+</ol>
+<p>If you wish to create a billiard table that you know will be convex, you should then use <code class="codehilite">InfiniteWall</code>s for faster evolution. Notice that using <a href="../../basic/library/#DynamicalBilliards.escapetime"><code class="codehilite">escapetime</code></a> requires at least one <code class="codehilite">FiniteWall</code> with field <code class="codehilite">isdoor=true</code>.</p>
                 
                   
                 
