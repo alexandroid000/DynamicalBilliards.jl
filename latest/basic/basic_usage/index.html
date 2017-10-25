@@ -14,9 +14,24 @@
         <meta name="author" content="George Datseris">
       
       
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.languages" content="">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      
         <link rel="shortcut icon" href="../../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.1">
     
     
       
@@ -27,7 +42,7 @@
       <script src="../../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application-9011e2d3f8.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application-04ea671600.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -102,8 +117,8 @@
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
-          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
             Type to start searching
           </div>
           <ol class="md-search-result__list"></ol>
@@ -156,11 +171,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <div class="md-nav__button md-logo">
+    <span class="md-nav__button md-logo">
       
         <i class="md-icon md-icon--home"></i>
       
-    </div>
+    </span>
     DynamicalBilliards.jl
   </label>
   
@@ -598,8 +613,29 @@
 <p><a id='Escape-Times-1'></a></p>
 <h2 id="escape-times">Escape Times</h2>
 <p>Escape time measures the time that a particle requires to escape a billiard table. This can be calculated with the function <a href="../library/#DynamicalBilliards.escapetime"><code class="codehilite">escapetime</code></a>. The function requires the billiard table to have at least one <a href="../library/#DynamicalBilliards.FiniteWall"><code class="codehilite">FiniteWall</code></a> object with field <code class="codehilite">isdoor=true</code>.</p>
-<p>The way the function works is very simple: a particle is evolved until it collides with a <code class="codehilite">FiniteWall</code> that has <code class="codehilite">isdoor=true</code>. This is considered as the particle escaping the billiard, pretending like this <code class="codehilite">FiniteWall</code> is an "open door".</p>
-<p>If you want to know the reason behind the existence of both <code class="codehilite">FiniteWall</code> and <code class="codehilite">InfiniteWall</code>, see this <a href="../../tutorials/billiard_table/#convex-billiards">page on convex billiards</a>.</p>
+<p>The way the function works is very simple: a particle is evolved until it collides with a <code class="codehilite">FiniteWall</code> that has a field <code class="codehilite">isdoor=true</code>. This is considered as the particle escaping the billiard, pretending like this <code class="codehilite">FiniteWall</code> is an open <code class="codehilite">Door</code>.</p>
+<p>Let's set up an example:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
+<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_mushroom</span><span class="p">()</span> <span class="c"># By default this billiard has a Door</span>
+<span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Mushroom billiard" src="https://i.imgur.com/zQgWg2a.png" /> You can see that a <code class="codehilite">Door</code> has cyan-black alternating colors.</p>
+<p>To get the escape time:</p>
+<div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="c"># works with Straight and Magnetic !</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">escapetime</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Depending on the <code class="codehilite">p</code>, <code class="codehilite">t</code> could also be <code class="codehilite">Inf</code>, if the particle did not escape within the maximum amount of iterations. You can increase those with a third argument:</p>
+<div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="c"># works with Straight and Magnetic !</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">escapetime</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">10000000</span><span class="p">,</span> <span class="n">warning</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now, a warning message will be thrown if the particle does not escape within the given amount of maximum iterations. (The returned value is still <code class="codehilite">Inf</code> if that happens)</p>
 <hr />
 <p><a id='Visualizing-1'></a></p>
 <h2 id="visualizing">Visualizing</h2>
@@ -708,10 +744,10 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application-f3ab9e5ff8.js"></script>
+      <script src="../../assets/javascripts/application-946997f430.js"></script>
       
       
-      <script>app.initialize({url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.16.3",url:{base:"../.."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       

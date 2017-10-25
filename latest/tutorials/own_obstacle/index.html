@@ -14,9 +14,24 @@
         <meta name="author" content="George Datseris">
       
       
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.languages" content="">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      
         <link rel="shortcut icon" href="../../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.1">
     
     
       
@@ -27,7 +42,7 @@
       <script src="../../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application-9011e2d3f8.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application-04ea671600.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -106,8 +121,8 @@
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
-          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
             Type to start searching
           </div>
           <ol class="md-search-result__list"></ol>
@@ -160,11 +175,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <div class="md-nav__button md-logo">
+    <span class="md-nav__button md-logo">
       
         <i class="md-icon md-icon--home"></i>
       
-    </div>
+    </span>
     DynamicalBilliards.jl
   </label>
   
@@ -287,9 +302,50 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Creating your own Obstacle
+      </label>
+    
     <a href="./" title="Creating your own Obstacle" class="md-nav__link md-nav__link--active">
       Creating your own Obstacle
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#type-definition" title="Type Definition" class="md-nav__link">
+    Type Definition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#necessary-methods" title="Necessary Methods" class="md-nav__link">
+    Necessary Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-methods" title="Optional Methods" class="md-nav__link">
+    Optional Methods
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -364,6 +420,34 @@
     
   
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#type-definition" title="Type Definition" class="md-nav__link">
+    Type Definition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#necessary-methods" title="Necessary Methods" class="md-nav__link">
+    Necessary Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-methods" title="Optional Methods" class="md-nav__link">
+    Optional Methods
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -379,7 +463,163 @@
                 
                 <p><a id='Creating-your-own-Obstacle-Type-1'></a></p>
 <h1 id="creating-your-own-obstacle-type">Creating your own <code class="codehilite">Obstacle</code> Type</h1>
-<p>This tutorial will be about how to create your own obstacle type.</p>
+<p>In this tutorial we will go through the processes of creating a new obstacle type, a <code class="codehilite">Semicircle</code>. This type is already used in the <a href="../@ref"><code class="codehilite">billiard_bunimovich</code></a> and <a href="../@ref"><code class="codehilite">billiard_mushroom</code></a> functions.</p>
+<p><a id='Type-Definition-1'></a></p>
+<h2 id="type-definition">Type Definition</h2>
+<p>The first thing you have to do is make your new type a sub-type of <code class="codehilite">Obstacle{T}</code> (or any other abstract sub-type of it). We will do:</p>
+<div class="codehilite"><pre><span></span><span class="n">struct</span> <span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="kt">AbstractFloat</span><span class="p">}</span> <span class="o">&lt;:</span> <span class="n">Circular</span><span class="p">{</span><span class="n">T</span><span class="p">}</span> <span class="c"># &lt;: Obstacle{T}</span>
+    <span class="n">c</span><span class="o">::</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="n">T</span><span class="p">}</span>
+    <span class="n">r</span><span class="o">::</span><span class="n">T</span>
+    <span class="n">facedir</span><span class="o">::</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="n">T</span><span class="p">}</span>
+    <span class="n">name</span><span class="o">::</span><span class="n">String</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p><code class="codehilite">c</code> is the center and <code class="codehilite">r</code> is the radius of the full circle. <code class="codehilite">facedir</code> is the direction which the semicircle is facing, which is also the direction of its "open" face. <code class="codehilite">name</code> is a final (mandatory) field that is there to easily identify which obstacle is which.</p>
+<p>Notice that the <code class="codehilite">struct</code> must be parameterized by <code class="codehilite">T&lt;:AbstractFloat</code> (see the <a href="../../physics/#numerical-precision">numerical precision</a> page for more).</p>
+<p>For convenience, I will also define:</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">Semicircle</span><span class="p">(</span>
+    <span class="n">c</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">r</span><span class="o">::</span><span class="kt">Real</span><span class="p">,</span> <span class="n">facedir</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Semicircle&quot;</span><span class="p">)</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="kt">Real</span><span class="p">}</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">T</span> <span class="o">&lt;:</span> <span class="kt">Integer</span> <span class="o">?</span> <span class="kt">Float64</span> <span class="o">:</span> <span class="n">T</span>
+    <span class="k">return</span> <span class="n">Semicircle</span><span class="p">{</span><span class="n">S</span><span class="p">}(</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="n">S</span><span class="p">}(</span><span class="n">c</span><span class="p">),</span> <span class="n">convert</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">abs</span><span class="p">(</span><span class="n">r</span><span class="p">)),</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>so that constructing a <code class="codehilite">Semicircle</code> is possible from arbitrary vectors.</p>
+<p><a id='Necessary-Methods-1'></a></p>
+<h2 id="necessary-methods">Necessary Methods</h2>
+<p>The following functions must obtain methods for <code class="codehilite">Semicircle</code> (or any other custom <code class="codehilite">Obstacle</code>) in order for it to work with <code class="codehilite">DynamicalBilliards.jl</code>:</p>
+<ol>
+<li><a href="../../basic/library/#DynamicalBilliards.normalvec"><code class="codehilite">normalvec</code></a></li>
+<li><a href="../../basic/library/#DynamicalBilliards.distance"><code class="codehilite">distance</code></a> (with arguments <code class="codehilite">(position, obstacle)</code>)</li>
+<li><a href="../../basic/library/#DynamicalBilliards.collisiontime"><code class="codehilite">collisiontime</code></a> with <code class="codehilite">Particle</code></li>
+<li>Trivial <code class="codehilite">collisiontime</code> method with <code class="codehilite">MagneticParticle</code> that returns <code class="codehilite">error()</code> (see optional methods)</li>
+</ol>
+<p>Assuming that upon collision a specular reflection happens, then you don't need to define a method for <a href="../../basic/library/#DynamicalBilliards.resolvecollision!"><code class="codehilite">resolvecollision!</code></a>.</p>
+<p>The first method is very simple, just do:</p>
+<div class="codehilite"><pre><span></span><span class="n">normalvec</span><span class="p">(</span><span class="n">d</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="n">pos</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Since the function is only used during <code class="codehilite">distance</code> and <code class="codehilite">resolvecollision!</code> and since we will be writing explicit methods for the first, we don't have to care about what happens when the particle is far away from the boundary.</p>
+<p>The <code class="codehilite">distance</code> method is a bit tricky. Since the type already subtypes <code class="codehilite">Circular</code>, the following definition from <code class="codehilite">DynamicalBilliards</code> applies:</p>
+<div class="codehilite"><pre><span></span><span class="n">distance</span><span class="p">(</span><span class="n">pos</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">d</span><span class="o">::</span><span class="n">Circular</span><span class="p">)</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">r</span>
+</pre></div>
+
+
+<p>However, the method must be expanded. That is because when the particle is on the "open" half of the disk, the distance is not correct. We write:</p>
+<div class="codehilite"><pre><span></span><span class="n">SV</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="c">#convenience</span>
+<span class="k">function</span> <span class="n">distance</span><span class="p">(</span><span class="n">pos</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">s</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
+    <span class="c"># Check on which half of circle is the particle</span>
+    <span class="n">v1</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">.-</span> <span class="n">s</span><span class="o">.</span><span class="n">c</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">facedir</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">nn</span> <span class="o">≤</span> <span class="mi">0</span> <span class="c"># I am &quot;inside semicircle</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">r</span> <span class="o">-</span> <span class="n">norm</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">else</span> <span class="c"># I am on the &quot;other side&quot;</span>
+        <span class="n">end1</span> <span class="o">=</span> <span class="n">SV</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">facedir</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="o">.</span><span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">facedir</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">end2</span> <span class="o">=</span> <span class="n">SV</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">facedir</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="o">.</span><span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">facedir</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">min</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">end1</span><span class="p">),</span> <span class="n">norm</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">end2</span><span class="p">))</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>Notice that this definition always returns positive distance when the particle is on the "other side".</p>
+<p>Finally, the method for <a href="../../basic/library/#DynamicalBilliards.collisiontime"><code class="codehilite">collisiontime</code></a> is by far the most <em>trickiest</em>. But, with pen, paper and a significant amount of patience, one can find a way:</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">collisiontime</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">Particle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">d</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span><span class="o">::</span><span class="n">T</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
+
+    <span class="n">dc</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">pos</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">c</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">,</span> <span class="n">dc</span><span class="p">)</span>         <span class="c">#velocity towards circle center: B &gt; 0</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">dc</span><span class="p">)</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">r</span><span class="o">^</span><span class="mi">2</span>    <span class="c">#being outside of circle: C &gt; 0</span>
+    <span class="n">Δ</span> <span class="o">=</span> <span class="n">B</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="n">C</span>
+
+    <span class="n">Δ</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="k">return</span> <span class="nb">Inf</span>
+    <span class="n">sqrtD</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Δ</span><span class="p">)</span>
+
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">facedir</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">nn</span> <span class="o">≥</span> <span class="mi">0</span> <span class="c"># I am NOT inside semicircle</span>
+        <span class="c"># Return most positive time</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="o">-</span><span class="n">B</span> <span class="o">+</span> <span class="n">sqrtD</span>
+    <span class="k">else</span> <span class="c"># I am inside semicircle:</span>
+        <span class="c"># these lines make sure that the code works for ANY starting position:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="o">-</span><span class="n">B</span> <span class="o">-</span> <span class="n">sqrtD</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">≤</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="o">≤</span> <span class="n">distancecheck</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="o">-</span><span class="n">B</span> <span class="o">+</span> <span class="n">sqrtD</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="c"># This check is necessary to not collide with the non-existing side</span>
+    <span class="n">newpos</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">vel</span> <span class="o">.*</span> <span class="n">t</span>
+    <span class="k">if</span> <span class="n">dot</span><span class="p">(</span><span class="n">newpos</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">facedir</span><span class="p">)</span> <span class="o">≥</span> <span class="mi">0</span> <span class="c"># collision point on BAD HALF;</span>
+        <span class="k">return</span> <span class="nb">Inf</span>
+    <span class="k">end</span>
+    <span class="c"># If collision time is negative, return Inf:</span>
+    <span class="n">t</span> <span class="o">≤</span> <span class="mf">0.0</span> <span class="o">?</span> <span class="nb">Inf</span> <span class="o">:</span> <span class="n">t</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>And that is all. The obstacle now works perfectly fine for straight propagation and properly initializes particles with <code class="codehilite">randominside</code>!</p>
+<p><a id='Optional-Methods-1'></a></p>
+<h2 id="optional-methods">Optional Methods</h2>
+<ol>
+<li><a href="../../basic/library/#DynamicalBilliards.collisiontime"><code class="codehilite">collisiontime</code></a> with <code class="codehilite">MagneticParticle</code> : enables magnetic propagation</li>
+<li><code class="codehilite">plot_obstacle</code> : enables plotting (used in <code class="codehilite">plot_billiard</code>)</li>
+</ol>
+<p>The <code class="codehilite">collisiontime</code> method for <code class="codehilite">MagneticParticle</code> is very easy in this case, because it is almost identical with the method for the general <code class="codehilite">Circular</code> obstacle:</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">collisiontime</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">MagneticParticle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">o</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span><span class="o">::</span><span class="n">T</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
+    <span class="n">ω</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">omega</span>
+    <span class="n">pc</span><span class="p">,</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">cyclotron</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">c</span>
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">r</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">pc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="n">rc</span> <span class="o">+</span> <span class="n">r1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">d</span> <span class="o">&lt;=</span> <span class="n">abs</span><span class="p">(</span><span class="n">rc</span><span class="o">-</span><span class="n">r1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">Inf</span>
+    <span class="k">end</span>
+    <span class="c"># Solve quadratic:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">rc</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r1</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="n">d</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">rc</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="n">a</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+    <span class="c"># Collision points (always 2):</span>
+    <span class="n">I1</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="n">T</span><span class="p">}(</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">d</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="n">d</span><span class="p">,</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="n">d</span> <span class="o">-</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">I2</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="n">T</span><span class="p">}(</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">d</span> <span class="o">-</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="n">d</span><span class="p">,</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="n">d</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">d</span><span class="p">)</span>
+    <span class="c"># Only consider intersections on the &quot;correct&quot; side of Semicircle:</span>
+    <span class="n">II</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="n">T</span><span class="p">}[]</span>
+    <span class="k">if</span> <span class="n">dot</span><span class="p">(</span><span class="n">I1</span><span class="o">-</span><span class="n">o</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">facedir</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="c">#intersection 1 is OUT</span>
+        <span class="n">push!</span><span class="p">(</span><span class="n">II</span><span class="p">,</span> <span class="n">I1</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="k">if</span> <span class="n">dot</span><span class="p">(</span><span class="n">I2</span><span class="o">-</span><span class="n">o</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">facedir</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span>
+        <span class="n">push!</span><span class="p">(</span><span class="n">II</span><span class="p">,</span> <span class="n">I2</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="k">if</span> <span class="n">length</span><span class="p">(</span><span class="n">II</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="nb">Inf</span>
+    <span class="k">end</span>
+    <span class="c"># Calculate real time until intersection:</span>
+    <span class="n">θ</span> <span class="o">=</span> <span class="n">realangle</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">II</span><span class="p">,</span> <span class="n">pc</span><span class="p">,</span> <span class="n">rc</span><span class="p">)</span>
+    <span class="c"># Collision time, equiv. to arc-length until collision point:</span>
+    <span class="k">return</span> <span class="n">θ</span><span class="o">*</span><span class="n">rc</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>Then, we add swag by writing a method for <code class="codehilite">plot_obstacle</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">Arc</span> <span class="o">=</span> <span class="n">PyPlot</span><span class="o">.</span><span class="n">matplotlib</span><span class="p">[</span><span class="o">:</span><span class="n">patches</span><span class="p">][</span><span class="o">:</span><span class="n">Arc</span><span class="p">]</span>
+<span class="k">function</span> <span class="n">plot_obstacle</span><span class="p">(</span><span class="n">d</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+  <span class="n">theta1</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">facedir</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">d</span><span class="o">.</span><span class="n">facedir</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="nb">π</span> <span class="o">+</span> <span class="mi">90</span>
+  <span class="n">theta2</span> <span class="o">=</span> <span class="n">theta1</span> <span class="o">+</span> <span class="mi">180</span>
+  <span class="n">s1</span> <span class="o">=</span> <span class="n">Arc</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="mi">2</span><span class="n">d</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="mi">2</span><span class="n">d</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="n">theta1</span> <span class="o">=</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span> <span class="o">=</span> <span class="n">theta2</span><span class="p">,</span>
+  <span class="n">edgecolor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+  <span class="n">PyPlot</span><span class="o">.</span><span class="n">gca</span><span class="p">()[</span><span class="o">:</span><span class="n">add_artist</span><span class="p">](</span><span class="n">s1</span><span class="p">)</span>
+  <span class="n">PyPlot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>(this method is in the <code class="codehilite">/plotting/obstacles.jl</code> file and is loaded on-demand through the command <code class="codehilite">DynamicalBilliards.enableplotting()</code>)</p>
                 
                   
                 
@@ -457,10 +697,10 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application-f3ab9e5ff8.js"></script>
+      <script src="../../assets/javascripts/application-946997f430.js"></script>
       
       
-      <script>app.initialize({url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.16.3",url:{base:"../.."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
