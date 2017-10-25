@@ -494,13 +494,13 @@
 
 
 <p>This is the ray-splitting implementation. The three functions given are drawn from the ray-splitting dictionary that is passed directly to <code class="codehilite">evolve!()</code>. For a calculated incidence angle φ, if T(φ) &gt; rand(), ray-splitting occurs.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L75-L84' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L75-L84' class='documenter-source'>source</a><br></p>
 <div class="codehilite"><pre><span></span>resolvecollision!(p::Particle, o::Union{Disk, InfiniteWall}, offset::MArray)
 </pre></div>
 
 
 <p>Resolve the collision between particle <code class="codehilite">p</code> and obstacle <code class="codehilite">o</code> of type <em>Circular</em>, updating the components of the offset vectors stored in the matrix <code class="codehilite">offset</code> as columns.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/LyapunovSpectrum.jl#L59-L63' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/LyapunovSpectrum.jl#L59-L63' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.specular!' href='#DynamicalBilliards.specular!'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.specular!</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>specular!(p::AbstractParticle, o::Obstacle)
@@ -509,13 +509,13 @@
 
 <p>Perform specular reflection based on the normal vector of the Obstacle.</p>
 <p>In the case where the given obstacle is a <code class="codehilite">RandomObstacle</code>, the specular reflection randomizes the velocity instead (within -π/2+ε to π/2-ε of the normal vector).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L38-L44' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L38-L44' class='documenter-source'>source</a><br></p>
 <div class="codehilite"><pre><span></span>specular!(p::Particle, o::Obstacle, offset::MArray)
 </pre></div>
 
 
 <p>Perform specular reflection based on the normal vector of the Obstacle. The function updates the position and velocity of the particle together with the components of 4 offset vectors stored in the matrix <code class="codehilite">offset</code> as columns.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/LyapunovSpectrum.jl#L22-L28' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/LyapunovSpectrum.jl#L22-L28' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.periodicity!' href='#DynamicalBilliards.periodicity!'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.periodicity!</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>periodicity!(p::AbstractParticle, w::PeriodicWall)
@@ -523,7 +523,7 @@
 
 
 <p>Perform periodicity conditions of <code class="codehilite">w</code> on <code class="codehilite">p</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L65-L68' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L65-L68' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.relocate!' href='#DynamicalBilliards.relocate!'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.relocate!</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>relocate!(p::AbstractParticle, o::Obstacle, t) -&gt; newt
@@ -532,13 +532,13 @@
 
 <p>Propagate the particle's position for time <code class="codehilite">t</code>, and check if it is on the correct side of the obstacle. If not, adjust the time <code class="codehilite">t</code> by <code class="codehilite">timeprec</code> and re-evalute until correct. When correct, propagate the particle itself to the correct position and return the final adjusted time.</p>
 <p>Notice that the adjustment is increased geometrically; if one adjustment is not enough, the adjusted time is multiplied by a factor of 10. This happens as many times as necessary.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L88-L98' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L88-L98' class='documenter-source'>source</a><br></p>
 <div class="codehilite"><pre><span></span>relocate(p::Particle, o::Obstacle, t, offset::MArray) -&gt; newt
 </pre></div>
 
 
 <p>Propagate the particle's position for time <code class="codehilite">t</code> (corrected) and update the components of the <code class="codehilite">offset</code> matrix.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/LyapunovSpectrum.jl#L89-L93' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/LyapunovSpectrum.jl#L89-L93' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.collisiontime' href='#DynamicalBilliards.collisiontime'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.collisiontime</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>collisiontime(p::AbstractParticle, o::Obstacle)
@@ -547,7 +547,7 @@
 
 <p>Calculate the collision time (time-until-collision) between given particle and obstacle. Returns <code class="codehilite">Inf</code> if the collision is not possible <em>or</em> if the collision happens backwards in time.</p>
 <p>In the case of magnetic propagation, there are always two possible collisions. The function internally decides which of the two will occur first, based on the sign of the angular velocity of the magnetic particle.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L200-L209' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L200-L209' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.next_collision' href='#DynamicalBilliards.next_collision'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.next_collision</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>next_collision(p, bt) -&gt; (tmin, index)
@@ -555,7 +555,7 @@
 
 
 <p>Return the minimum collision time out of all <code class="codehilite">collisiontime(p, obst)</code> for <code class="codehilite">obst ∈ bt</code>, as well as the <code class="codehilite">index</code> of the corresponding obstacle.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L310-L314' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L310-L314' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.propagate_pos' href='#DynamicalBilliards.propagate_pos'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.propagate_pos</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>propagate_pos(pos, p::Particle{T}, t::Real) where {T}
@@ -563,7 +563,7 @@
 
 
 <p>Perform a "fake" propagation, i.e. propagate a position as if it was the particle's position.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L189-L193' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L189-L193' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.propagate!' href='#DynamicalBilliards.propagate!'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.propagate!</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>propagate!(p::AbstractParticle, t)
@@ -577,13 +577,13 @@
 
 
 <p>Do the same, but take advantage of the already calculated <code class="codehilite">position</code> that the particle should end up at.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L162-L174' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L162-L174' class='documenter-source'>source</a><br></p>
 <div class="codehilite"><pre><span></span>propagate!(p::Particle{T}, t::T, offset::MArray{Tuple{4,4},T})
 </pre></div>
 
 
 <p>Propagate the particle <code class="codehilite">p</code> for given time <code class="codehilite">t</code>, changing appropriately the the <code class="codehilite">p.pos</code> and <code class="codehilite">p.vel</code> fields together with the components of the offset vectors stored in the <code class="codehilite">offset</code> matrix.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/LyapunovSpectrum.jl#L72-L77' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/LyapunovSpectrum.jl#L72-L77' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.evolve!' href='#DynamicalBilliards.evolve!'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.evolve!</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>evolve!(p::AbstractParticle, bt, t [, ray_splitter])
@@ -611,7 +611,7 @@
 <li>ω_new(ω, pflag) : Angular velocity after transmission.</li>
 </ul>
 <p>For more information and instructions on defining these functions please visit the official documentation.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L356-L401' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L356-L401' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.construct' href='#DynamicalBilliards.construct'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.construct</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>construct(ct, poss, vels[, ω][, dt=0.01])
@@ -630,7 +630,7 @@
 <li>vyt::Vector{T} : y velocity time-series</li>
 <li>ts::Vector{T} : time vector</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L442-L460' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L442-L460' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.escapetime' href='#DynamicalBilliards.escapetime'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.escapetime</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>escapetime(p, bt, maxiter = 1000; warning = false)
@@ -640,7 +640,7 @@
 <p>Calculate the escape time of a particle <code class="codehilite">p</code> in the billiard table <code class="codehilite">bt</code>, which is the time until colliding with any <code class="codehilite">Door</code> in <code class="codehilite">bt</code>. As <code class="codehilite">Door</code> is considered any <a href="./#DynamicalBilliards.FiniteWall"><code class="codehilite">FiniteWall</code></a> with field <code class="codehilite">isdoor=true</code>.</p>
 <p>If the particle performs more than <code class="codehilite">maxiter</code> collisions without colliding with the <code class="codehilite">Door</code> (i.e. escaping) the returned result is <code class="codehilite">Inf</code>.</p>
 <p>A warning can be thrown if the result is <code class="codehilite">Inf</code>. Enable this using the keyword <code class="codehilite">warning = true</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/Propagation.jl#L767-L779' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/Propagation.jl#L767-L779' class='documenter-source'>source</a><br></p>
 <p><a id='Particles-1'></a></p>
 <h2 id="particles">Particles</h2>
 <p><a id='DynamicalBilliards.Particle' href='#DynamicalBilliards.Particle'>#</a>
@@ -664,7 +664,7 @@
 </pre></div>
 
 
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L28-L43' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/ParticlesObstacles.jl#L28-L43' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.MagneticParticle' href='#DynamicalBilliards.MagneticParticle'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.MagneticParticle</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>MagneticParticle{T&lt;:AbstractFloat} &lt;: AbstractParticle{T}
@@ -687,7 +687,7 @@
 </pre></div>
 
 
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L67-L85' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/ParticlesObstacles.jl#L67-L85' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.cyclotron' href='#DynamicalBilliards.cyclotron'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.cyclotron</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>cyclotron(p::MagneticParticle, use_cell = false)
@@ -695,241 +695,38 @@
 
 
 <p>Return center and radius of circular motion performed by the particle based on <code class="codehilite">p.pos</code> (or <code class="codehilite">p.pos + p.current_cell</code>) and <code class="codehilite">p.vel</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L118-L122' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/ParticlesObstacles.jl#L118-L122' class='documenter-source'>source</a><br></p>
 <p><a id='Obstacles-1'></a></p>
 <h2 id="obstacles">Obstacles</h2>
-<p><a id='DynamicalBilliards.Obstacle' href='#DynamicalBilliards.Obstacle'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.Obstacle</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>Obstacle{&lt;:AbstractFloat}
+<div class="codehilite"><pre><span></span>Obstacle
+Disk
+RandomDisk
+Antidot
+Semicircle
+InfiniteWall
+RandomWall
+PeriodicWall
+SplitterWall
+FiniteWall
+normalvec
+distance
+randominside
 </pre></div>
 
 
-<p>Obstacle supertype.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L19-L22' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.Disk' href='#DynamicalBilliards.Disk'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.Disk</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>Disk{T&lt;:AbstractFloat}  &lt;: Circular{T}
-</pre></div>
-
-
-<p>Disk-like obstacle with propagation allowed outside of the circle (immutable type).</p>
-<p><strong>Fields:</strong></p>
-<ul>
-<li><code class="codehilite">c::SVector{2,T}</code> : Center.</li>
-<li><code class="codehilite">r::T</code> : Radius.</li>
-<li><code class="codehilite">name::String</code> : Some name given for user convenience. Defaults to "Disk".</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L140-L147' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.RandomDisk' href='#DynamicalBilliards.RandomDisk'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.RandomDisk</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>RandomDisk{T&lt;:AbstractFloat} &lt;: Circular{T}
-</pre></div>
-
-
-<p>Disk-like obstacle that randomly (and uniformly) reflects colliding particles. The propagation is allowed outside of the circle.</p>
-<p><strong>Fields:</strong></p>
-<ul>
-<li><code class="codehilite">c::SVector{2,T}</code> : Center.</li>
-<li><code class="codehilite">r::T</code> : Radius.</li>
-<li><code class="codehilite">name::String</code> : Some name given for user convenience. Defaults to "Random disk".</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L159-L167' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.Antidot' href='#DynamicalBilliards.Antidot'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.Antidot</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>Antidot{T&lt;:AbstractFloat} &lt;: Circular{T}
-</pre></div>
-
-
-<p>Disk-like obstacle that allows propagation both inside and outside of the disk (immutable type). Used in ray-splitting billiards.</p>
-<p><strong>Fields:</strong></p>
-<ul>
-<li><code class="codehilite">c::SVector{2,T}</code> : Center.</li>
-<li><code class="codehilite">r::T</code> : Radius.</li>
-<li><code class="codehilite">pflag::Bool</code> : Flag that keeps track of where the particle is currently propagating (<code class="codehilite">pflag</code> = propagation-flag). <code class="codehilite">true</code> stands for <em>outside</em> the disk, <code class="codehilite">false</code> for <em>inside</em> the disk. Defaults to <code class="codehilite">true</code>.</li>
-<li><code class="codehilite">name::String</code> : Name of the obstacle given for user convenience. Defaults to "Antidot".</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L180-L193' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.InfiniteWall' href='#DynamicalBilliards.InfiniteWall'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.InfiniteWall</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>InfiniteWall{T&lt;:AbstractFloat} &lt;: Wall{T}
-</pre></div>
-
-
-<p>Wall obstacle imposing specular reflection during collision (immutable type). Faster than <a href="./#DynamicalBilliards.FiniteWall"><code class="codehilite">FiniteWall</code></a>, meant to be used for convex billiards.</p>
-<p><strong>Fields:</strong></p>
-<ul>
-<li><code class="codehilite">sp::SVector{2,T}</code> : Starting point of the Wall.</li>
-<li><code class="codehilite">ep::SVector{2,T}</code> : Ending point of the Wall.</li>
-<li><code class="codehilite">normal::SVector{2,T}</code> : Normal vector to the wall, pointing to where the particle <em>will come from before a collision</em> (pointing towards the inside of the billiard table). The size of the vector is irrelevant since it is internally normalized.</li>
-<li><code class="codehilite">name::String</code> : Name of the obstacle, given for user convenience. Defaults to "Wall".</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L233-L246' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.RandomWall' href='#DynamicalBilliards.RandomWall'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.RandomWall</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>RandomWall{T&lt;:AbstractFloat} &lt;: Wall{T}
-</pre></div>
-
-
-<p>Wall obstacle imposing (uniformly) random reflection during collision (immutable type).</p>
-<p><strong>Fields:</strong></p>
-<ul>
-<li><code class="codehilite">sp::SVector{2,T}</code> : Starting point of the Wall.</li>
-<li><code class="codehilite">ep::SVector{2,T}</code> : Ending point of the Wall.</li>
-<li><code class="codehilite">normal::SVector{2,T}</code> : Normal vector to the wall, pointing to where the particle <em>is expected to come from</em> (pointing towards the inside of the billiard table).</li>
-<li><code class="codehilite">name::String</code> : Name of the obstacle, given for user convenience. Defaults to "Random wall".</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L312-L323' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.PeriodicWall' href='#DynamicalBilliards.PeriodicWall'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.PeriodicWall</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>PeriodicWall{T&lt;:AbstractFloat} &lt;: Wall{T}
-</pre></div>
-
-
-<p>Wall obstacle that imposes periodic boundary conditions upon collision (immutable type).</p>
-<p><strong>Fields:</strong></p>
-<ul>
-<li><code class="codehilite">sp::SVector{2,T}</code> : Starting point of the Wall.</li>
-<li><code class="codehilite">ep::SVector{2,T}</code> : Ending point of the Wall.</li>
-<li><code class="codehilite">normal::SVector{2,T}</code> : Normal vector to the wall, pointing to where the particle <em>will come from</em> (to the inside the billiard table). The size of the vector is <strong>important</strong>! This vector is added to a particle's <code class="codehilite">pos</code> during collision. Therefore the size of the normal vector must be correctly associated with the size of the periodic cell.</li>
-<li><code class="codehilite">name::String</code> : Name of the obstacle, given for user convenience. Defaults to "Periodic wall".</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L341-L355' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.SplitterWall' href='#DynamicalBilliards.SplitterWall'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.SplitterWall</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>SplitterWall{T&lt;:AbstractFloat} &lt;: Wall{T}
-</pre></div>
-
-
-<p>Wall obstacle imposing allowing for ray-splitting (immutable type).</p>
-<p><strong>Fields:</strong></p>
-<ul>
-<li><code class="codehilite">sp::SVector{2,T}</code> : Starting point of the Wall.</li>
-<li><code class="codehilite">ep::SVector{2,T}</code> : Ending point of the Wall.</li>
-<li><code class="codehilite">normal::SVector{2,T}</code> : Normal vector to the wall, pointing to where the particle <em>will come from before a collision</em>. The size of the vector is irrelevant.</li>
-<li><code class="codehilite">pflag::Bool</code> : Flag that keeps track of where the particle is currently propagating (<code class="codehilite">pflag</code> = propagation flag). <code class="codehilite">true</code> is associated with the <code class="codehilite">normal</code> vector the wall is instantiated with. Defaults to <code class="codehilite">true</code>.</li>
-<li><code class="codehilite">name::String</code> : Name of the obstacle, given for user convenience. Defaults to "Splitter wall".</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L374-L389' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.FiniteWall' href='#DynamicalBilliards.FiniteWall'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.FiniteWall</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>FiniteWall{T&lt;:AbstractFloat} &lt;: Wall{T}
-</pre></div>
-
-
-<p>Wall obstacle imposing specular reflection during collision (immutable type). Slower than <a href="./#DynamicalBilliards.InfiniteWall"><code class="codehilite">InfiniteWall</code></a>, meant to be used for non-convex billiards.</p>
-<p>Giving a <code class="codehilite">true</code> value to the field <code class="codehilite">isdoor</code> designates this obstacle to be a <code class="codehilite">Door</code>. This is used in <a href="./#DynamicalBilliards.escapetime"><code class="codehilite">escapetime</code></a> function. A <code class="codehilite">Door</code> is a obstacle of the billiard table that the particle can escape from, thus enabling calculations of escape times.</p>
-<p><strong>Fields:</strong></p>
-<ul>
-<li><code class="codehilite">sp::SVector{2,T}</code> : Starting point of the Wall.</li>
-<li><code class="codehilite">ep::SVector{2,T}</code> : Ending point of the Wall.</li>
-<li><code class="codehilite">normal::SVector{2,T}</code> : Normal vector to the wall, pointing to where the particle <em>will come from before a collision</em> (pointing towards the inside of the billiard table). The size of the vector is irrelevant since it is internally normalized.</li>
-<li><code class="codehilite">isdoor::Bool</code> : Flag of whether this <code class="codehilite">FiniteWall</code> instance is a "Door".</li>
-<li><code class="codehilite">name::String</code> : Name of the obstacle, given for user convenience. Defaults to "Finite Wall".</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L265-L285' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.normalvec' href='#DynamicalBilliards.normalvec'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.normalvec</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>normalvec(obst::Obstacle, position)
-</pre></div>
-
-
-<p>Return the vector normal to the obstacle's boundary at the given position (which is assumed to be very close to the obstacle's boundary).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L415-L419' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.distance' href='#DynamicalBilliards.distance'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.distance</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>distance(p::AbstractParticle, o::Obstacle)
-</pre></div>
-
-
-<p>Return the <strong>signed</strong> distance between particle <code class="codehilite">p</code> and obstacle <code class="codehilite">o</code>, based on <code class="codehilite">p.pos</code>. Positive distance corresponds to the particle being on the <em>allowed</em> region of the <code class="codehilite">Obstacle</code>. E.g. for a <code class="codehilite">Disk</code>, the distance is positive when the particle is outside of the disk, negative otherwise.</p>
-<div class="codehilite"><pre><span></span>distance(p::AbstractParticle, bt::Vector{&lt;:Obstacle})
-</pre></div>
-
-
-<p>Return minimum <code class="codehilite">distance(p, obst)</code> for all <code class="codehilite">obst</code> in <code class="codehilite">bt</code>. If the <code class="codehilite">distance(p, bt)</code> is negative this means that the particle is outside the billiard table.</p>
-<p>All <code class="codehilite">distance</code> functions can also be given a position (Vector) instead of a particle.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L466-L479' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.randominside' href='#DynamicalBilliards.randominside'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.randominside</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>randominside(bt::Vector{&lt;:Obstacle{T}}[, ω])
-</pre></div>
-
-
-<p>Return a particle with correct (allowed) initial conditions inside the given billiard table defined by the vector <code class="codehilite">bt</code>. If supplied with a second argument the type of the returned particle is <code class="codehilite">MagneticParticle</code>, with angular velocity <code class="codehilite">ω</code> (unless <code class="codehilite">ω</code> is 0). Else, it is <code class="codehilite">Particle</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/ParticlesObstacles.jl#L631-L637' class='documenter-source'>source</a><br></p>
 <p><a id='Standard-Billiards-1'></a></p>
 <h2 id="standard-billiards">Standard Billiards</h2>
-<p><a id='DynamicalBilliards.billiard_rectangle' href='#DynamicalBilliards.billiard_rectangle'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.billiard_rectangle</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="n">billiard_rectangle</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;standard&quot;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span>billiard_rectangle
+billiard_sinai
+billiard_bunimovich
+billiard_mushroom
+billiard_lorentz
+billiard_polygon
+billiard_hexagonal_sinai
+billiard_raysplitting_showcase
 </pre></div>
 
 
-<p>Return a vector of obstacles that defines a rectangle billiard of size (<code class="codehilite">x</code>, <code class="codehilite">y</code>).</p>
-<p><strong>Settings</strong></p>
-<ul>
-<li>"standard" : Specular reflection occurs during collision.</li>
-<li>"periodic" : The walls are <code class="codehilite">PeriodicWall</code> type, enforcing periodicity at the boundaries</li>
-<li>"random" : The velocity is randomized upon collision.</li>
-<li>"ray-splitting" : All obstacles in the billiard table allow for ray-splitting.</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/StandardBilliards.jl#L11-L23' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.billiard_sinai' href='#DynamicalBilliards.billiard_sinai'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.billiard_sinai</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="n">billiard_sinai</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;standard&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Return a vector of obstacles that defines a Sinai billiard of size (<code class="codehilite">x</code>, <code class="codehilite">y</code>) with a disk in its center, of radius <code class="codehilite">r</code>.</p>
-<p>In the periodic case, the system is also known as "Lorentz Gas".</p>
-<p><strong>Settings</strong></p>
-<ul>
-<li>"standard" : Specular reflection occurs during collision.</li>
-<li>"periodic" : The walls are <code class="codehilite">PeriodicWall</code> type, enforcing periodicity at the boundaries</li>
-<li>"random" : The velocity is randomized upon collision.</li>
-<li>"ray-splitting" : All obstacles in the billiard table allow for ray-splitting.</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/StandardBilliards.jl#L76-L91' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.billiard_lorentz' href='#DynamicalBilliards.billiard_lorentz'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.billiard_lorentz</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>billiard_lorentz(r=0.25, x=1.0, y=1.0)
-</pre></div>
-
-
-<p>Alias for <code class="codehilite">billiard_sinai(r,x,y; setting = &quot;periodic&quot;)</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/StandardBilliards.jl#L111-L114' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.billiard_polygon' href='#DynamicalBilliards.billiard_polygon'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.billiard_polygon</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">billiard_polygon</span><span class="o">(</span><span class="nt">n</span><span class="p">::</span><span class="nd">Int</span><span class="o">,</span> <span class="nt">R</span><span class="o">,</span> <span class="nt">center</span> <span class="o">=</span> <span class="cp">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="cp">]</span><span class="o">;</span> <span class="nt">setting</span> <span class="o">=</span> <span class="s2">&quot;standard&quot;</span><span class="o">)</span>
-</pre></div>
-
-
-<p>Return a vector of obstacles that defines a regular-polygonal billiard table with <code class="codehilite">n</code> sides, radius <code class="codehilite">r</code> and given <code class="codehilite">center</code>.</p>
-<p>Note: <code class="codehilite">R</code> denotes the so-called outer radius, not the inner one.</p>
-<p><strong>Settings</strong></p>
-<ul>
-<li>"standard" : Specular reflection occurs during collision.</li>
-<li>"periodic" : The walls are <code class="codehilite">PeriodicWall</code> type, enforcing periodicity at the boundaries. Only available for <code class="codehilite">n=4</code> or <code class="codehilite">n=6</code>.</li>
-<li>"random" : The velocity is randomized upon collision.</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/StandardBilliards.jl#L117-L129' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.billiard_hexagonal_sinai' href='#DynamicalBilliards.billiard_hexagonal_sinai'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.billiard_hexagonal_sinai</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>billiard_hexagonal_sinai(r, R, center = [0,0]; setting = &quot;standard&quot;)
-</pre></div>
-
-
-<p>Create a sinai-like billiard, which is a hexagon of outer radius <code class="codehilite">R</code>, containing at its center (given by <code class="codehilite">center</code>) a disk of radius <code class="codehilite">r</code>. The <code class="codehilite">setting</code> keyword is passed to <code class="codehilite">billiard_polygon</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/StandardBilliards.jl#L168-L173' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.billiard_raysplitting_showcase' href='#DynamicalBilliards.billiard_raysplitting_showcase'>#</a>
-<strong><code class="codehilite">DynamicalBilliards.billiard_raysplitting_showcase</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>billiard_raysplitting_showcase(x=2.0, y=1.0, r1=0.3, r2=0.2) -&gt; bt, rayspl
-</pre></div>
-
-
-<p>Showcase example billiard for ray-splitting processes. A rectangle <code class="codehilite">(x,y)</code> with a SplitterWall at <code class="codehilite">x/2</code> and two disks at each side, with respective radii <code class="codehilite">r1</code>, <code class="codehilite">r2</code>.</p>
-<p><strong>Notice</strong>: This function returns a billiard table <code class="codehilite">bt</code> as well as a <code class="codehilite">rayspl</code> dictionary!</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/StandardBilliards.jl#L187-L194' class='documenter-source'>source</a><br></p>
 <p><a id='Ray-splitting-1'></a></p>
 <h2 id="ray-splitting">Ray-splitting</h2>
 <p><a id='DynamicalBilliards.isphysical' href='#DynamicalBilliards.isphysical'>#</a>
@@ -948,7 +745,7 @@
 <li>Magnetic conservation is true: (ω_new(ω_new(ω, pflag), !pflag) ≈ ω</li>
 </ul>
 <p>The first property is mandatory to hold for any setting and is always checked. The rest are checked if <code class="codehilite">only_mandatory = false</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/RaySplitting.jl#L327-L342' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/RaySplitting.jl#L327-L342' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.acceptable_raysplitter' href='#DynamicalBilliards.acceptable_raysplitter'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.acceptable_raysplitter</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>acceptable_raysplitter(raysplitter, bt)
@@ -956,7 +753,7 @@
 
 
 <p>Return <code class="codehilite">true</code> if the given ray-splitting dictionary <code class="codehilite">raysplitter</code> can be used in conjuction with given billiard table <code class="codehilite">bt</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/RaySplitting.jl#L310-L314' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/RaySplitting.jl#L310-L314' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.reset_billiard!' href='#DynamicalBilliards.reset_billiard!'>#</a>
 <strong><code class="codehilite">DynamicalBilliards.reset_billiard!</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>reset_billiard!(bt)
@@ -964,7 +761,7 @@
 
 
 <p>Sets the <code class="codehilite">pflag</code> field of all ray-splitting obstacles of a billiard table to <code class="codehilite">true</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/f9790dd9cddb748a0a8397ba27efca5a640dc8cc/src/RaySplitting.jl#L299-L303' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/373d4ad1451862eaa1c3a1e075a0b517d3739fcb/src/RaySplitting.jl#L299-L303' class='documenter-source'>source</a><br></p>
                 
                   
                 
