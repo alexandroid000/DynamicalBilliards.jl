@@ -56,7 +56,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="./assets/Documenter.css">
+      <link rel="stylesheet" href="./assets\Documenter.css">
     
     
   </head>
@@ -240,6 +240,13 @@
         <li class="md-nav__item">
   <a href="#usage" title="Usage" class="md-nav__link">
     Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" title="Support" class="md-nav__link">
+    Support
   </a>
   
 </li>
@@ -432,6 +439,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#support" title="Support" class="md-nav__link">
+    Support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#contributing" title="Contributing" class="md-nav__link">
     Contributing
   </a>
@@ -465,7 +479,7 @@
                   <h1>Introduction</h1>
                 
                 <p><img alt="DynamicalBilliards Logo: The Julia billiard" src="http://i.imgur.com/NKgzYrt.gif" /></p>
-<p><code class="codehilite">DynamicalBilliards.jl</code> is an easy-to-use, modular and extendable Julia package for Dynamical Billiard systems in two dimensions.</p>
+<p><code>DynamicalBilliards.jl</code> is an easy-to-use, modular and extendable Julia package for Dynamical Billiard systems in two dimensions.</p>
 <div class="admonition tip">
 <p class="admonition-title">Logo billiard</p>
 <p>Checkout the <a href="#julia-billiard-animation">Julia billiard animation</a> code to see how to create the animated billiard of our logo.</p>
@@ -474,14 +488,14 @@
 <p>The above will be referred to as the "standard" billiard. The <a href="https://en.wikipedia.org/wiki/Dynamical_billiards">wikipedia page</a> has many examples of different types of billiards. Also, the <a href="http://www.scholarpedia.org/article/Dynamical_billiards">scholarpedia</a> entry is a good read on the subject. In general, the standard billiard can be extended in many ways.</p>
 <p>The types that are currently offered by this package, besides the standard one, are magnetic and ray-splitting billiards. In a magnetic billiard the particle's orbit is a circle (like electrons in a perpendicular magnetic field). In ray-splitting (a.k.a. semiclassical) billiards the particle may propagate <em>through</em> an obstacle, given some arbitrary transmission and refraction law.</p>
 <p>This package does not support finite-sized particles and, as a result, there is also no support for collision between particles.</p>
-<p><em>The <a href="https://JuliaDynamics.github.io/DynamicalBilliards.jl/stable">stable</a> documentation refers to the version of the package installed with <code class="codehilite">Pkg.add()</code>. The <a href="https://JuliaDynamics.github.io/DynamicalBilliards.jl/latest">latest</a> documentation refers to the version under development, obtained with <code class="codehilite">Pkg.checkout(&quot;DynamicalBilliards&quot;)</code>.</em></p>
+<p><em>The <a href="https://JuliaDynamics.github.io/DynamicalBilliards.jl/stable">stable</a> documentation refers to the version of the package installed with <code>Pkg.add()</code>. The <a href="https://JuliaDynamics.github.io/DynamicalBilliards.jl/latest">latest</a> documentation refers to the version under development, obtained with <code>Pkg.checkout("DynamicalBilliards")</code>.</em></p>
 <hr />
 <p><a id='Installation-1'></a></p>
 <h2 id="installation">Installation</h2>
-<p>This package is registered, simply use <code class="codehilite">Pkg.add(&quot;DynamicalBilliards&quot;)</code> to install it. The <a href="https://juliadynamics.github.io/DynamicalBilliards.jl/stable/">stable documentation</a> accompanies the version installed with <code class="codehilite">Pkg.add()</code>.</p>
+<p>This package is registered, simply use <code>Pkg.add("DynamicalBilliards")</code> to install it. The <a href="https://juliadynamics.github.io/DynamicalBilliards.jl/stable/">stable documentation</a> accompanies the version installed with <code>Pkg.add()</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Plotting</p>
-<p>Plotting in <code class="codehilite">DynamicalBilliards</code> is done through <code class="codehilite">PyPlot</code> and it is available on-demand only. Simply use the function <code class="codehilite">DynamicalBilliards.enableplotting()</code> and it will define and bring into scope all the relevant names. Notice that you must be able to <code class="codehilite">using PyPlot</code> for plotting to work. If you are not sure about how to install PyPlot, simply run the commands: <code class="codehilite">ENV[&quot;PYTHON&quot;]=&quot;&quot;; Pkg.add(&quot;PyCall&quot;); Pkg.add(&quot;PyPlot&quot;); using PyPlot;</code></p>
+<p>Plotting in <code>DynamicalBilliards</code> is done through <code>PyPlot</code> and it is available on-demand only. Simply use the function <code>DynamicalBilliards.enableplotting()</code> and it will define and bring into scope all the relevant names. Notice that you must be able to <code>using PyPlot</code> for plotting to work. If you are not sure about how to install PyPlot, simply run the commands: <code>ENV["PYTHON"]=""; Pkg.add("PyCall"); Pkg.add("PyPlot"); using PyPlot;</code></p>
 </div>
 <p>After the first installation, it is advised to run the tests to be sure that everything works as expected.</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
@@ -494,9 +508,9 @@
 <hr />
 <p><a id='Usage-1'></a></p>
 <h2 id="usage">Usage</h2>
-<p>It is highly suggested to first visit the <a href="./basic/basic_usage">Basic Usage</a> section, for a general overview of how to use <code class="codehilite">DynamicalBilliards.jl</code> as well as a short description of available features. The very important discussion about <a href="./physics/#numerical-precision">numerical precision</a> is done in the <a href="./physics">Physics</a> page.</p>
+<p>It is highly suggested to first visit the <a href="./basic/basic_usage">Basic Usage</a> section, for a general overview of how to use <code>DynamicalBilliards.jl</code> as well as a short description of available features. The very important discussion about <a href="./physics/#numerical-precision">numerical precision</a> is done in the <a href="./physics">Physics</a> page.</p>
 <p>The <a href="./lyapunovs">Lyapunov Exponents</a> page has info on how to compute the Lyapunov spectrum of a billiard system.</p>
-<p>The following tutorials offer detailed descriptions for various aspects of <code class="codehilite">DynamicalBilliards.jl</code>:</p>
+<p>The following tutorials offer detailed descriptions for various aspects of <code>DynamicalBilliards.jl</code>:</p>
 <ul>
 <li><a href="./tutorials/billiard_table">How to define your custom Billiard Table</a></li>
 <li><a href="./tutorials/ray-splitting">Using Ray-Splitting billiards</a></li>
@@ -506,10 +520,18 @@
 </ul>
 <p>The <a href="./basic/library">Library</a> section has the docstrings of all exported names in convenient groups and the <a href="./physics">Physics</a> briefly discusses physical aspects of billiard systems as well as inner workings of the package.</p>
 <hr />
+<p><a id='Support-1'></a></p>
+<h2 id="support">Support</h2>
+<p>If you are having problems with <code>DynamicalBilliards.jl</code> do not hesitate to seek for support! There are numerous ways to do that:</p>
+<ol>
+<li>Visit our official chatroom on Gitter: https://gitter.im/JuliaDynamics/Lobby</li>
+<li>Open a new issue at our <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/issues">GitHub issues page</a>.</li>
+</ol>
+<hr />
 <p><a id='Contributing-1'></a></p>
 <h2 id="contributing">Contributing</h2>
-<p>Everyone is welcomed to contribute to <code class="codehilite">DynamicalBilliards.jl</code>! If you have some new algorithm, types of Obstacles or anything new to add, do not hesitate!</p>
-<p>If you would like to help but do not have anything new to contribute, please go ahead and take a look at the <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/issues">GitHub issues page</a> of the package. Most of the issues are easy to solve and are there specifically for people that would like to contribute.</p>
+<p>Everyone is welcomed to contribute to <code>DynamicalBilliards.jl</code>! If you have some new algorithm, types of Obstacles or anything new to add, do not hesitate! For formal questions about e.g. structuring of code it is best to contact us through the <a href="https://gitter.im/JuliaDynamics/Lobby">gitter chatroom</a> or by opening a new Pull Request and asking for a review of your code.</p>
+<p>If you would like to help but do not have anything new to contribute, please go ahead and take a look at the <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/issues">GitHub issues page</a> of the package. Some of the existing issues are easy to solve and are there specifically for people that would like to contribute.</p>
 <hr />
 <p><a id='Julia-Billiard-Animation-1'></a></p>
 <h2 id="julia-billiard-animation">Julia Billiard Animation</h2>
@@ -600,6 +622,8 @@
       <script src="./assets/javascripts/application-8e4952e681.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"."}})</script>
+      
+        <script src="./assets\mathjaxhelper.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       

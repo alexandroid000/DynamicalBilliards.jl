@@ -56,7 +56,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="../assets/Documenter.css">
+      <link rel="stylesheet" href="../assets\Documenter.css">
     
     
   </head>
@@ -483,38 +483,38 @@
 <h2 id="implementation">Implementation</h2>
 <p>Firstly one defines a billiard table and (if desired) the <a href="../tutorials/ray-splitting/#ray-splitter-dictionary">ray-splitting dictionary</a>. Then one creates a particle inside the defined billiard table. The algorithm followed for the propagation of a particle is the following:</p>
 <ol>
-<li>Calculate the <code class="codehilite">collisiontime()</code> for <strong>all</strong> obstacles in the billiard table.</li>
+<li>Calculate the <code>collisiontime()</code> for <strong>all</strong> obstacles in the billiard table.</li>
 <li>Find the smallest time, and the obstacle corresponding to that.</li>
-<li><code class="codehilite">relocate!()</code> the particle, so that it is on the correct side of the obstacle to-be-collided with.</li>
-<li>Check whether there is transmission or not (only for ray-splitting): <code class="codehilite">T(φ) &gt; rand()</code></li>
+<li><code>relocate!()</code> the particle, so that it is on the correct side of the obstacle to-be-collided with.</li>
+<li>Check whether there is transmission or not (only for ray-splitting): <code>T(φ) &gt; rand()</code></li>
 <li>
-<p><code class="codehilite">resolvecollision!()</code> between the particle and obstacle:</p>
+<p><code>resolvecollision!()</code> between the particle and obstacle:</p>
 <ul>
-<li>If transmission happens, once again <code class="codehilite">relocate!()</code> the particle accordingly and implement the ray-splitting algorithm (not discussed here).</li>
-<li>For no transmission (or no ray-splitting), perform <code class="codehilite">specular!()</code> reflection or <code class="codehilite">periodicity!()</code> conditions based on the colliding obstacle.</li>
+<li>If transmission happens, once again <code>relocate!()</code> the particle accordingly and implement the ray-splitting algorithm (not discussed here).</li>
+<li>For no transmission (or no ray-splitting), perform <code>specular!()</code> reflection or <code>periodicity!()</code> conditions based on the colliding obstacle.</li>
 <li>Continue this loop for a given amount of time.</li>
 </ul>
 </li>
 </ol>
 <p>In the standard billiard case, one can always exclude the collision with the previous obstacle. However, in both magnetic or ray-splitting cases this is not true anymore. Therefore the same algorithm is applied on all 3 cases for the sake of simplicity.</p>
-<p>Notice that the <code class="codehilite">relocate!()</code> step is <em>very</em> important because it takes care that there is not particle "leakage": particles being outside the billiard table due to the finite precision of floating numbers.</p>
+<p>Notice that the <code>relocate!()</code> step is <em>very</em> important because it takes care that there is not particle "leakage": particles being outside the billiard table due to the finite precision of floating numbers.</p>
 <hr />
 <p><a id='Numerical-Precision-1'></a></p>
 <h2 id="numerical-precision">Numerical Precision</h2>
-<p>All core types of <code class="codehilite">DynamicalBilliards.jl</code> are parametrically constructed, with parameter <code class="codehilite">T&lt;:AbstractFloat</code>. This means that the fields of all particles and obstacles contain numbers strictly of type <code class="codehilite">T</code>. You will understand why this choice happened as you continue reading this paragraph.</p>
+<p>All core types of <code>DynamicalBilliards.jl</code> are parametrically constructed, with parameter <code>T&lt;:AbstractFloat</code>. This means that the fields of all particles and obstacles contain numbers strictly of type <code>T</code>. You will understand why this choice happened as you continue reading this paragraph.</p>
 <p>The main concerns during evolution in a billiard table are:</p>
 <ol>
-<li>The particle must never leak out of the billiard table. This is simply translated to the <code class="codehilite">distance()</code> function being <strong>always</strong> positive <strong>after</strong> any collision.</li>
+<li>The particle must never leak out of the billiard table. This is simply translated to the <code>distance()</code> function being <strong>always</strong> positive <strong>after</strong> any collision.</li>
 <li>The collision time is never infinite, besides the cases of <a href="../physics/#pinned-particles">pinned particles</a> in a magnetic billiard.</li>
-<li>The <code class="codehilite">relocate!()</code> process is always finite (and very swift!).</li>
+<li>The <code>relocate!()</code> process is always finite (and very swift!).</li>
 </ol>
-<p>These are solved with the following approach: after the minimum collision time has been calculated, a "test propagation" is done on the position of the particle. If the <code class="codehilite">distance(p, obst)</code> with the colliding obstacle is found to be "wrong", the collision time is reduced by the <code class="codehilite">DynamicalBilliards.timeprec(T)</code> function, with <code class="codehilite">T</code> being the parametric type of both the particle and the obstacle. This reduction happens geometrically, i.e. the time adjusting increment is self-multiplied by 10 at each recursive relocating step.</p>
+<p>These are solved with the following approach: after the minimum collision time has been calculated, a "test propagation" is done on the position of the particle. If the <code>distance(p, obst)</code> with the colliding obstacle is found to be "wrong", the collision time is reduced by the <code>DynamicalBilliards.timeprec(T)</code> function, with <code>T</code> being the parametric type of both the particle and the obstacle. This reduction happens geometrically, i.e. the time adjusting increment is self-multiplied by 10 at each recursive relocating step.</p>
 <ul>
-<li>Magnetic propagation and straight propagation both use <code class="codehilite">timeprec(T)</code>. For both cases the maximum number of geometric iterations is 1 (for the default value of <code class="codehilite">timeprec(T)</code>.</li>
+<li>Magnetic propagation and straight propagation both use <code>timeprec(T)</code>. For both cases the maximum number of geometric iterations is 1 (for the default value of <code>timeprec(T)</code>.</li>
 <li>
-<p>This <code class="codehilite">timeprec</code> cannot be used with <code class="codehilite">PeriodicWall</code> and RaySplitting obstacles with <code class="codehilite">MagneticParticle</code>s because when relocating forward in time you get progressively shallower and shallower angles. This mean that you need huge changes in time for even tiny changes in <code class="codehilite">distance</code>.</p>
+<p>This <code>timeprec</code> cannot be used with <code>PeriodicWall</code> and RaySplitting obstacles with <code>MagneticParticle</code>s because when relocating forward in time you get progressively shallower and shallower angles. This mean that you need huge changes in time for even tiny changes in <code>distance</code>.</p>
 <ul>
-<li>For this special case the function <code class="codehilite">timeprec_forward(T)</code> is used instead. This function results to on average 3-5 geometric relocation steps.</li>
+<li>For this special case the function <code>timeprec_forward(T)</code> is used instead. This function results to on average 3-5 geometric relocation steps.</li>
 </ul>
 </li>
 </ul>
@@ -525,26 +525,26 @@
 </pre></div>
 
 
-<p>Adjusting the global precision of <code class="codehilite">DynamicalBilliards</code> is very easy and can be done in two ways:</p>
+<p>Adjusting the global precision of <code>DynamicalBilliards</code> is very easy and can be done in two ways:</p>
 <ol>
-<li>Choose the floating precision you would like, by initializing your billiard table with parametric type <code class="codehilite">T</code>, e.g. <code class="codehilite">bt = billiard_sinai(Float16(0.3))</code>. This choice will propagate to the entire <code class="codehilite">bt</code>, all particles resulting from <code class="codehilite">randominside()</code>, <strong>as well as the entire evolution process</strong>.</li>
-<li>Re-define the functions <code class="codehilite">timeprec(T)</code> and <code class="codehilite">timeprec_forward(T)</code>. Decreasing their values will make the evolution process slower, but the resulting numbers given by <code class="codehilite">evolve!()</code> will be more precise. There are no guarantees if you follow this method as it may lead to breaking code if <code class="codehilite">timeprec_forward</code> becomes too small.</li>
+<li>Choose the floating precision you would like, by initializing your billiard table with parametric type <code>T</code>, e.g. <code>bt = billiard_sinai(Float16(0.3))</code>. This choice will propagate to the entire <code>bt</code>, all particles resulting from <code>randominside()</code>, <strong>as well as the entire evolution process</strong>.</li>
+<li>Re-define the functions <code>timeprec(T)</code> and <code>timeprec_forward(T)</code>. Decreasing their values will make the evolution process slower, but the resulting numbers given by <code>evolve!()</code> will be more precise. There are no guarantees if you follow this method as it may lead to breaking code if <code>timeprec_forward</code> becomes too small.</li>
 </ol>
 <div class="admonition danger">
 <p class="admonition-title">BigFloats</p>
-<p>Evolution with <code class="codehilite">BigFloat</code> in <code class="codehilite">DynamicalBilliards</code> is on average 3 to 4 orders of magnitude slower than with <code class="codehilite">Float64</code>.</p>
+<p>Evolution with <code>BigFloat</code> in <code>DynamicalBilliards</code> is on average 3 to 4 orders of magnitude slower than with <code>Float64</code>.</p>
 </div>
 <hr />
 <p><a id='Ray-Splitting-Functions-1'></a></p>
 <h2 id="ray-splitting-functions">Ray-Splitting Functions</h2>
-<p>If <code class="codehilite">T</code> is the transmission probability function, then the condition for transmission is simply: <code class="codehilite">T(φ, pflag, ω) &gt; rand()</code>. If it returns <code class="codehilite">true</code>, transmission (i.e. ray-splitting) will happen. As it has already been discussed in the <a href="../tutorials/ray-splitting">Ray-Splitting tutorial</a>, the condition of total internal reflection must be taken care of by the user.</p>
-<p>The <a href="../tutorials/ray-splitting/#ray-splitting-functions">three key functions</a> given to the <code class="codehilite">ray-splitter</code> dictionary must have some properties in order to have physical meaning, like for example that the scattering probability function is even towards φ. One of these properties is absolutely <strong>mandatory</strong> for this package to work properly. This is the property of total internal reflection, i.e. if the refraction angle is calculated to be greater/equal than π/2, no transmission can happen. <strong>This condition is not assured internally</strong> and therefore you must be sure that your transmission probability function satisfies it. In the above example, the function <code class="codehilite">T</code> makes sure to return 0 in that case.</p>
-<p>In order to test if the <code class="codehilite">raysplitter</code> dictionary you have defined has physical meaning, the function <code class="codehilite">isphysical()</code> is provided:</p>
+<p>If <code>T</code> is the transmission probability function, then the condition for transmission is simply: <code>T(φ, pflag, ω) &gt; rand()</code>. If it returns <code>true</code>, transmission (i.e. ray-splitting) will happen. As it has already been discussed in the <a href="../tutorials/ray-splitting">Ray-Splitting tutorial</a>, the condition of total internal reflection must be taken care of by the user.</p>
+<p>The <a href="../tutorials/ray-splitting/#ray-splitting-functions">three key functions</a> given to the <code>ray-splitter</code> dictionary must have some properties in order to have physical meaning, like for example that the scattering probability function is even towards φ. One of these properties is absolutely <strong>mandatory</strong> for this package to work properly. This is the property of total internal reflection, i.e. if the refraction angle is calculated to be greater/equal than π/2, no transmission can happen. <strong>This condition is not assured internally</strong> and therefore you must be sure that your transmission probability function satisfies it. In the above example, the function <code>T</code> makes sure to return 0 in that case.</p>
+<p>In order to test if the <code>raysplitter</code> dictionary you have defined has physical meaning, the function <code>isphysical()</code> is provided:</p>
 <div class="codehilite"><pre><span></span><span class="n">isphysical</span><span class="p">(</span><span class="n">raysplitter</span><span class="o">::</span><span class="kt">Dict</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Any</span><span class="p">};</span> <span class="n">only_mandatory</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Return <code class="codehilite">true</code> if the given ray-splitting dictionary has physically plausible properties.</p>
+<p>Return <code>true</code> if the given ray-splitting dictionary has physically plausible properties.</p>
 <p>Specifically, check if (φ is the incidence angle, θ the refraction angle):</p>
 <ul>
 <li>Critical angle means total reflection: If θ(φ) ≥ π/2 then T(φ) = 0</li>
@@ -554,36 +554,36 @@
 <li>Magnetic conservation is true: (ω_new(ω_new(ω, pflag), !pflag) ≈ ω</li>
 </ul>
 <p>The first property is mandatory and must hold for correct propagation. The above tests are done for all possible combinations of arguments.</p>
-<p>They keyword <code class="codehilite">only_mandatory</code> notes whether the rest of the properties should be tested or not.</p>
+<p>They keyword <code>only_mandatory</code> notes whether the rest of the properties should be tested or not.</p>
 <hr />
 <p><a id='Pinned-Particles-1'></a></p>
 <h2 id="pinned-particles">Pinned Particles</h2>
 <p>In the case of propagation with magnetic field, a particle may be "pinned" (collision-less): There are no possible collisions that take place and the particle will revolve in circles forever. This can happen for specific initial conditions depending on your billiard table and the angular velocity ω.</p>
-<p>In such event, the convention followed by <code class="codehilite">DynamicalBilliards.jl</code> is the following: <code class="codehilite">evolve!()</code> returns the expected output, however all returned vectors have only 2 entries. The collision times always have the entries <code class="codehilite">0.0, Inf</code>. All other returned vectors have the initial conditions, repeated once.</p>
-<p><code class="codehilite">evolve!()</code> can be given an additional <code class="codehilite">warning</code> keyword argument in the case of magnetic propagation, e.g. <code class="codehilite">warning = true</code>. This optional argument throws a <code class="codehilite">warn()</code> message whenever a pinned particle is evolved.</p>
+<p>In such event, the convention followed by <code>DynamicalBilliards.jl</code> is the following: <code>evolve!()</code> returns the expected output, however all returned vectors have only 2 entries. The collision times always have the entries <code>0.0, Inf</code>. All other returned vectors have the initial conditions, repeated once.</p>
+<p><code>evolve!()</code> can be given an additional <code>warning</code> keyword argument in the case of magnetic propagation, e.g. <code>warning = true</code>. This optional argument throws a <code>warn()</code> message whenever a pinned particle is evolved.</p>
 <div class="admonition warning">
-<p class="admonition-title">Using <code class="codehilite">construct()</code></p>
-<p>When using the syntax <code class="codehilite">construct(evolve!(p, bt, t)...)</code> be sure that there aren't any pinned particles given to evolve. If there are any, construct will result in an error.</p>
+<p class="admonition-title">Using <code>construct()</code></p>
+<p>When using the syntax <code>construct(evolve!(p, bt, t)...)</code> be sure that there aren't any pinned particles given to evolve. If there are any, construct will result in an error.</p>
 </div>
 <hr />
 <p><a id='Velocity-measure-1'></a></p>
 <h2 id="velocity-measure">Velocity measure</h2>
-<p>Both <code class="codehilite">Particle</code> and <code class="codehilite">MagneticParticle</code> are assumed to <strong>always</strong> have a velocity vector of measure 1 during evolution. This simplifies the formulas used internally to a significant amount.</p>
-<p>However, during ray-splitting, the a <code class="codehilite">MagneticParticle</code> may be in areas with different angular velocities (result of the <a href="../tutorials/ray-splitting/#ray-splitting-functions">ω_new</a> function). Physically, in such a situation, the velocity measure of the particle could also change. This change depends on the forces acting on the particle (e.g. magnetic field) as well as the relation of the momentum with the velocity (functional type of kinetic energy).</p>
-<p>In any case, such a change is not accounted for internally by <code class="codehilite">DynamicalBilliards</code>. However it is very easy to implement this by "re-normalizing" the angular velocities you use. Since the "code" velocity has measure one, the rotation radius is given by</p>
+<p>Both <code>Particle</code> and <code>MagneticParticle</code> are assumed to <strong>always</strong> have a velocity vector of measure 1 during evolution. This simplifies the formulas used internally to a significant amount.</p>
+<p>However, during ray-splitting, the a <code>MagneticParticle</code> may be in areas with different angular velocities (result of the <a href="../tutorials/ray-splitting/#ray-splitting-functions">ω_new</a> function). Physically, in such a situation, the velocity measure of the particle could also change. This change depends on the forces acting on the particle (e.g. magnetic field) as well as the relation of the momentum with the velocity (functional type of kinetic energy).</p>
+<p>In any case, such a change is not accounted for internally by <code>DynamicalBilliards</code>. However it is very easy to implement this by "re-normalizing" the angular velocities you use. Since the "code" velocity has measure one, the rotation radius is given by</p>
 <span>\[
 r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
-\]</span><p>then one simply has to adjust the values of <code class="codehilite">ω</code> given in the code with</p>
+\]</span><p>then one simply has to adjust the values of <code>ω</code> given in the code with</p>
 <span>\[
 \omega_\text{code} = \frac{\omega_\text{real}}{v_\text{real}}
-\]</span><p>After getting the timeseries from <code class="codehilite">construct()</code>:</p>
+\]</span><p>After getting the timeseries from <code>construct()</code>:</p>
 <div class="codehilite"><pre><span></span><span class="c"># These are the &quot;code&quot;-data. |v| = 1 always</span>
 <span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span> <span class="o">=</span> <span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">ttotal</span><span class="p">,</span> <span class="n">ray_splt</span><span class="p">)</span>
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span><span class="p">)</span>
 </pre></div>
 
 
-<p>you only need to make some final adjustment on the <code class="codehilite">vxt, vyt</code>. The position and time data are completely unaffected.</p>
+<p>you only need to make some final adjustment on the <code>vxt, vyt</code>. The position and time data are completely unaffected.</p>
 <div class="codehilite"><pre><span></span><span class="n">omegas_code</span> <span class="o">=</span> <span class="n">omegas</span>
 <span class="c"># real angular velocities:</span>
 <span class="n">omegas_real</span> <span class="o">=</span> <span class="n">supplied_by_user</span>
@@ -610,7 +610,7 @@ r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
 </pre></div>
 
 
-<p>Now you can be sure that the particle at time <code class="codehilite">t[i]</code> had real velocity <code class="codehilite">[vxtreal[i], vytreal[i]]</code> and was propagating with real angular velocity <code class="codehilite">omega_t[i]</code>.</p>
+<p>Now you can be sure that the particle at time <code>t[i]</code> had real velocity <code>[vxtreal[i], vytreal[i]]</code> and was propagating with real angular velocity <code>omega_t[i]</code>.</p>
                 
                   
                 
@@ -691,6 +691,8 @@ r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
       <script src="../assets/javascripts/application-8e4952e681.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
+      
+        <script src="../assets\mathjaxhelper.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
