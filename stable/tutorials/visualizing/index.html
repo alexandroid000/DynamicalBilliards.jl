@@ -1,4 +1,7 @@
 
+
+
+
 <!DOCTYPE html>
 <html lang="en" class="no-js">
   <head>
@@ -18,7 +21,7 @@
       
         <meta name="lang:clipboard.copied" content="Copied to clipboard">
       
-        <meta name="lang:search.languages" content="">
+        <meta name="lang:search.language" content="en">
       
         <meta name="lang:search.result.none" content="No matching documents">
       
@@ -28,10 +31,8 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.1">
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.1.0">
     
     
       
@@ -39,34 +40,32 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/stylesheets/application-3368aa6b74.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-95ad5566f9.palette.css">
+      
+    
+    
       <script src="../../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application-04ea671600.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-23f75ab9c7.palette.css">
-      
-    
-    
-      
-        
-        
-        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="../../assets/Documenter.css">
+      <link rel="stylesheet" href="../../assets\Documenter.css">
     
     
   </head>
   
-  
-  
-  
-    <body data-md-color-primary="deep-purple" data-md-color-accent="cyan">
+    
+    
+    
+      <body data-md-color-primary="deep-purple" data-md-color-accent="cyan">
+    
   
     <svg class="md-svg">
       <defs>
@@ -86,7 +85,7 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href="../.." title="DynamicalBilliards.jl" class="md-header-nav__button md-logo">
           
-            <i class="md-icon md-icon--home"></i>
+            <i class="md-icon"></i>
           
         </a>
       </div>
@@ -94,23 +93,24 @@
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
-        <span class="md-flex__ellipsis md-header-nav__title">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
             
-              
-                <span class="md-header-nav__parent">
-                  Tutorials
-                </span>
-              
+              <span class="md-header-nav__topic">
+                DynamicalBilliards.jl
+              </span>
+              <span class="md-header-nav__topic">
+                Visualizing
+              </span>
             
-            Visualizing
           
-        </span>
+        </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
-          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
           
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
   <div class="md-search__inner">
@@ -131,6 +131,7 @@
     </div>
   </div>
 </div>
+          
         
       </div>
       
@@ -142,7 +143,7 @@
   
 
 
-  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl" title="Go to repository" class="md-source" data-md-source="github">
+  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/" title="Go to repository" class="md-source" data-md-source="github">
     
       <div class="md-source__icon">
         <svg viewBox="0 0 24 24" width="24" height="24">
@@ -164,8 +165,6 @@
     
     <div class="md-container">
       
-      
-      
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -177,7 +176,7 @@
   <label class="md-nav__title md-nav__title--site" for="drawer">
     <span class="md-nav__button md-logo">
       
-        <i class="md-icon md-icon--home"></i>
+        <i class="md-icon"></i>
       
     </span>
     DynamicalBilliards.jl
@@ -190,7 +189,7 @@
   
 
 
-  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl" title="Go to repository" class="md-source" data-md-source="github">
+  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/" title="Go to repository" class="md-source" data-md-source="github">
     
       <div class="md-source__icon">
         <svg viewBox="0 0 24 24" width="24" height="24">
@@ -525,8 +524,8 @@
                 
                   <h1>Visualizing</h1>
                 
-                <p>All plotting functionality of <code class="codehilite">DynamicalBilliards</code> lies within a few well-defined functions that use the <code class="codehilite">PyPlot</code> package to plot aspects of the system on the current PyPlot figure.</p>
-<p><em>Remember to use</em> <code class="codehilite">DynamicalBilliards.enableplotting()</code> <em>to bring the plotting functions into scope!</em></p>
+                <p>All plotting functionality of <code>DynamicalBilliards</code> lies within a few well-defined functions that use the <code>PyPlot</code> package to plot aspects of the system on the current PyPlot figure.</p>
+<p><em>Remember to use</em> <code>DynamicalBilliards.enableplotting()</code> <em>to bring the plotting functions into scope!</em></p>
 <p>The functions are:</p>
 <div class="codehilite"><pre><span></span><span class="n">plot_obstacle</span><span class="p">(</span><span class="n">obst</span><span class="o">::</span><span class="n">Obstacle</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 <span class="n">plot_particle</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">AbstractParticle</span><span class="p">;</span> <span class="n">use_cell</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
@@ -541,7 +540,7 @@
 <p>and each has a detailed documentation string.</p>
 <p><a id='Plotting-the-Billiard-Table-1'></a></p>
 <h2 id="plotting-the-billiard-table">Plotting the Billiard Table</h2>
-<p>The function <code class="codehilite"><span class="nt">plot_obstacle</span><span class="o">(</span><span class="nt">obst</span><span class="p">::</span><span class="nd">Obstacle</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span></code> plots the given obstacle on the current PyPlot figure. The <code class="codehilite">kwargs...</code> are keywords passed directly into <code class="codehilite">PyPlot</code>'s constructors (like e.g. <code class="codehilite">linewidth = 2.0</code>). For example:</p>
+<p>The function <code>plot_obstacle(obst::Obstacle; kwargs...)</code> plots the given obstacle on the current PyPlot figure. The <code>kwargs...</code> are keywords passed directly into <code>PyPlot</code>'s constructors (like e.g. <code>linewidth = 2.0</code>). For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
 <span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
 <span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_sinai</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
@@ -558,7 +557,7 @@
 
 <p>will plot something like this:</p>
 <p><img alt="Visualizing tutorial 1" src="http://i.imgur.com/lrDStnP.png" /></p>
-<p>If you want to quickly plot the entire billiard table without changing the settings, simply use the function  <code class="codehilite">plot_billiard(bt)</code>:</p>
+<p>If you want to quickly plot the entire billiard table without changing the settings, simply use the function  <code>plot_billiard(bt)</code>:</p>
 <div class="codehilite"><pre><span></span><span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">Antidot</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
@@ -568,10 +567,10 @@
 
 <p>which will plot something like this:</p>
 <p><img alt="Visualizing tutorial 2" src="http://i.imgur.com/46AomXm.png" /></p>
-<p><code class="codehilite">plot_billiard()</code> also sets up the axis to have equal aspect ratio and sets up the axis limits to be just large enough to contain the entire billiard.</p>
+<p><code>plot_billiard()</code> also sets up the axis to have equal aspect ratio and sets up the axis limits to be just large enough to contain the entire billiard.</p>
 <p><a id='Plotting-particles-1'></a></p>
 <h2 id="plotting-particles">Plotting particles</h2>
-<p>Following the above example, we create and plot a particle using the function <code class="codehilite">plot_particle</code>:</p>
+<p>Following the above example, we create and plot a particle using the function <code>plot_particle</code>:</p>
 <div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 <span class="n">plot_particle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 <span class="c"># Plot one more particle with purple color,</span>
@@ -589,15 +588,15 @@
 <ul>
 <li>Particles are black.</li>
 <li>Particle orbits/trajectories are blue.</li>
-<li>Reflecting obstacles (e.g. <code class="codehilite">Disk</code>, <code class="codehilite">FiniteWall</code> or <code class="codehilite">InfiniteWall</code>) are green.</li>
-<li>Randomly reflecting obstacles (e.g. <code class="codehilite">RandomDisk</code> or <code class="codehilite">RandomWall</code>) are yellow.</li>
+<li>Reflecting obstacles (e.g. <code>Disk</code>, <code>FiniteWall</code> or <code>InfiniteWall</code>) are green.</li>
+<li>Randomly reflecting obstacles (e.g. <code>RandomDisk</code> or <code>RandomWall</code>) are yellow.</li>
 <li>Ray-splitting obstacles are red with dashed linestyle.</li>
 <li>Periodicity enforcing obstacles are purple with dotted linestyle (if and when plotted).</li>
-<li>Doors (<code class="codehilite">InfiniteWall</code> with <code class="codehilite">isdoor=true</code>) are plotted with alternating black and cyan dashed lines.</li>
+<li>Doors (<code>InfiniteWall</code> with <code>isdoor=true</code>) are plotted with alternating black and cyan dashed lines.</li>
 </ul>
 <p><a id='Animating-the-motion-of-a-particle-1'></a></p>
 <h2 id="animating-the-motion-of-a-particle">Animating the motion of a particle</h2>
-<p>The function <code class="codehilite">animate_evolution!</code> is provided to animate the evolution of a particle from collision to collision:</p>
+<p>The function <code>animate_evolution!</code> is provided to animate the evolution of a particle from collision to collision:</p>
 <div class="codehilite"><pre><span></span><span class="n">animate_evolution!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">colnumber</span><span class="p">[,</span> <span class="n">ray</span><span class="o">-</span><span class="n">splitter</span><span class="p">];</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 
@@ -606,23 +605,23 @@
 <p><a id='Arguments-1'></a></p>
 <h3 id="arguments">Arguments</h3>
 <ul>
-<li><code class="codehilite">p::AbstractParticle</code> : The particle to be evolved (gets mutated!).</li>
-<li><code class="codehilite">bt::Vector{Obstacle}</code> : The billiard table.</li>
-<li><code class="codehilite">colnumber::Int</code> : Number of collisions to evolve the particle for.</li>
-<li><code class="codehilite">ray-splitter::Dict{Int, Any}</code> : (Optional) Ray-splitting dictionary   that enables ray-splitting processes during evolution.</li>
+<li><code>p::AbstractParticle</code> : The particle to be evolved (gets mutated!).</li>
+<li><code>bt::Vector{Obstacle}</code> : The billiard table.</li>
+<li><code>colnumber::Int</code> : Number of collisions to evolve the particle for.</li>
+<li><code>ray-splitter::Dict{Int, Any}</code> : (Optional) Ray-splitting dictionary   that enables ray-splitting processes during evolution.</li>
 </ul>
 <p><a id='Keyword-Arguments-1'></a></p>
 <h3 id="keyword-arguments">Keyword Arguments</h3>
 <ul>
-<li><code class="codehilite">newfig = true</code> : Creates a new figure at the function call, and plots the billiard table in that figure.</li>
-<li><code class="codehilite">sleeptime</code> : Time passed to <code class="codehilite">sleep()</code> between each collision.</li>
-<li><code class="codehilite">col_to_plot</code> : How many previous collisions are shown during the animation.</li>
-<li><code class="codehilite">particle_kwargs</code> : Either a Dict{Symbol, Any} or a vector of Tuple{Symbol, Any}. Keywords passed into <code class="codehilite">plot_particle()</code>.</li>
-<li><code class="codehilite">orbit_kwargs</code> : Either a Dict{Symbol, Any} or a Vector of Tuple{Symbol, Any}. Keywords passed into <code class="codehilite">PyPlot.plot()</code> which plots the orbit of the particle (<code class="codehilite">line</code> object).</li>
-<li><code class="codehilite">savefigs::Bool</code> : If <code class="codehilite">true</code> save .png figures of each frame of the animation A direct movie (like creating a .mp4) of the animation cannot be made automatically, since the animation process mutates the particle.</li>
-<li><code class="codehilite">savename</code> : Name (<em>including path</em>) of the figures to be produced. The ending "_i.png" will be attached to all figures.</li>
+<li><code>newfig = true</code> : Creates a new figure at the function call, and plots the billiard table in that figure.</li>
+<li><code>sleeptime</code> : Time passed to <code>sleep()</code> between each collision.</li>
+<li><code>col_to_plot</code> : How many previous collisions are shown during the animation.</li>
+<li><code>particle_kwargs</code> : Either a Dict{Symbol, Any} or a vector of Tuple{Symbol, Any}. Keywords passed into <code>plot_particle()</code>.</li>
+<li><code>orbit_kwargs</code> : Either a Dict{Symbol, Any} or a Vector of Tuple{Symbol, Any}. Keywords passed into <code>PyPlot.plot()</code> which plots the orbit of the particle (<code>line</code> object).</li>
+<li><code>savefigs::Bool</code> : If <code>true</code> save .png figures of each frame of the animation A direct movie (like creating a .mp4) of the animation cannot be made automatically, since the animation process mutates the particle.</li>
+<li><code>savename</code> : Name (<em>including path</em>) of the figures to be produced. The ending "_i.png" will be attached to all figures.</li>
 </ul>
-<p>Automatic output into an animated image (e.g. ".gif" format) is not possible, because the function mutates its argument. However, <code class="codehilite">animate_evolution</code> gives users the possibility to save each produced figure in order to merge as an animation using an external tool.</p>
+<p>Automatic output into an animated image (e.g. ".gif" format) is not possible, because the function mutates its argument. However, <code>animate_evolution</code> gives users the possibility to save each produced figure in order to merge as an animation using an external tool.</p>
 <p>Let's animate a particle inside a simple pentagon with magnetic field:</p>
 <div class="codehilite"><pre><span></span><span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="mf">0.4</span><span class="p">)</span>
@@ -638,13 +637,13 @@
 <p><img alt="Visualizing Animation 1" src="http://i.imgur.com/UyiW2N2.gif" /></p>
 <p><a id='Periodic-Billiards-1'></a></p>
 <h2 id="periodic-billiards">Periodic Billiards</h2>
-<p>In order to plot periodic billiards, you have need to call a different method of <a href="../../basic/library/#DynamicalBilliards.plot_billiard"><code class="codehilite">plot_billiard</code></a>, since now you also have to specify the limits of plotting. The methods provided are:</p>
+<p>In order to plot periodic billiards, you have need to call a different method of <a href="../../basic/library/#DynamicalBilliards.plot_billiard"><code>plot_billiard</code></a>, since now you also have to specify the limits of plotting. The methods provided are:</p>
 <div class="codehilite"><pre><span></span><span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">xt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">yt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">T</span><span class="p">})</span>
 </pre></div>
 
 
-<p>The last one conveniently plots the combo of particle-trajectory and periodic-billiard taking care of all the details internally. Give the keyword <code class="codehilite">plot_orbit = false</code> if you do not want to plot the orbit defined by <code class="codehilite">(xt, yt)</code>.</p>
+<p>The last one conveniently plots the combo of particle-trajectory and periodic-billiard taking care of all the details internally. Give the keyword <code>plot_orbit = false</code> if you do not want to plot the orbit defined by <code>(xt, yt)</code>.</p>
 <p>For example, the following code</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
 <span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
@@ -717,9 +716,9 @@
       <div class="md-footer-copyright">
         
         powered by
-        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        <a href="http://www.mkdocs.org">MkDocs</a>
         and
-        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+        <a href="https://squidfunk.github.io/mkdocs-material/">
           Material for MkDocs</a>
       </div>
       
@@ -739,10 +738,11 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application-946997f430.js"></script>
+      <script src="../../assets/javascripts/application-a5397a53ce.js"></script>
       
+      <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       
-      <script>app.initialize({version:"0.16.3",url:{base:"../.."}})</script>
+        <script src="../../assets\mathjaxhelper.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       

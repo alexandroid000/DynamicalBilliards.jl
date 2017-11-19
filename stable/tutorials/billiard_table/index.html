@@ -1,4 +1,7 @@
 
+
+
+
 <!DOCTYPE html>
 <html lang="en" class="no-js">
   <head>
@@ -18,7 +21,7 @@
       
         <meta name="lang:clipboard.copied" content="Copied to clipboard">
       
-        <meta name="lang:search.languages" content="">
+        <meta name="lang:search.language" content="en">
       
         <meta name="lang:search.result.none" content="No matching documents">
       
@@ -28,10 +31,8 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      
-        <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.1">
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.1.0">
     
     
       
@@ -39,34 +40,32 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/stylesheets/application-3368aa6b74.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-95ad5566f9.palette.css">
+      
+    
+    
       <script src="../../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application-04ea671600.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-23f75ab9c7.palette.css">
-      
-    
-    
-      
-        
-        
-        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="../../assets/Documenter.css">
+      <link rel="stylesheet" href="../../assets\Documenter.css">
     
     
   </head>
   
-  
-  
-  
-    <body data-md-color-primary="deep-purple" data-md-color-accent="cyan">
+    
+    
+    
+      <body data-md-color-primary="deep-purple" data-md-color-accent="cyan">
+    
   
     <svg class="md-svg">
       <defs>
@@ -86,7 +85,7 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href="../.." title="DynamicalBilliards.jl" class="md-header-nav__button md-logo">
           
-            <i class="md-icon md-icon--home"></i>
+            <i class="md-icon"></i>
           
         </a>
       </div>
@@ -94,23 +93,24 @@
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
-        <span class="md-flex__ellipsis md-header-nav__title">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
             
-              
-                <span class="md-header-nav__parent">
-                  Tutorials
-                </span>
-              
+              <span class="md-header-nav__topic">
+                DynamicalBilliards.jl
+              </span>
+              <span class="md-header-nav__topic">
+                Defining a Billiard Table
+              </span>
             
-            Defining a Billiard Table
           
-        </span>
+        </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
-          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
           
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
   <div class="md-search__inner">
@@ -131,6 +131,7 @@
     </div>
   </div>
 </div>
+          
         
       </div>
       
@@ -142,7 +143,7 @@
   
 
 
-  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl" title="Go to repository" class="md-source" data-md-source="github">
+  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/" title="Go to repository" class="md-source" data-md-source="github">
     
       <div class="md-source__icon">
         <svg viewBox="0 0 24 24" width="24" height="24">
@@ -164,8 +165,6 @@
     
     <div class="md-container">
       
-      
-      
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -177,7 +176,7 @@
   <label class="md-nav__title md-nav__title--site" for="drawer">
     <span class="md-nav__button md-logo">
       
-        <i class="md-icon md-icon--home"></i>
+        <i class="md-icon"></i>
       
     </span>
     DynamicalBilliards.jl
@@ -190,7 +189,7 @@
   
 
 
-  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl" title="Go to repository" class="md-source" data-md-source="github">
+  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/" title="Go to repository" class="md-source" data-md-source="github">
     
       <div class="md-source__icon">
         <svg viewBox="0 0 24 24" width="24" height="24">
@@ -429,7 +428,7 @@
                 
                   <h1>Defining a Billiard Table</h1>
                 
-                <p>A billiard table <code class="codehilite">bt</code> is a vector of Obstacles: <code class="codehilite">bt::Vector{Obstacle{T}} where {T&lt;:AbstractFloat}</code>. The abstract Type <code class="codehilite">Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code class="codehilite">T</code>.</p>
+                <p>A billiard table <code>bt</code> is a vector of Obstacles: <code>bt::Vector{Obstacle{T}} where {T&lt;:AbstractFloat}</code>. The abstract Type <code>Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code>T</code>.</p>
 <p>There are many premade functions that construct well-known billiards, like the periodic Sinai billiard. You can find all of them at the <a href="../../basic/library/#standard-billiards">Standard Billiards page</a>.</p>
 <p>To create a custom billiard, you start with an empty Vector:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
@@ -437,9 +436,9 @@
 </pre></div>
 
 
-<p>and then you create your obstacles one by one and add them to it. All obstacles that are already defined in the package can be found at the <a href="../../basic/library/#obstacles">Obstacles page</a> of the library. The function <a href="../../basic/library/#DynamicalBilliards.billiard_polygon"><code class="codehilite">billiard_polygon</code></a> creates a polygonal billiard table. However, for the example of this page, we will create a hexagonal billiard with a disk in the middle step-by-step.</p>
-<p>The first step is to define the six walls of the billiard table. An <a href="../../basic/library/#DynamicalBilliards.InfiniteWall"><code class="codehilite">InfiniteWall</code></a> object needs to be supplemented with a start point, an end point, a normal vector and, optionally, a name.</p>
-<p>The vertex points of a regular hexagon of radius <code class="codehilite">r</code> are given by the formula:</p>
+<p>and then you create your obstacles one by one and add them to it. All obstacles that are already defined in the package can be found at the <a href="../../basic/library/#obstacles">Obstacles page</a> of the library. The function <a href="../../basic/library/#DynamicalBilliards.billiard_polygon"><code>billiard_polygon</code></a> creates a polygonal billiard table. However, for the example of this page, we will create a hexagonal billiard with a disk in the middle step-by-step.</p>
+<p>The first step is to define the six walls of the billiard table. An <a href="../../basic/library/#DynamicalBilliards.InfiniteWall"><code>InfiniteWall</code></a> object needs to be supplemented with a start point, an end point, a normal vector and, optionally, a name.</p>
+<p>The vertex points of a regular hexagon of radius <code>r</code> are given by the formula:</p>
 <span>\[
 (x,y) = \left( r\cos\left(\frac{2\pi i}{6}\right), r\cos\left(\frac{2\pi i}{6}\right) \right)\,, \quad \text{for i $\in$ \{1,...,6\}}
 \]</span><p>To create each wall object, we will implement the following loop, choosing a size of 2.0:</p>
@@ -457,14 +456,14 @@
 </pre></div>
 
 
-<p>The <code class="codehilite">normal</code> vector of a <code class="codehilite">Wall</code> obstacle is necessary to be supplemented by the user because it must point towards where the particle is expected to come from. If <code class="codehilite">w</code> is the vector (wall) pointing from start- to end-point then the vector <code class="codehilite">[-w[2], w[1]]</code> is pointing to the left of <code class="codehilite">w</code> and the vector <code class="codehilite">[w[2], -[w1]]</code> is pointing to the right. Both are normal to <code class="codehilite">w</code>, but you have to know which one to pick. In this case this is very easy, since the normal has to simply point towards the origin.</p>
+<p>The <code>normal</code> vector of a <code>Wall</code> obstacle is necessary to be supplemented by the user because it must point towards where the particle is expected to come from. If <code>w</code> is the vector (wall) pointing from start- to end-point then the vector <code>[-w[2], w[1]]</code> is pointing to the left of <code>w</code> and the vector <code>[w[2], -[w1]]</code> is pointing to the right. Both are normal to <code>w</code>, but you have to know which one to pick. In this case this is very easy, since the normal has to simply point towards the origin.</p>
 <p>We add a disk by specifying a center and radius (and optionally a name):</p>
 <div class="codehilite"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.8</span><span class="p">)</span>
 <span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
 </pre></div>
 
 
-<p>To make sure the billiard looks as you would expect, use the function <code class="codehilite">plot_billiard(bt)</code>. Create a particle inside that billiard and evolve it:</p>
+<p>To make sure the billiard looks as you would expect, use the function <code>plot_billiard(bt)</code>. Create a particle inside that billiard and evolve it:</p>
 <div class="codehilite"><pre><span></span><span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 <span class="n">ω</span> <span class="o">=</span> <span class="mf">0.5</span>
@@ -473,16 +472,16 @@
 </pre></div>
 
 
-<p>The billiard table now works for straight or magnetic propagation. To expand this to ray-splitting you have to use ray-splitting Obstacles (<a href="../../tutorials/ray-splitting">see the tutorial on Ray-Splitting</a>). Additional information on how to define your own <code class="codehilite">Obstacle</code> sub-type is given in the tutorial on <a href="../../tutorials/own_obstacle">Defining your own Obstacles</a>.</p>
-<p>If you make <em>any</em> billiard system that you think is cool and missing from this package, you are more than welcome to submit a PR extending the <code class="codehilite">StandardBilliards.jl</code> library with your contribution!</p>
+<p>The billiard table now works for straight or magnetic propagation. To expand this to ray-splitting you have to use ray-splitting Obstacles (<a href="../../tutorials/ray-splitting">see the tutorial on Ray-Splitting</a>). Additional information on how to define your own <code>Obstacle</code> sub-type is given in the tutorial on <a href="../../tutorials/own_obstacle">Defining your own Obstacles</a>.</p>
+<p>If you make <em>any</em> billiard system that you think is cool and missing from this package, you are more than welcome to submit a PR extending the <code>StandardBilliards.jl</code> library with your contribution!</p>
 <p><a id='Convex-Billiards-1'></a></p>
 <h2 id="convex-billiards">Convex Billiards</h2>
-<p>These 2 types of walls used by <code class="codehilite">DynamicalBilliards</code> that behave differently during evolution:</p>
+<p>These 2 types of walls used by <code>DynamicalBilliards</code> that behave differently during evolution:</p>
 <ol>
-<li><a href="../../basic/library/#DynamicalBilliards.InfiniteWall"><code class="codehilite">InfiniteWall</code></a> : This wall is not actually infinite. It has a starting and ending position. However, when the collision time is calculated, this wall is assumed to be a line (i.e. <em>infinite</em>). This is absolutely fine, as long as the billiards used are <a href="https://en.wikipedia.org/wiki/Convex_polygon"><em>convex</em> polygons</a>. <a href="../../basic/library/#DynamicalBilliards.SplitterWall"><code class="codehilite">SplitterWall</code></a>, <a href="../../basic/library/#DynamicalBilliards.PeriodicWall"><code class="codehilite">PeriodicWall</code></a> and <a href="../../basic/library/#DynamicalBilliards.RandomWall"><code class="codehilite">RandomWall</code></a> behave like <code class="codehilite">InfiniteWall</code> during evolution.</li>
-<li><code class="codehilite">FiniteWall</code> : This wall is indeed finite in every sense of the word. This means that during collision time estimation, if the collision point that was calculated lies <em>outside</em> of the boundaries of the <code class="codehilite">FiniteWall</code>, then the returned collision time is <code class="codehilite">Inf</code> (no collision). <code class="codehilite">FiniteWall</code> is slower than <code class="codehilite">InfiniteWall</code> for that reason.</li>
+<li><a href="../../basic/library/#DynamicalBilliards.InfiniteWall"><code>InfiniteWall</code></a> : This wall is not actually infinite. It has a starting and ending position. However, when the collision time is calculated, this wall is assumed to be a line (i.e. <em>infinite</em>). This is absolutely fine, as long as the billiards used are <a href="https://en.wikipedia.org/wiki/Convex_polygon"><em>convex</em> polygons</a>. <a href="../../basic/library/#DynamicalBilliards.SplitterWall"><code>SplitterWall</code></a>, <a href="../../basic/library/#DynamicalBilliards.PeriodicWall"><code>PeriodicWall</code></a> and <a href="../../basic/library/#DynamicalBilliards.RandomWall"><code>RandomWall</code></a> behave like <code>InfiniteWall</code> during evolution.</li>
+<li><code>FiniteWall</code> : This wall is indeed finite in every sense of the word. This means that during collision time estimation, if the collision point that was calculated lies <em>outside</em> of the boundaries of the <code>FiniteWall</code>, then the returned collision time is <code>Inf</code> (no collision). <code>FiniteWall</code> is slower than <code>InfiniteWall</code> for that reason.</li>
 </ol>
-<p>If you wish to create a billiard table that you know will be convex, you should then use <code class="codehilite">InfiniteWall</code>s for faster evolution. Notice that using <a href="../../basic/library/#DynamicalBilliards.escapetime"><code class="codehilite">escapetime</code></a> requires at least one <code class="codehilite">FiniteWall</code> with field <code class="codehilite">isdoor=true</code>.</p>
+<p>If you wish to create a billiard table that you know will be convex, you should then use <code>InfiniteWall</code>s for faster evolution. Notice that using <a href="../../basic/library/#DynamicalBilliards.escapetime"><code>escapetime</code></a> requires at least one <code>FiniteWall</code> with field <code>isdoor=true</code>.</p>
                 
                   
                 
@@ -538,9 +537,9 @@
       <div class="md-footer-copyright">
         
         powered by
-        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        <a href="http://www.mkdocs.org">MkDocs</a>
         and
-        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+        <a href="https://squidfunk.github.io/mkdocs-material/">
           Material for MkDocs</a>
       </div>
       
@@ -560,10 +559,11 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application-946997f430.js"></script>
+      <script src="../../assets/javascripts/application-a5397a53ce.js"></script>
       
+      <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       
-      <script>app.initialize({version:"0.16.3",url:{base:"../.."}})</script>
+        <script src="../../assets\mathjaxhelper.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
