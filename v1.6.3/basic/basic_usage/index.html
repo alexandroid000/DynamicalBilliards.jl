@@ -1,0 +1,763 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="An easy-to-use, modular and extendable Julia package for Dynamical Billiard systems in two dimensions.">
+      
+      
+      
+        <meta name="author" content="George Datseris">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.1.0">
+    
+    
+      
+        <title>Basic Usage - DynamicalBilliards.jl</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application-3368aa6b74.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-95ad5566f9.palette.css">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr-e826f8942a.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+      <link rel="stylesheet" href="../../assets\Documenter.css">
+    
+    
+  </head>
+  
+    
+    
+    
+      <body data-md-color-primary="deep-purple" data-md-color-accent="cyan">
+    
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="DynamicalBilliards.jl" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                DynamicalBilliards.jl
+              </span>
+              <span class="md-header-nav__topic">
+                Basic Usage
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    DynamicalBilliards.jl
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Basic Usage
+      </label>
+    
+    <a href="./" title="Basic Usage" class="md-nav__link md-nav__link--active">
+      Basic Usage
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#straight-propagation" title="Straight Propagation" class="md-nav__link">
+    Straight Propagation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnetic-propagation" title="Magnetic Propagation" class="md-nav__link">
+    Magnetic Propagation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ray-splitting" title="Ray-Splitting" class="md-nav__link">
+    Ray-Splitting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escape-times" title="Escape Times" class="md-nav__link">
+    Escape Times
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing" title="Visualizing" class="md-nav__link">
+    Visualizing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction-animation" title="Introduction animation" class="md-nav__link">
+    Introduction animation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/billiard_table/" title="Defining a Billiard Table" class="md-nav__link">
+      Defining a Billiard Table
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/ray-splitting/" title="Ray-Splitting" class="md-nav__link">
+      Ray-Splitting
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/visualizing/" title="Visualizing" class="md-nav__link">
+      Visualizing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/own_obstacle/" title="Creating your own Obstacle" class="md-nav__link">
+      Creating your own Obstacle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/examples/" title="Examples" class="md-nav__link">
+      Examples
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../physics/" title="Physics" class="md-nav__link">
+      Physics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
+      Lyapunov Exponents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../library/" title="Library" class="md-nav__link">
+      Library
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#straight-propagation" title="Straight Propagation" class="md-nav__link">
+    Straight Propagation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnetic-propagation" title="Magnetic Propagation" class="md-nav__link">
+    Magnetic Propagation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ray-splitting" title="Ray-Splitting" class="md-nav__link">
+    Ray-Splitting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escape-times" title="Escape Times" class="md-nav__link">
+    Escape Times
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizing" title="Visualizing" class="md-nav__link">
+    Visualizing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction-animation" title="Introduction animation" class="md-nav__link">
+    Introduction animation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/edit/master/docs/basic/basic_usage.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="basic-usage">Basic Usage</h1>
+<p><code>DynamicalBilliards.jl</code> was created with easy-of-use as its main cornerstone. With 3 simple steps, the user can fully initalize, evolve, and get the output of the propagation of a particle in a billiard system.</p>
+<p>In general, the workflow of <code>DynamicalBilliards.jl</code> follows these simple steps:</p>
+<ol>
+<li>Create a billiard table, a <code>Vector{Obstacle}</code>.</li>
+<li>Create a particle inside that billiard table.</li>
+<li>Get the output by evolving the particle.</li>
+</ol>
+<p>Adding more complexity in your billiard table does not add complexity in your code. For example, to implement a ray-splitting billiard you only need to define one additional variable, a dictionary <code>Dict{Int, Vector{Function}}</code>. After reading through this basic usage page, you will be able to use all aspects of <code>DynamicalBilliards.jl</code> with minimal effort.</p>
+<hr />
+<p><a id='Straight-Propagation-1'></a></p>
+<h2 id="straight-propagation">Straight Propagation</h2>
+<p>The usage of this package revolves around a single function:</p>
+<div class="codehilite"><pre><span></span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">AbstractParticle</span><span class="p">,</span> <span class="n">bt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">Obstacle</span><span class="p">},</span> <span class="n">t</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="n">Float</span><span class="p">})</span>
+</pre></div>
+
+
+<p>which evolves a particle <code>p</code> inside a billiard table <code>bt</code>. If the given <code>t</code> is of type <code>AbstractFloat</code>, the evolution happens for <code>t</code> amount of time. If however <code>t</code> is of type <code>Int</code>, the evolution happens for <code>t</code> number of collisions (other types are not supported).</p>
+<p>The first step is to define the billiard table <code>bt</code>, which is the system the particle <code>p</code> will propagate in. A billiard table is simply a collection (<code>Vector</code>) of <code>Obstacle</code>s. The most convenient way is to use one of the pre-defined billiard tables offered by the package. For example, let's create a periodic Sinai billiard with disk radius of 0.3 and with one side of length 2 and one of length 1:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_sinai</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>For more information about defining billiard tables visit the <a href="../../tutorials/billiard_table">tutorial on defining your own billiard table</a>). You should definitely look up that page if you want to customly define a table instead of using the <a href="../basic/library/#standard-billiards">predefined ones</a>.</p>
+<p>Afterwards, you want to create a particle inside that billiard system. For that, the function <code>randominside(bt::Vector{Obstacle})</code> is provided, which returns a particle with random initial conditions inside the billiard table.</p>
+<div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
+</pre></div>
+
+
+<p>If you want to specify the initial conditions yourself, simply pass them to the <code>Particle</code> constructor, like <code>p = Particle(x0, y0, φ0)</code>. Now you are ready to evolve this particle:</p>
+<div class="codehilite"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="mf">1000.0</span> <span class="c"># subtype of AbstractFloat</span>
+<span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span> <span class="o">=</span> <span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="admonition note">
+<p class="admonition-title">Type of <code>t</code></p>
+<p>The behavior of <code>evolve!</code> depends on the type of the third argument, which represents total amount. If it is <code>AbstractFloat</code>, it represents total amount of time, but if it is <code>Int</code> it represents total numnber of collisions.</p>
+</div>
+<p>The return values of the <code>evolve!()</code> function need some brief explaining: As noted by the "!" at the end of the function, it changes its argument <code>p</code>. Most importantly however, this function also returns the main output expected by a billiard system. This output is a tuple of three vectors:</p>
+<ul>
+<li><code>ct::Vector{T}</code> : Collision times.</li>
+<li><code>poss::Vector{SVector{2,T}}</code> : Positions during collisions.</li>
+<li><code>vels::Vector{SVector{2,T}}</code> : Velocities <strong>exactly after</strong> the collisions (e.g. after reflection).</li>
+</ul>
+<p>with <code>T&lt;:AbstractFloat</code> (more on that on the <a href="../../physics/#numerical-precision">Numerical Precision</a> section). The time <code>ct[i]</code> is the time necessary to reach state <code>poss[i], vels[i]</code> starting from the state <code>poss[i-1], vels[i-1]</code>. That is why <code>ct[1]</code> is always 0 since <code>poss[1], vels[1]</code> are the initial conditions.</p>
+<p>If this output is not convenient for you, the function <code>construct(ct, poss, vels)</code> is provided, which constructs the (continuous) timeseries of the position and velocity, as well as the time-vector, when given the main output of <code>evolve!()</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">)</span>
+</pre></div>
+
+
+<p>or, by taking advantage of the awesome ellipsis operator, you can do:</p>
+<div class="codehilite"><pre><span></span><span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+
+
+<hr />
+<p><a id='Magnetic-Propagation-1'></a></p>
+<h2 id="magnetic-propagation">Magnetic Propagation</h2>
+<p>The are only two differences between magnetic and straight propagation. Firstly, the particle type is not <code>Particle</code> anymore, but <code>MagneticParticle</code>. The latter has an extra field called <code>omega</code> which is the cyclic frequency of rotation (equivalently, the angular velocity). In order to create a <code>MagneticParticle</code> (without using the constructors), you simply provide this extra information to the <code>randominside()</code> function:</p>
+<div class="codehilite"><pre><span></span><span class="n">ω</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
+<span class="n">typeof</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="c"># MagneticParticle{Float64}</span>
+<span class="n">p</span><span class="o">.</span><span class="n">omega</span>   <span class="c"># 0.5</span>
+</pre></div>
+
+
+<p>To propagate the particle you use the same functions:</p>
+<div class="codehilite"><pre><span></span><span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">ω</span> <span class="o">=</span> <span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>  <span class="c">#evolve for magnetic also returns ω</span>
+<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">ω</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+<span class="c"># or equivalently:</span>
+<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span><span class="o">...</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+</pre></div>
+
+
+<p>As you can see, the second difference is that the additional argument of the angular velocity must also be provided to the <code>construct()</code> function, in order for it to construct circular motion instead of straight motion between collisions. (Note: <code>evolve!()</code> returns 4 arguments for magnetic propagation, making the ellipsis syntax extremely useful!).</p>
+<p>The final <em>optional argument</em> <code>dt</code> is the time-step at which the timeseries are constructed (since they are made up of sines and cosines).</p>
+<hr />
+<p><a id='Ray-Splitting-1'></a></p>
+<h2 id="ray-splitting">Ray-Splitting</h2>
+<p>No matter how complex ray-splitting processes you want, and irrespectively of how many obstacles in the billiard table can perform ray-splitting, there is only a single difference on the main function call: The <code>evolve!()</code> function is supplemented with a fourth argument, called "ray_splitter":</p>
+<div class="codehilite"><pre><span></span><span class="n">ray_splitter</span><span class="o">::</span><span class="kt">Dict</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Any</span><span class="p">}</span>
+</pre></div>
+
+
+<p>This argument is simply a dictionary which handles all ray-splitting processes in the billiard system. It is a map of the Obstacle index within the billiard table a container of the ray-splitting functions: (φ is the angle of incidence)</p>
+<ul>
+<li>T(φ, pflag, ω) : Transmission probability.</li>
+<li>θ(φ, pflag, ω) : Transmission (aka diffraction) angle.</li>
+<li>new_ω(ω, pflag) : Angular velocity after transmission.</li>
+</ul>
+<p>Assuming you have defined a billiard table and a ray-splitter dictionary, the implementation is exactly the same as in the two previous cases: the ray-splitting dictionary is passed to <code>evolve!()</code> as a fourth argument.</p>
+<div class="codehilite"><pre><span></span><span class="n">ray_splitter</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="mi">5</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">,</span> <span class="n">baz</span><span class="p">))</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">)</span>
+<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">ray_splitter</span><span class="p">)</span><span class="o">...</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+
+
+<p>For more information and instructions on defining the "ray_splitter" dictionary visit the <a href="../../tutorials/ray-splitting">Ray-Splitting tutorial here</a>.</p>
+<hr />
+<p><a id='Escape-Times-1'></a></p>
+<h2 id="escape-times">Escape Times</h2>
+<p>Escape time measures the time that a particle requires to escape a billiard table. This can be calculated with the function <a href="../library/#DynamicalBilliards.escapetime"><code>escapetime</code></a>. The function requires the billiard table to have at least one <a href="../library/#DynamicalBilliards.FiniteWall"><code>FiniteWall</code></a> object with field <code>isdoor=true</code>.</p>
+<p>The way the function works is very simple: a particle is evolved until it collides with a <code>FiniteWall</code> that has a field <code>isdoor=true</code>. This is considered as the particle escaping the billiard, pretending like this <code>FiniteWall</code> is an open <code>Door</code>.</p>
+<p>Let's set up an example:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
+<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_mushroom</span><span class="p">()</span> <span class="c"># By default this billiard has a Door</span>
+<span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Mushroom billiard" src="https://i.imgur.com/zQgWg2a.png" /> You can see that a <code>Door</code> has cyan-black alternating colors.</p>
+<p>To get the escape time:</p>
+<div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="c"># works with Straight and Magnetic !</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">escapetime</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Depending on the <code>p</code>, <code>t</code> could also be <code>Inf</code>, if the particle did not escape within the maximum amount of iterations. You can increase those with a third argument:</p>
+<div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="c"># works with Straight and Magnetic !</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">escapetime</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">10000000</span><span class="p">,</span> <span class="n">warning</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now, a warning message will be thrown if the particle does not escape within the given amount of maximum iterations. (The returned value is still <code>Inf</code> if that happens)</p>
+<hr />
+<p><a id='Visualizing-1'></a></p>
+<h2 id="visualizing">Visualizing</h2>
+<p>The functions <code>plot_obstacle(obst::Obstacle; kwargs...)</code>, <code>plot_billiard(bt::Vector{Obstacle})</code> and <code>plot_particle(p::AbstractParticle; kwargs...)</code> are provided in order to plot the respective elements <strong>on the current PyPlot figure</strong>. The <code>kwargs...</code> are keywords passed directly into <code>PyPlot</code>'s constructors (like e.g. <code>linewidth = 2.0</code>).</p>
+<p><a href="../../tutorials/visualizing">The tutorial on visualizing</a> has step-by-step descriptions on how to handle all plotting offered by <code>DynamicalBilliards.jl</code>.</p>
+<p><a id='Introduction-animation-1'></a></p>
+<h3 id="introduction-animation">Introduction animation</h3>
+<p>The example .gif shown in the introduction, was generated simply with the code:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
+
+<span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">d1</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">],</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s">&quot;Upper-left Disk&quot;</span><span class="p">)</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="mf">0.15</span><span class="p">,</span> <span class="s">&quot;Lower-right Disk&quot;</span><span class="p">)</span>
+<span class="n">d3</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s">&quot;Small Disk&quot;</span><span class="p">)</span>
+<span class="n">w1</span> <span class="o">=</span> <span class="n">InfiniteWall</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span> <span class="s">&quot;Diagonal&quot;</span><span class="p">)</span>
+<span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">d3</span><span class="p">,</span> <span class="n">w1</span><span class="p">)</span>
+<span class="n">ω</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
+
+<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
+<span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">sname</span> <span class="o">=</span> <span class="s">&quot;C:</span><span class="se">\\</span><span class="s">***</span><span class="se">\\</span><span class="s">example&quot;</span>
+<span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">200</span><span class="p">;</span>
+<span class="n">col_to_plot</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">savefigs</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">savename</span> <span class="o">=</span> <span class="n">sname</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Afterwards the outputed .png files where merged into a single .gif externally using for example the website gifmaker.me.</p>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../.." title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Introduction
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../tutorials/billiard_table/" title="Defining a Billiard Table" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Defining a Billiard Table
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application-a5397a53ce.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
+      
+        <script src="../../assets\mathjaxhelper.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+    
+      
+    
+  </body>
+</html>
