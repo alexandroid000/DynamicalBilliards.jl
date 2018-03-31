@@ -99,7 +99,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#implementation" tabindex="1" class="md-skip">
+      <a href="#numerical-precision" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -254,8 +254,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../basic/basic_usage/" title="Basic Usage" class="md-nav__link">
-      Basic Usage
+    <a href="../basic/high_level/" title="High Level API" class="md-nav__link">
+      High Level API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../visualizing/" title="Visualizing" class="md-nav__link">
+      Visualizing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../basic/low_level/" title="Low Level API" class="md-nav__link">
+      Low Level API
     </a>
   </li>
 
@@ -267,13 +291,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-5">
       Tutorials
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-5">
         Tutorials
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -299,18 +323,6 @@
   <li class="md-nav__item">
     <a href="../tutorials/ray-splitting/" title="Ray-Splitting" class="md-nav__link">
       Ray-Splitting
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../tutorials/visualizing/" title="Visualizing" class="md-nav__link">
-      Visualizing
     </a>
   </li>
 
@@ -373,13 +385,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#implementation" title="Implementation" class="md-nav__link">
-    Implementation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#numerical-precision" title="Numerical Precision" class="md-nav__link">
     Numerical Precision
   </a>
@@ -430,18 +435,6 @@
   </li>
 
     
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../basic/library/" title="Library" class="md-nav__link">
-      Library
-    </a>
-  </li>
-
-    
   </ul>
 </nav>
                   </div>
@@ -459,13 +452,6 @@
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#implementation" title="Implementation" class="md-nav__link">
-    Implementation
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#numerical-precision" title="Numerical Precision" class="md-nav__link">
@@ -517,26 +503,6 @@
                   <h1>Physics</h1>
                 
                 <p>This page briefly discusses physical aspects of billiard systems.</p>
-<p><a id='Implementation-1'></a></p>
-<h2 id="implementation">Implementation</h2>
-<p>Firstly one defines a billiard table and (if desired) the <a href="../tutorials/ray-splitting/#ray-splitter-dictionary">ray-splitting dictionary</a>. Then one creates a particle inside the defined billiard table. The algorithm followed for the propagation of a particle is the following:</p>
-<ol>
-<li>Calculate the <code>collisiontime()</code> for <strong>all</strong> obstacles in the billiard table.</li>
-<li>Find the smallest time, and the obstacle corresponding to that.</li>
-<li><code>relocate!()</code> the particle, so that it is on the correct side of the obstacle to-be-collided with.</li>
-<li>Check whether there is transmission or not (only for ray-splitting): <code>T(φ) &gt; rand()</code></li>
-<li>
-<p><code>resolvecollision!()</code> between the particle and obstacle:</p>
-<ul>
-<li>If transmission happens, once again <code>relocate!()</code> the particle accordingly and implement the ray-splitting algorithm (not discussed here).</li>
-<li>For no transmission (or no ray-splitting), perform <code>specular!()</code> reflection or <code>periodicity!()</code> conditions based on the colliding obstacle.</li>
-<li>Continue this loop for a given amount of time.</li>
-</ul>
-</li>
-</ol>
-<p>In the standard billiard case, one can always exclude the collision with the previous obstacle. However, in both magnetic or ray-splitting cases this is not true anymore. Therefore the same algorithm is applied on all 3 cases for the sake of simplicity.</p>
-<p>Notice that the <code>relocate!()</code> step is <em>very</em> important because it takes care that there is not particle "leakage": particles being outside the billiard table due to the finite precision of floating numbers.</p>
-<hr />
 <p><a id='Numerical-Precision-1'></a></p>
 <h2 id="numerical-precision">Numerical Precision</h2>
 <p>All core types of <code>DynamicalBilliards.jl</code> are parametrically constructed, with parameter <code>T&lt;:AbstractFloat</code>. This means that the fields of all particles and obstacles contain numbers strictly of type <code>T</code>. You will understand why this choice happened as you continue reading this paragraph.</p>
@@ -597,7 +563,7 @@
 <p><a id='Pinned-Particles-1'></a></p>
 <h2 id="pinned-particles">Pinned Particles</h2>
 <p>In the case of propagation with magnetic field, a particle may be "pinned" (collision-less): There are no possible collisions that take place and the particle will revolve in circles forever. This can happen for specific initial conditions depending on your billiard table and the angular velocity ω.</p>
-<p>In such event, the convention followed by <code>DynamicalBilliards.jl</code> is the following: <code>evolve!()</code> returns the expected output, however all returned vectors have only 2 entries. The collision times always have the entries <code>0.0, Inf</code>. All other returned vectors have the initial conditions, repeated once.</p>
+<p>In such event, the convention followed by <code>DynamicalBilliards</code> is the following: <code>evolve!()</code> returns the expected output, however all returned vectors have only 2 entries. The collision times always have the entries <code>0.0, Inf</code>. All other returned vectors have the initial conditions, repeated once.</p>
 <p><code>evolve!()</code> can be given an additional <code>warning</code> keyword argument in the case of magnetic propagation, e.g. <code>warning = true</code>. This optional argument throws a <code>warn()</code> message whenever a pinned particle is evolved.</p>
 <div class="admonition warning">
 <p class="admonition-title">Using <code>construct()</code></p>

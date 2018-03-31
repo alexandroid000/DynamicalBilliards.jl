@@ -99,7 +99,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#convex-billiards" tabindex="1" class="md-skip">
+      <a href="#creating-your-own-billiard" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -254,8 +254,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../../basic/basic_usage/" title="Basic Usage" class="md-nav__link">
-      Basic Usage
+    <a href="../../basic/high_level/" title="High Level API" class="md-nav__link">
+      High Level API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../visualizing/" title="Visualizing" class="md-nav__link">
+      Visualizing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../basic/low_level/" title="Low Level API" class="md-nav__link">
+      Low Level API
     </a>
   </li>
 
@@ -269,13 +293,13 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-5">
       Tutorials
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-5">
         Tutorials
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -292,6 +316,8 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
+      
+    
     
       <label class="md-nav__link md-nav__link--active" for="toc">
         Defining a Billiard Table
@@ -305,9 +331,18 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
+  
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rework" title="REWORK" class="md-nav__link">
+    REWORK
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#convex-billiards" title="Convex Billiards" class="md-nav__link">
@@ -335,18 +370,6 @@
   <li class="md-nav__item">
     <a href="../ray-splitting/" title="Ray-Splitting" class="md-nav__link">
       Ray-Splitting
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../visualizing/" title="Visualizing" class="md-nav__link">
-      Visualizing
     </a>
   </li>
 
@@ -404,18 +427,6 @@
   </li>
 
     
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../basic/library/" title="Library" class="md-nav__link">
-      Library
-    </a>
-  </li>
-
-    
   </ul>
 </nav>
                   </div>
@@ -430,9 +441,18 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
+  
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rework" title="REWORK" class="md-nav__link">
+    REWORK
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#convex-billiards" title="Convex Billiards" class="md-nav__link">
@@ -460,9 +480,26 @@
                   <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/edit/master/docs/tutorials/billiard_table.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Defining a Billiard Table</h1>
-                
-                <p>A billiard table <code>bt</code> is a vector of Obstacles: <code>bt::Vector{Obstacle{T}} where {T&lt;:AbstractFloat}</code>. The abstract Type <code>Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code>T</code>.</p>
+                <p><a id='Creating-your-own-Billiard-1'></a></p>
+<h1 id="creating-your-own-billiard">Creating your own Billiard</h1>
+<p><a id='DynamicalBilliards.Billiard' href='#DynamicalBilliards.Billiard'>#</a>
+<strong><code>DynamicalBilliards.Billiard</code></strong> &mdash; <em>Type</em>.</p>
+<div class="codehilite"><pre><span></span>Billiard(obstacles...)
+</pre></div>
+
+
+<p>Construct a <code>Billiard</code> from given <code>obstacles</code> (tuple, vector, varargs).</p>
+<p>If you want to use the <a href="../../basic/high_level/#DynamicalBilliards.poincaresection"><code>poincaresection</code></a> function, then it is expected to provide the obstacles of the billiard in sorted order, such that the boundary coordinate (measured using <a href="../../basic/low_level/#DynamicalBilliards.arclength"><code>arclength</code></a>) around the billiard is increasing counter-clockwise.</p>
+<p>The boundary coordinate is measured as:</p>
+<ul>
+<li>the distance from start point to end point in <code>Wall</code>s</li>
+<li>the arc length measured counterclockwise from the open face in <code>Semicircle</code>s</li>
+<li>the arc length measured counterclockwise from the rightmost point in <code>Circular</code>s</li>
+</ul>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/326ea3cfbf6308211c5a1db37e7bfb83cad8456d/src/billiards/billiardtable.jl#L21-L34' class='documenter-source'>source</a><br></p>
+<p><a id='REWORK-1'></a></p>
+<h2 id="rework">REWORK</h2>
+<p>A billiard table <code>bt</code> is a vector of Obstacles: <code>bt::Vector{Obstacle{T}} where {T&lt;:AbstractFloat}</code>. The abstract Type <code>Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code>T</code>.</p>
 <p>There are many premade functions that construct well-known billiards, like the periodic Sinai billiard. You can find all of them at the <a href="../../basic/library/#standard-billiards">Standard Billiards page</a>.</p>
 <p>To create a custom billiard, you start with an empty Vector:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
@@ -470,8 +507,8 @@
 </pre></div>
 
 
-<p>and then you create your obstacles one by one and add them to it. All obstacles that are already defined in the package can be found at the <a href="../../basic/library/#obstacles">Obstacles page</a> of the library. The function <a href="../../basic/library/#DynamicalBilliards.billiard_polygon"><code>billiard_polygon</code></a> creates a polygonal billiard table. However, for the example of this page, we will create a hexagonal billiard with a disk in the middle step-by-step.</p>
-<p>The first step is to define the six walls of the billiard table. An <a href="../../basic/library/#DynamicalBilliards.InfiniteWall"><code>InfiniteWall</code></a> object needs to be supplemented with a start point, an end point, a normal vector and, optionally, a name.</p>
+<p>and then you create your obstacles one by one and add them to it. All obstacles that are already defined in the package can be found at the <a href="../../basic/library/#obstacles">Obstacles page</a> of the library. The function <a href="../../basic/high_level/#DynamicalBilliards.billiard_polygon"><code>billiard_polygon</code></a> creates a polygonal billiard table. However, for the example of this page, we will create a hexagonal billiard with a disk in the middle step-by-step.</p>
+<p>The first step is to define the six walls of the billiard table. An <a href="../../basic/low_level/#DynamicalBilliards.InfiniteWall"><code>InfiniteWall</code></a> object needs to be supplemented with a start point, an end point, a normal vector and, optionally, a name.</p>
 <p>The vertex points of a regular hexagon of radius <code>r</code> are given by the formula:</p>
 <div>
 <div class="MathJax_Preview">
@@ -518,10 +555,10 @@
 <h2 id="convex-billiards">Convex Billiards</h2>
 <p>These 2 types of walls used by <code>DynamicalBilliards</code> that behave differently during evolution:</p>
 <ol>
-<li><a href="../../basic/library/#DynamicalBilliards.InfiniteWall"><code>InfiniteWall</code></a> : This wall is not actually infinite. It has a starting and ending position. However, when the collision time is calculated, this wall is assumed to be a line (i.e. <em>infinite</em>). This is absolutely fine, as long as the billiards used are <a href="https://en.wikipedia.org/wiki/Convex_polygon"><em>convex</em> polygons</a>. <a href="../../basic/library/#DynamicalBilliards.SplitterWall"><code>SplitterWall</code></a>, <a href="../../basic/library/#DynamicalBilliards.PeriodicWall"><code>PeriodicWall</code></a> and <a href="../../basic/library/#DynamicalBilliards.RandomWall"><code>RandomWall</code></a> behave like <code>InfiniteWall</code> during evolution.</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.InfiniteWall"><code>InfiniteWall</code></a> : This wall is not actually infinite. It has a starting and ending position. However, when the collision time is calculated, this wall is assumed to be a line (i.e. <em>infinite</em>). This is absolutely fine, as long as the billiards used are <a href="https://en.wikipedia.org/wiki/Convex_polygon"><em>convex</em> polygons</a>. <a href="../../basic/low_level/#DynamicalBilliards.SplitterWall"><code>SplitterWall</code></a>, <a href="../../basic/low_level/#DynamicalBilliards.PeriodicWall"><code>PeriodicWall</code></a> and <a href="../../basic/low_level/#DynamicalBilliards.RandomWall"><code>RandomWall</code></a> behave like <code>InfiniteWall</code> during evolution.</li>
 <li><code>FiniteWall</code> : This wall is indeed finite in every sense of the word. This means that during collision time estimation, if the collision point that was calculated lies <em>outside</em> of the boundaries of the <code>FiniteWall</code>, then the returned collision time is <code>Inf</code> (no collision). <code>FiniteWall</code> is slower than <code>InfiniteWall</code> for that reason.</li>
 </ol>
-<p>If you wish to create a billiard table that you know will be convex, you should then use <code>InfiniteWall</code>s for faster evolution. Notice that using <a href="../../basic/library/#DynamicalBilliards.escapetime"><code>escapetime</code></a> requires at least one <code>FiniteWall</code> with field <code>isdoor=true</code>.</p>
+<p>If you wish to create a billiard table that you know will be convex, you should then use <code>InfiniteWall</code>s for faster evolution. Notice that using <a href="../../basic/high_level/#DynamicalBilliards.escapetime"><code>escapetime</code></a> requires at least one <code>FiniteWall</code> with field <code>isdoor=true</code>.</p>
                 
                   
                 
@@ -542,7 +579,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../basic/basic_usage/" title="Basic Usage" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../basic/low_level/" title="Low Level API" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -551,7 +588,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Basic Usage
+                Low Level API
               </span>
             </div>
           </a>

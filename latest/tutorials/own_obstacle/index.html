@@ -254,8 +254,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../../basic/basic_usage/" title="Basic Usage" class="md-nav__link">
-      Basic Usage
+    <a href="../../basic/high_level/" title="High Level API" class="md-nav__link">
+      High Level API
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../visualizing/" title="Visualizing" class="md-nav__link">
+      Visualizing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../basic/low_level/" title="Low Level API" class="md-nav__link">
+      Low Level API
     </a>
   </li>
 
@@ -269,13 +293,13 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-5">
       Tutorials
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-5">
         Tutorials
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -301,18 +325,6 @@
   <li class="md-nav__item">
     <a href="../ray-splitting/" title="Ray-Splitting" class="md-nav__link">
       Ray-Splitting
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../visualizing/" title="Visualizing" class="md-nav__link">
-      Visualizing
     </a>
   </li>
 
@@ -422,18 +434,6 @@
   </li>
 
     
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../basic/library/" title="Library" class="md-nav__link">
-      Library
-    </a>
-  </li>
-
-    
   </ul>
 </nav>
                   </div>
@@ -496,7 +496,7 @@
                 
                 <p><a id='Creating-your-own-Obstacle-Type-1'></a></p>
 <h1 id="creating-your-own-obstacle-type">Creating your own <code>Obstacle</code> Type</h1>
-<p>In this tutorial we will go through the processes of creating a new obstacle type, a <code>Semicircle</code>. This type is already used in the <a href="../../basic/library/#DynamicalBilliards.billiard_bunimovich"><code>billiard_bunimovich</code></a> and <a href="../../basic/library/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> functions.</p>
+<p>In this tutorial we will go through the processes of creating a new obstacle type, a <code>Semicircle</code>. This type is already used in the <a href="../../basic/high_level/#DynamicalBilliards.billiard_bunimovich"><code>billiard_bunimovich</code></a> and <a href="../../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> functions.</p>
 <p><a id='Type-Definition-1'></a></p>
 <h2 id="type-definition">Type Definition</h2>
 <p>The first thing you have to do is make your new type a sub-type of <code>Obstacle{T}</code> (or any other abstract sub-type of it). We will do:</p>
@@ -523,14 +523,14 @@
 <p>so that constructing a <code>Semicircle</code> is possible from arbitrary vectors.</p>
 <p><a id='Necessary-Methods-1'></a></p>
 <h2 id="necessary-methods">Necessary Methods</h2>
-<p>The following functions must obtain methods for <code>Semicircle</code> (or any other custom <code>Obstacle</code>) in order for it to work with <code>DynamicalBilliards.jl</code>:</p>
+<p>The following functions must obtain methods for <code>Semicircle</code> (or any other custom <code>Obstacle</code>) in order for it to work with <code>DynamicalBilliards</code>:</p>
 <ol>
-<li><a href="../../basic/library/#DynamicalBilliards.normalvec"><code>normalvec</code></a></li>
-<li><a href="../../basic/library/#DynamicalBilliards.distance"><code>distance</code></a> (with arguments <code>(position, obstacle)</code>)</li>
-<li><a href="../../basic/library/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> with <code>Particle</code></li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.normalvec"><code>normalvec</code></a></li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.distance"><code>distance</code></a> (with arguments <code>(position, obstacle)</code>)</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> with <code>Particle</code></li>
 <li>Trivial <code>collisiontime</code> method with <code>MagneticParticle</code> that returns <code>error()</code> (see optional methods)</li>
 </ol>
-<p>Assuming that upon collision a specular reflection happens, then you don't need to define a method for <a href="../../basic/library/#DynamicalBilliards.resolvecollision!"><code>resolvecollision!</code></a>.</p>
+<p>Assuming that upon collision a specular reflection happens, then you don't need to define a method for <a href="../../basic/low_level/#DynamicalBilliards.resolvecollision!"><code>resolvecollision!</code></a>.</p>
 <p>The first method is very simple, just do:</p>
 <div class="codehilite"><pre><span></span><span class="n">normalvec</span><span class="p">(</span><span class="n">d</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="n">pos</span><span class="p">)</span>
 </pre></div>
@@ -560,7 +560,7 @@
 
 
 <p>Notice that this definition always returns positive distance when the particle is on the "other side".</p>
-<p>Finally, the method for <a href="../../basic/library/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> is by far the most <em>trickiest</em>. But, with pen, paper and a significant amount of patience, one can find a way:</p>
+<p>Finally, the method for <a href="../../basic/low_level/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> is by far the most <em>trickiest</em>. But, with pen, paper and a significant amount of patience, one can find a way:</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">collisiontime</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">Particle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">d</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span><span class="o">::</span><span class="n">T</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
 
     <span class="n">dc</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">pos</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">c</span>
@@ -593,12 +593,13 @@
 </pre></div>
 
 
-<p>And that is all. The obstacle now works perfectly fine for straight propagation and properly initializes particles with <code>randominside</code>!</p>
+<p>And that is all. The obstacle now works perfectly fine for straight propagation and properly initializes particles with <a href="../../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a>!</p>
 <p><a id='Optional-Methods-1'></a></p>
 <h2 id="optional-methods">Optional Methods</h2>
 <ol>
-<li><a href="../../basic/library/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> with <code>MagneticParticle</code> : enables magnetic propagation</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> with <code>MagneticParticle</code> : enables magnetic propagation</li>
 <li><code>plot_obstacle</code> : enables plotting (used in <code>plot_billiard</code>)</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.arclength"><code>arclength</code></a> so that the <a href="../../basic/high_level/#DynamicalBilliards.poincaresection"><code>poincaresection</code></a> can be computed.</li>
 </ol>
 <p>The <code>collisiontime</code> method for <code>MagneticParticle</code> is very easy in this case, because it is almost identical with the method for the general <code>Circular</code> obstacle:</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">collisiontime</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">MagneticParticle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">o</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span><span class="o">::</span><span class="n">T</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
@@ -652,7 +653,7 @@
 </pre></div>
 
 
-<p>(this method is in the <code>/plotting/obstacles.jl</code> file and is loaded on-demand through the command <code>DynamicalBilliards.enableplotting()</code>)</p>
+<p>(this method is in the <code>/plotting/obstacles.jl</code> file and is loaded on-demand when <code>using PyPlot</code>)</p>
                 
                   
                 
@@ -673,7 +674,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../visualizing/" title="Visualizing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../ray-splitting/" title="Ray-Splitting" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -682,7 +683,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Visualizing
+                Ray-Splitting
               </span>
             </div>
           </a>
