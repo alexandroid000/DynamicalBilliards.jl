@@ -314,26 +314,6 @@
     Animating the motion of a particle
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#arguments" title="Arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#keyword-arguments" title="Keyword Arguments" class="md-nav__link">
-    Keyword Arguments
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -506,26 +486,6 @@
     Animating the motion of a particle
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#arguments" title="Arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#keyword-arguments" title="Keyword Arguments" class="md-nav__link">
-    Keyword Arguments
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -557,15 +517,14 @@
                   <h1>Visualizing</h1>
                 
                 <p>All plotting functionality of <code>DynamicalBilliards</code> lies within a few well-defined functions that use the <code>PyPlot</code> package to plot aspects of the system on the current PyPlot figure.</p>
-<p><em>Remember to use</em> <code>DynamicalBilliards.enableplotting()</code> <em>to bring the plotting functions into scope!</em></p>
-<p>The functions are:</p>
+<p>All plotting functions are brought into scope when <code>using PyPlot</code>. The functions are:</p>
 <div class="codehilite"><pre><span></span><span class="n">plot_obstacle</span><span class="p">(</span><span class="n">obst</span><span class="o">::</span><span class="n">Obstacle</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 <span class="n">plot_particle</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">AbstractParticle</span><span class="p">;</span> <span class="n">use_cell</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 <span class="n">plot_cyclotron</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">MagneticParticle</span><span class="p">;</span> <span class="n">use_cell</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">Obstacle</span><span class="p">})</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">xt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">,</span> <span class="n">yt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">;</span> <span class="n">plot_orbit</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
-<span class="n">animate_evolution!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">colnumber</span><span class="p">[,</span> <span class="n">ray</span><span class="o">-</span><span class="n">splitter</span><span class="p">];</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="n">billiard_julia</span><span class="p">(;</span> <span class="n">plotit</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
+<span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">colnumber</span><span class="p">[,</span> <span class="n">ray</span><span class="o">-</span><span class="n">splitter</span><span class="p">];</span> <span class="n">kwargs</span><span class="p">)</span>
+<span class="n">plot_boundarymap</span><span class="p">(</span><span class="n">ξς</span><span class="p">,</span> <span class="n">φς</span><span class="p">)</span>
 </pre></div>
 
 
@@ -574,7 +533,6 @@
 <h2 id="plotting-the-billiard-table">Plotting the Billiard Table</h2>
 <p>The function <code>plot_obstacle(obst::Obstacle; kwargs...)</code> plots the given obstacle on the current PyPlot figure. The <code>kwargs...</code> are keywords passed directly into <code>PyPlot</code>'s constructors (like e.g. <code>linewidth = 2.0</code>). For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
-<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
 <span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_sinai</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="c"># Plot disk:</span>
 <span class="n">plot_obstacle</span><span class="p">(</span><span class="n">bt</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
@@ -589,10 +547,10 @@
 
 <p>will plot something like this:</p>
 <p><img alt="Visualizing tutorial 1" src="http://i.imgur.com/lrDStnP.png" /></p>
-<p>If you want to quickly plot the entire billiard without changing the settings, simply use the function  <code>plot_billiard(bt)</code>:</p>
+<p>If you want to quickly plot the entire billiard without changing the settings, simply use the function <code>plot_billiard(bt)</code>:</p>
 <div class="codehilite"><pre><span></span><span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">Antidot</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">)</span>
-<span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 </pre></div>
 
@@ -628,22 +586,19 @@
 </ul>
 <p><a id='Animating-the-motion-of-a-particle-1'></a></p>
 <h2 id="animating-the-motion-of-a-particle">Animating the motion of a particle</h2>
-<p>The function <code>animate_evolution!</code> is provided to animate the evolution of a particle from collision to collision:</p>
-<div class="codehilite"><pre><span></span><span class="n">animate_evolution!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">colnumber</span><span class="p">[,</span> <span class="n">ray</span><span class="o">-</span><span class="n">splitter</span><span class="p">];</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+<p>The function <code>animate_evolution</code> is provided to animate the evolution of a particle from collision to collision:</p>
+<div class="codehilite"><pre><span></span><span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">colnumber</span><span class="p">[,</span> <span class="n">ray</span><span class="o">-</span><span class="n">splitter</span><span class="p">];</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Animate the evolution of the particle, plotting the orbit from collision to collision.</p>
-<p><a id='Arguments-1'></a></p>
-<h3 id="arguments">Arguments</h3>
+<p>Arguments:</p>
 <ul>
 <li><code>p::AbstractParticle</code> : The particle to be evolved (gets mutated!).</li>
-<li><code>bt::Vector{Obstacle}</code> : The billiard.</li>
+<li><code>bt::Billiard</code> : The billiard.</li>
 <li><code>colnumber::Int</code> : Number of collisions to evolve the particle for.</li>
 <li><code>ray-splitter::Dict{Int, Any}</code> : (Optional) Ray-splitting dictionary   that enables ray-splitting processes during evolution.</li>
 </ul>
-<p><a id='Keyword-Arguments-1'></a></p>
-<h3 id="keyword-arguments">Keyword Arguments</h3>
+<p>Keyword Arguments:</p>
 <ul>
 <li><code>newfig = true</code> : Creates a new figure at the function call, and plots the billiard in that figure.</li>
 <li><code>sleeptime</code> : Time passed to <code>sleep()</code> between each collision.</li>
@@ -653,19 +608,20 @@
 <li><code>savefigs::Bool</code> : If <code>true</code> save .png figures of each frame of the animation A direct movie (like creating a .mp4) of the animation cannot be made automatically, since the animation process mutates the particle.</li>
 <li><code>savename</code> : Name (<em>including path</em>) of the figures to be produced. The ending "_i.png" will be attached to all figures.</li>
 </ul>
-<p>Automatic output into an animated image (e.g. ".gif" format) is not possible, because the function mutates its argument. However, <code>animate_evolution</code> gives users the possibility to save each produced figure in order to merge as an animation using an external tool.</p>
+<p>The function returns <code>a, b, c</code>. Do <code>a[:remove](), b[:remove](), c[:remove]()</code> to clear the particle out of the figure.</p>
+<p>Automatic output into an animated image (e.g. ".gif" format) is not yet supported.</p>
 <p>Let's animate a particle inside a simple pentagon with magnetic field:</p>
 <div class="codehilite"><pre><span></span><span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="mf">0.4</span><span class="p">)</span>
-<span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
 <span class="n">savedir</span> <span class="o">=</span> <span class="n">tempdir</span><span class="p">()</span>
-<span class="n">animate_evolution!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">50</span><span class="p">;</span> <span class="n">savefigs</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">savename</span> <span class="o">=</span> <span class="n">savedir</span><span class="p">)</span>
+<span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">50</span><span class="p">;</span> <span class="n">savefigs</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">savename</span> <span class="o">=</span> <span class="n">savedir</span><span class="p">)</span>
 </pre></div>
 
 
-<p>This code produced 50 ".png" images which were later mixed (using e.g. <a href="../www.gifmaker.me">gifmaker</a>) into a single ".gif" animation:</p>
+<p>This code produced 50 ".png" images which were later combined into a single ".gif" animation:</p>
 <p><img alt="Visualizing Animation 1" src="http://i.imgur.com/UyiW2N2.gif" /></p>
 <p><a id='Periodic-Billiards-1'></a></p>
 <h2 id="periodic-billiards">Periodic Billiards</h2>
@@ -677,13 +633,12 @@
 
 <p>The last one conveniently plots the combo of particle-trajectory and periodic-billiard taking care of all the details internally. Give the keyword <code>plot_orbit = false</code> if you do not want to plot the orbit defined by <code>(xt, yt)</code>.</p>
 <p>For example, the following code</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
 <span class="n">r</span> <span class="o">=</span> <span class="mf">0.25</span>
 <span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">r</span><span class="p">)</span>
 <span class="n">d2</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">r</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">d2</span><span class="p">)</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">d2</span><span class="p">)</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">)</span>
