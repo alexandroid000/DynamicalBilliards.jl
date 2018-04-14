@@ -599,7 +599,7 @@
 <ol>
 <li><a href="../../basic/low_level/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> with <code>MagneticParticle</code> : enables magnetic propagation</li>
 <li><code>plot_obstacle</code> : enables plotting (used in <code>plot_billiard</code>)</li>
-<li><a href="../../basic/low_level/#DynamicalBilliards.arclength"><code>arclength</code></a> so that the <a href="../../basic/high_level/#DynamicalBilliards.poincaresection"><code>poincaresection</code></a> can be computed.</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.arclength"><code>arclength</code></a> so that the <a href="../../basic/high_level/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a> can be computed.</li>
 </ol>
 <p>The <code>collisiontime</code> method for <code>MagneticParticle</code> is very easy in this case, because it is almost identical with the method for the general <code>Circular</code> obstacle:</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">collisiontime</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">MagneticParticle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">o</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span><span class="o">::</span><span class="n">T</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
