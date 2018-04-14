@@ -313,20 +313,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#julia-billiard-animation" title="Julia Billiard Animation" class="md-nav__link">
-    Julia Billiard Animation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#introduction-animation" title="Introduction animation" class="md-nav__link">
-    Introduction animation
-  </a>
-  
-</li>
-      
       
       
       
@@ -537,20 +523,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#julia-billiard-animation" title="Julia Billiard Animation" class="md-nav__link">
-    Julia Billiard Animation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#introduction-animation" title="Introduction animation" class="md-nav__link">
-    Introduction animation
-  </a>
-  
-</li>
-      
       
       
       
@@ -658,75 +630,6 @@
 <p>Everyone is welcomed to contribute to <code>DynamicalBilliards.jl</code>! If you have some new algorithm, types of Obstacles or anything new to add, do not hesitate! For formal questions about e.g. structuring of code it is best to contact us through the <a href="https://gitter.im/JuliaDynamics/Lobby">gitter chatroom</a> or by opening a new Pull Request and asking for a review of your code.</p>
 <p>If you would like to help but do not have anything new to contribute, please go ahead and take a look at the <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/issues">GitHub issues page</a> of the package. Some of the existing issues are easy to solve and are there specifically for people that would like to contribute.</p>
 <hr />
-<p><a id='Julia-Billiard-Animation-1'></a></p>
-<h2 id="julia-billiard-animation">Julia Billiard Animation</h2>
-<p>The animation of a particle inside a "Julia" billiard, which accompanies the logo of the package, was generated with the code:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
-<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
-
-<span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_julia</span><span class="p">(</span><span class="n">plotit</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
-
-<span class="n">darkblue</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">99</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">216</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
-<span class="n">lightblue</span> <span class="o">=</span> <span class="p">(</span><span class="mi">102</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">130</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">223</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
-<span class="n">okwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">linewidth</span> <span class="o">=&gt;</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">:</span><span class="n">color</span> <span class="o">=&gt;</span> <span class="n">lightblue</span><span class="p">)</span>
-<span class="n">pkwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">color</span> <span class="o">=&gt;</span> <span class="n">darkblue</span><span class="p">,</span> <span class="o">:</span><span class="n">s</span> <span class="o">=&gt;</span> <span class="mf">150.0</span><span class="p">)</span>
-
-<span class="n">sname</span> <span class="o">=</span> <span class="n">tempdir</span><span class="p">()</span>
-
-<span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">200</span><span class="p">;</span> <span class="n">col_to_plot</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span>
-<span class="n">particle_kwargs</span> <span class="o">=</span> <span class="n">pkwargs</span><span class="p">,</span> <span class="n">orbit_kwargs</span> <span class="o">=</span> <span class="n">okwargs</span><span class="p">,</span>
-<span class="n">savefigs</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">savename</span> <span class="o">=</span> <span class="n">sname</span><span class="p">)</span>
-
-<span class="c"># use gifmaker.me to merge all figures into one .gif</span>
-<span class="c"># in a future update, automatic support will be added!</span>
-</pre></div>
-
-
-<p><a id='Introduction-animation-1'></a></p>
-<h2 id="introduction-animation">Introduction animation</h2>
-<p>The example .gif shown in the introduction, was generated simply with the code:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
-
-<span class="n">btr</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">()</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="mf">0.165</span>
-<span class="n">ewidth</span> <span class="o">=</span> <span class="mf">6.0</span>
-<span class="n">redcent</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.28</span><span class="p">,</span> <span class="mf">0.32</span><span class="p">]</span>
-<span class="n">red</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">(</span><span class="n">redcent</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s">&quot;Red dot&quot;</span><span class="p">)</span>
-<span class="n">purple</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mi">1</span> <span class="o">-</span> <span class="n">redcent</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">redcent</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="n">r</span><span class="p">,</span> <span class="s">&quot;Purple dot&quot;</span><span class="p">)</span>
-<span class="n">green</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">redcent</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="n">r</span><span class="p">,</span> <span class="s">&quot;Green dot&quot;</span><span class="p">)</span>
-
-<span class="n">bt</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">btr</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">purple</span><span class="p">,</span> <span class="n">green</span><span class="p">)</span>
-
-
-<span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-<span class="n">d1</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">],</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s">&quot;Upper-left Disk&quot;</span><span class="p">)</span>
-<span class="n">d2</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="mf">0.15</span><span class="p">,</span> <span class="s">&quot;Lower-right Disk&quot;</span><span class="p">)</span>
-<span class="n">d3</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s">&quot;Small Disk&quot;</span><span class="p">)</span>
-<span class="n">w1</span> <span class="o">=</span> <span class="n">InfiniteWall</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span> <span class="s">&quot;Diagonal&quot;</span><span class="p">)</span>
-<span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">d3</span><span class="p">,</span> <span class="n">w1</span><span class="p">)</span>
-<span class="n">ω</span> <span class="o">=</span> <span class="mf">2.0</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
-
-
-
-
-
-<span class="o">---</span>
-
-
-<span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
-<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">tight_layout</span><span class="p">()</span>
-
-<span class="n">sname</span> <span class="o">=</span> <span class="s">&quot;C:</span><span class="se">\\</span><span class="s">***</span><span class="se">\\</span><span class="s">example&quot;</span>
-<span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">200</span><span class="p">;</span>
-<span class="n">col_to_plot</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">savefigs</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">savename</span> <span class="o">=</span> <span class="n">sname</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Afterwards the outputed .png files where merged into a single .gif externally using for example the website gifmaker.me.</p>
                 
                   
                 
