@@ -338,8 +338,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#rework" title="REWORK" class="md-nav__link">
-    REWORK
+  <a href="#obstacle-order" title="Obstacle order" class="md-nav__link">
+    Obstacle order
   </a>
   
 </li>
@@ -448,8 +448,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#rework" title="REWORK" class="md-nav__link">
-    REWORK
+  <a href="#obstacle-order" title="Obstacle order" class="md-nav__link">
+    Obstacle order
   </a>
   
 </li>
@@ -496,14 +496,13 @@
 <li>the arc length measured counterclockwise from the open face in <code>Semicircle</code>s</li>
 <li>the arc length measured counterclockwise from the rightmost point in <code>Circular</code>s</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/d16b7bb72300d35e52b263d2326a2ab9be9296ab/src/billiards/billiardtable.jl#L21-L34' class='documenter-source'>source</a><br></p>
-<p><a id='REWORK-1'></a></p>
-<h2 id="rework">REWORK</h2>
-<p>A billiard table <code>bt</code> is a vector of Obstacles: <code>bt::Vector{Obstacle{T}} where {T&lt;:AbstractFloat}</code>. The abstract Type <code>Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code>T</code>.</p>
-<p>There are many premade functions that construct well-known billiards, like the periodic Sinai billiard. You can find all of them at the <a href="../../basic/library/#standard-billiards">Standard Billiards page</a>.</p>
-<p>To create a custom billiard, you start with an empty Vector:</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/c6e1253893f2352c0b54ca6ad39402a5df12b701/src/billiards/billiardtable.jl#L21-L34' class='documenter-source'>source</a><br></p>
+<hr />
+<p>A billiard <code>bt</code> is a wrapper of a <code>Tuple</code> of <code>Obstacles</code>. The abstract Type <code>Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code>T</code>.</p>
+<p>There are many premade functions that construct well-known billiards, like the periodic Sinai billiard. You can find all of them at the <a href="../../basic/high_level/#standard-billiards-library">Standard Billiards Library</a>.</p>
+<p>To create a custom billiard from scratch, it is often convenient to start with an empty <code>Vector{Obstacle{T}}</code>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-<span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="n">T</span><span class="p">}[]</span>  <span class="c"># T&lt;: AbstractFloat</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}[]</span>  <span class="c"># T&lt;: AbstractFloat</span>
 </pre></div>
 
 
@@ -518,7 +517,7 @@
 (x,y) = \left( r\cos\left(\frac{2\pi i}{6}\right), r\cos\left(\frac{2\pi i}{6}\right) \right)\,, \quad \text{for i $\in$ \{1,...,6\}}
 </script>
 </div>
-<p>To create each wall object, we will implement the following loop, choosing a size of 2.0:</p>
+<p>To create each wall object, we will implement the following loop:</p>
 <div class="codehilite"><pre><span></span><span class="n">hexagon_vertex</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span> <span class="p">[</span><span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">),</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">6</span><span class="p">]</span>
 <span class="n">hexver</span> <span class="o">=</span> <span class="n">hexagon_vertex</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
 
@@ -537,20 +536,29 @@
 <p>We add a disk by specifying a center and radius (and optionally a name):</p>
 <div class="codehilite"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.8</span><span class="p">)</span>
 <span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="c"># Make the structure required:</span>
+<span class="n">billiard</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 </pre></div>
 
 
 <p>To make sure the billiard looks as you would expect, use the function <code>plot_billiard(bt)</code>. Create a particle inside that billiard and evolve it:</p>
-<div class="codehilite"><pre><span></span><span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
-<span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">PyPlot</span>
+<span class="n">plot_billiard</span><span class="p">(</span><span class="n">billiard</span><span class="p">)</span>
 <span class="n">ω</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
-<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">billiard</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
+<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">billiard</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">)</span>
 </pre></div>
 
 
-<p>The billiard table now works for straight or magnetic propagation. To expand this to ray-splitting you have to use ray-splitting Obstacles (<a href="../../tutorials/ray-splitting">see the tutorial on Ray-Splitting</a>). Additional information on how to define your own <code>Obstacle</code> sub-type is given in the tutorial on <a href="../../tutorials/own_obstacle">Defining your own Obstacles</a>.</p>
-<p>If you make <em>any</em> billiard system that you think is cool and missing from this package, you are more than welcome to submit a PR extending the <code>StandardBilliards.jl</code> library with your contribution!</p>
+<p>The billiard table now works for straight or magnetic propagation. To expand this to ray-splitting you have to use ray-splitting <code>Obstacle</code>s (<a href="../../tutorials/ray-splitting">see the tutorial on Ray-Splitting</a>). Additional information on how to define your own <code>Obstacle</code> sub-type is given in the tutorial on <a href="../../tutorials/own_obstacle">Defining your own Obstacles</a>.</p>
+<p>If you make <em>any</em> billiard system that you think is cool and missing from this package, you are more than welcome to submit a PR extending the Standard Billiards Library with your contribution!</p>
+<p><a id='Obstacle-order-1'></a></p>
+<h2 id="obstacle-order">Obstacle order</h2>
+<div class="admonition info">
+<p class="admonition-title">The obstacle order matters.</p>
+<p>The order that the obstacles are given to the constructor is important for the function <a href="../../basic/high_level/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a>. For any other functionality it is irrelevant.</p>
+</div>
 <p><a id='Convex-Billiards-1'></a></p>
 <h2 id="convex-billiards">Convex Billiards</h2>
 <p>These 2 types of walls used by <code>DynamicalBilliards</code> that behave differently during evolution:</p>

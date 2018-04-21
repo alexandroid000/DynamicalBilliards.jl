@@ -497,13 +497,17 @@
                 <p><a id='Creating-your-own-Obstacle-Type-1'></a></p>
 <h1 id="creating-your-own-obstacle-type">Creating your own <code>Obstacle</code> Type</h1>
 <p>In this tutorial we will go through the processes of creating a new obstacle type, a <code>Semicircle</code>. This type is already used in the <a href="../../basic/high_level/#DynamicalBilliards.billiard_bunimovich"><code>billiard_bunimovich</code></a> and <a href="../../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> functions.</p>
+<div class="admonition info">
+<p class="admonition-title">Everything uses <code>SVector{2}</code></p>
+<p>Fields of <code>Particle</code>s and <code>Obstacle</code>s contain all their information in 2-dimensional static vectors from module <code>StaticArrays</code>. This is important to keep in mind when extending new methods.</p>
+</div>
 <p><a id='Type-Definition-1'></a></p>
 <h2 id="type-definition">Type Definition</h2>
 <p>The first thing you have to do is make your new type a sub-type of <code>Obstacle{T}</code> (or any other abstract sub-type of it). We will do:</p>
 <div class="codehilite"><pre><span></span><span class="n">struct</span> <span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="kt">AbstractFloat</span><span class="p">}</span> <span class="o">&lt;:</span> <span class="n">Circular</span><span class="p">{</span><span class="n">T</span><span class="p">}</span> <span class="c"># &lt;: Obstacle{T}</span>
-    <span class="n">c</span><span class="o">::</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="n">T</span><span class="p">}</span>
+    <span class="n">c</span><span class="o">::</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="n">T</span><span class="p">}</span> <span class="c"># this MUST be a static vector</span>
     <span class="n">r</span><span class="o">::</span><span class="n">T</span>
-    <span class="n">facedir</span><span class="o">::</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="n">T</span><span class="p">}</span>
+    <span class="n">facedir</span><span class="o">::</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="n">T</span><span class="p">}</span> <span class="c"># this MUST be a static vector</span>
     <span class="n">name</span><span class="o">::</span><span class="n">String</span>
 <span class="k">end</span>
 </pre></div>
@@ -654,6 +658,19 @@
 
 
 <p>(this method is in the <code>/plotting/obstacles.jl</code> file and is loaded on-demand when <code>using PyPlot</code>)</p>
+<p>Finally, we also add a method to the <a href="../../basic/low_level/#DynamicalBilliards.arclength"><code>arclength</code></a> function, so that we can compute the <a href="../../basic/high_level/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a> of billiards containing our new obstacle</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">arclength</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">o</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">)</span>
+    <span class="c">#project pos on open face</span>
+    <span class="n">chrd</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="o">-</span><span class="n">o</span><span class="o">.</span><span class="n">facedir</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">o</span><span class="o">.</span><span class="n">facedir</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c">#tangent to open face</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">o</span><span class="o">.</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="n">o</span><span class="o">.</span><span class="n">r</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">chrd</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span>  <span class="n">acos</span><span class="p">(</span><span class="n">clamp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">o</span><span class="o">.</span><span class="n">r</span>
+    <span class="k">return</span> <span class="n">r</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>and we are done!</p>
                 
                   
                 
