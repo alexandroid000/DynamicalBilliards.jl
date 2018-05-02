@@ -557,9 +557,19 @@
 <p>The normal vector as well as the distance from boundary change sign depending on the value of <code>pflag</code>. The obstacles <code>Antidot</code> and <code>SplitterWall</code> are the equivalents of disk and wall for ray-splitting.</p>
 <p>Let's add an <code>Antidot</code> to a billiard table:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-<span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">()</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">[</span><span class="n">billiard_rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">]</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">Antidot</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span> <span class="mf">0.3</span><span class="p">)</span>
 <span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>Billiard{Float64} with 5 obstacles:
+  Bottom wall
+  Right wall
+  Top wall
+  Left wall
+  Antidot
 </pre></div>
 
 
@@ -596,19 +606,14 @@
 
 <div class="admonition note">
 <p class="admonition-title">Order of Arguments</p>
-<p>The functions <strong>must accept the specific number of arguments shown in the previous section</strong> even if some are not used. Also, the functions must be given <strong>in the specific order: [1. transmission probability, 2. refraction angle, 3. new ω]</strong> in the vector passed to the dictionary.</p>
+<p>The functions <strong>must accept the specific number of arguments shown in the previous section</strong> even if some are not used. Also, the functions must be given <strong>in the specific order: (1. transmission probability, 2. refraction angle, 3. new ω)</strong> in the container passed to the dictionary.</p>
 </div>
-<p>The next step is very simple: the <code>raysplitter</code> dictionary is directly passed into <code>evolve!()</code> as a fourth argument. Using the billiard table we defined previously, where its 5th element is a ray-splitting <code>Antidot</code>, we now do:</p>
-<div class="codehilite"><pre><span></span><span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">()</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">Antidot</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="mf">0.25</span><span class="p">)</span>
-<span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-<span class="n">ω</span> <span class="o">=</span> <span class="mf">1.25</span>
+<p>The next step is very simple: the <code>raysplitter</code> dictionary is directly passed into <a href="../../basic/high_level/#DynamicalBilliards.evolve!"><code>evolve!</code></a> as a fourth argument. Using the billiard table we defined previously, where its 5th element is a ray-splitting <code>Antidot</code>, we now do:</p>
+<div class="codehilite"><pre><span></span><span class="n">ω</span> <span class="o">=</span> <span class="mf">1.25</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="n">raysplitter</span><span class="p">)</span><span class="o">...</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
 <span class="k">using</span> <span class="n">PyPlot</span>
-<span class="n">DynamicalBilliards</span><span class="o">.</span><span class="n">enableplotting</span><span class="p">()</span>
-<span class="n">plot_billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">)</span>
 </pre></div>
 
@@ -627,7 +632,7 @@
 <p>to find out what you did wrong. Most likely, the index you supplied was incorrect, i.e. the index could be <code>5</code> instead of <code>4</code>.</p>
 <p><a id='Example-Animation-1'></a></p>
 <h2 id="example-animation">Example Animation</h2>
-<p>In the [examples page], you can find the code for the following animation, which includes ray-splitting:</p>
+<p>In the <a href="../examples">examples page</a>, you can find the code for the following animation, which includes ray-splitting:</p>
 <p><img alt="Ray-splitter animation" src="http://i.imgur.com/89s0fon.gif" /></p>
 <p><a id='Physics-1'></a></p>
 <h2 id="physics">Physics</h2>
