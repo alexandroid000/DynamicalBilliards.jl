@@ -403,11 +403,11 @@
                 <p>The Finite Time Lyapunov Spectrum (FTLS) for a 2D billiard system consists of a set of 4 numbers <span><span class="MathJax_Preview">\lambda_i \, , \{ i = 1, ...,4 \}</span><script type="math/tex">\lambda_i \, , \{ i = 1, ...,4 \}</script></span> that characterize the chaoticity of the billiard. They depend on the initial condition and the total time of integration.</p>
 <p>It can be shown theoretically that two of these exponents must be zero (<span><span class="MathJax_Preview">\lambda_2</span><script type="math/tex">\lambda_2</script></span> =<span><span class="MathJax_Preview">\lambda_3</span><script type="math/tex">\lambda_3</script></span> = 0) and the other two are paired in such a way that they sum up to zero, i.e. <span><span class="MathJax_Preview">\lambda_1 =  -\lambda_4</span><script type="math/tex">\lambda_1 =  -\lambda_4</script></span>).</p>
 <p>The function provided to calculate the FTLS is</p>
-<div class="codehilite"><pre><span></span><span class="n">lyapunovspectrum!</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">Particle</span><span class="p">,</span> <span class="n">bt</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">Obstacle</span><span class="p">},</span> <span class="n">t</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">lyapunovspectrum!</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">AbstractParticle</span><span class="p">,</span> <span class="n">bt</span><span class="o">::</span><span class="n">Billiard</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 </pre></div>
 
 
-<p>and it returns an array with the 4 lyapunov exponents. Currently it is available only for <code>Particle</code>.</p>
+<p>and it returns an array with the 4 Lyapunov exponents.</p>
 <p>Here its basic use is illustrated</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
 
@@ -435,15 +435,13 @@
 <span class="n">spaces</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">:</span><span class="mf">0.1</span><span class="o">:</span><span class="mf">4.4</span> <span class="c">#Distances between adjacent disks</span>
 <span class="n">lyap_time</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">spaces</span><span class="p">)</span> <span class="c">#Array where the exponents will be stored</span>
 
-<span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="k">for</span> <span class="n">space</span> <span class="kp">in</span> <span class="n">spaces</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">spaces</span><span class="p">)</span>
     <span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">space</span><span class="o">/</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span>
     <span class="n">disc</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">radius</span><span class="p">)</span>
-    <span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">disc</span><span class="p">)</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
-    <span class="n">exps</span> <span class="o">=</span> <span class="n">lyapunovspectrum</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">billiard</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">,</span> <span class="n">disc</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">billiard</span><span class="p">)</span>
+    <span class="n">exps</span> <span class="o">=</span> <span class="n">lyapunovspectrum</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">billiard</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
     <span class="n">lyap_time</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">exps</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
 <span class="k">end</span>
 
 <span class="n">plot</span><span class="p">(</span><span class="n">spaces</span><span class="p">,</span> <span class="n">lyap_time</span><span class="p">,</span> <span class="s">&quot;*-&quot;</span><span class="p">)</span>
