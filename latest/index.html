@@ -99,7 +99,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#introduction" tabindex="1" class="md-skip">
+      <a href="#about-billiards" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -265,8 +265,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" title="Introduction" class="md-nav__link">
-    Introduction
+  <a href="#about-billiards" title="About Billiards" class="md-nav__link">
+    About Billiards
   </a>
   
 </li>
@@ -397,18 +397,6 @@
 
 
   <li class="md-nav__item">
-    <a href="tutorials/ray-splitting/" title="Ray-Splitting" class="md-nav__link">
-      Ray-Splitting
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="tutorials/own_obstacle/" title="Creating your own Obstacle" class="md-nav__link">
       Creating your own Obstacle
     </a>
@@ -450,6 +438,18 @@
 
 
   <li class="md-nav__item">
+    <a href="ray-splitting/" title="Ray-Splitting" class="md-nav__link">
+      Ray-Splitting
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
       Lyapunov Exponents
     </a>
@@ -475,8 +475,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" title="Introduction" class="md-nav__link">
-    Introduction
+  <a href="#about-billiards" title="About Billiards" class="md-nav__link">
+    About Billiards
   </a>
   
 </li>
@@ -555,20 +555,21 @@
 <p class="admonition-title">Julia Billiard animation</p>
 <p>Check out the example in the <a href="./tutorials/examples/#julia-logo-billiard">tutorials</a> page to see the code that created and animated the "Julia Billiard"!</p>
 </div>
-<p><a id='Introduction-1'></a></p>
-<h2 id="introduction">Introduction</h2>
+<p><a id='About-Billiards-1'></a></p>
+<h2 id="about-billiards">About Billiards</h2>
 <p>A dynamical billiard is a system where a particle is propagating as a straight line from obstacle to obstacle, performing specular reflection at the boundary of the obstacles. Billiard systems have been used extensively in mathematics, nonlinear dynamics and chaos and played an important role in the development of nonlinear science.</p>
 <p>The <a href="https://en.wikipedia.org/wiki/Dynamical_billiards">wikipedia page</a> has many examples of different types of billiards. Also, the <a href="http://www.scholarpedia.org/article/Dynamical_billiards">scholarpedia</a> entry is a good read on the subject.</p>
 <p><a id='Features-1'></a></p>
 <h2 id="features">Features</h2>
 <ul>
-<li>Modular creation of a billiard from well defined obstacles</li>
-<li>Straight propagation of a particle in a billiard table</li>
-<li>Support for creating random initial conditions in an arbitrary billiard table</li>
-<li>Magnetic propagation, where the particle moves in a circle instead of a straight line (works with <em>any</em> billiard)</li>
-<li>Ray-splitting implementation: a particle may propagate through an obstacle given arbitrary transmission and refraction laws. This is also known as a "semiclassical billiard"</li>
-<li>Computation of Poincaré surfaces of section (also known as boundary maps) for any table and any particle</li>
-<li>Escape times</li>
+<li>Modular creation of a <a href="./basic/high_level/#billiard">billiard</a> from well defined obstacles</li>
+<li>Full support for both <em>straight</em>  and <em>magnetic</em> propagation of a particle in a billiard table. During magnetic propagation the particle orbit is a circle instead of a line! All features mentioned in this section exist for both types of propagation!</li>
+<li>Support for creating <a href="./basic/high_level/#random-initial-conditions">random initial conditions</a> in an arbitrary billiard table</li>
+<li><a href="./ray-splitting">Ray-splitting implementation</a>: a particle may propagate through an obstacle given arbitrary transmission and refraction laws. This is also known as a "semiclassical billiard"</li>
+<li><a href="./high_level/#poincare-sections">Poincaré surfaces of section</a> (intersections with arbitrary plane)</li>
+<li><a href="./basic/high_level/#boundary-maps">Boundary maps</a></li>
+<li><a href="./basic/high_level/#escape-times">Escape times</a> &amp; <a href="./basic/high_level/#mean-collision-times">mean collision times</a></li>
+<li><a href="./lyapunovs">Lyapunov exponents</a></li>
 <li>Easy to use low-level interface</li>
 <li>Full support for visualizing and animating billiards and motion in billiards</li>
 <li>Brutal tests that confirm the package works and overcomes numerical precision issues</li>
@@ -579,14 +580,7 @@
 <h2 id="usage">Usage</h2>
 <p>It is highly suggested to first read the <a href="./basic/high_level">High Level API</a>.</p>
 <p>See the <a href="./visualizing">Visualizing</a> page for plotting, animating, etc.</p>
-<p>For more advanced usage see the <a href="./basic/low_level">Low Level API</a>.</p>
-<p>The following tutorials offer detailed descriptions for various aspects of <code>DynamicalBilliards</code>:</p>
-<ul>
-<li><a href="./tutorials/billiard_table">How to define your custom Billiard</a></li>
-<li><a href="./tutorials/ray-splitting">Using Ray-Splitting billiards</a></li>
-<li><a href="./tutorials/own_obstacle">Creating your own Obstacle Type</a></li>
-<li><a href="./tutorials/examples">Examples page</a></li>
-</ul>
+<p>For more advanced usage see the <a href="./basic/low_level">Low Level API</a> and all other sections of this documentation.</p>
 <p>The discussion about <a href="./physics/#numerical-precision">numerical precision</a> is done in the <a href="./physics">Physics</a> page.</p>
 <p>The <a href="./lyapunovs">Lyapunov Exponents</a> page has info on how to compute the Lyapunov spectrum of a billiard.</p>
 <hr />

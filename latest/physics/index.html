@@ -321,18 +321,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../tutorials/ray-splitting/" title="Ray-Splitting" class="md-nav__link">
-      Ray-Splitting
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../tutorials/own_obstacle/" title="Creating your own Obstacle" class="md-nav__link">
       Creating your own Obstacle
     </a>
@@ -392,13 +380,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ray-splitting-functions" title="Ray-Splitting Functions" class="md-nav__link">
-    Ray-Splitting Functions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#pinned-particles" title="Pinned Particles" class="md-nav__link">
     Pinned Particles
   </a>
@@ -420,6 +401,18 @@
   
 </nav>
     
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../ray-splitting/" title="Ray-Splitting" class="md-nav__link">
+      Ray-Splitting
+    </a>
   </li>
 
     
@@ -456,13 +449,6 @@
         <li class="md-nav__item">
   <a href="#numerical-precision" title="Numerical Precision" class="md-nav__link">
     Numerical Precision
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ray-splitting-functions" title="Ray-Splitting Functions" class="md-nav__link">
-    Ray-Splitting Functions
   </a>
   
 </li>
@@ -516,7 +502,7 @@
 <ul>
 <li>Magnetic propagation and straight propagation both use <code>timeprec(T)</code>. For both cases the maximum number of geometric iterations is 1 (for the default value of <code>timeprec(T)</code>.</li>
 <li>
-<p>This <code>timeprec</code> cannot be used with <code>PeriodicWall</code> and RaySplitting obstacles with <code>MagneticParticle</code>s because when relocating forward in time you get progressively shallower and shallower angles. This mean that you need huge changes in time for even tiny changes in <code>distance</code>.</p>
+<p>This <code>timeprec</code> cannot be used with <code>PeriodicWall</code> and RaySplitting obstacles with <code>MagneticParticle</code>s because when relocating forward in time you get progressively shallower and shallower angles. This means that you need huge changes in time for even tiny changes in <code>distance</code>.</p>
 <ul>
 <li>For this special case the function <code>timeprec_forward(T)</code> is used instead. This function results to on average 3-5 geometric relocation steps.</li>
 </ul>
@@ -538,27 +524,6 @@
 <p class="admonition-title">BigFloats</p>
 <p>Evolution with <code>BigFloat</code> in <code>DynamicalBilliards</code> is on average 3 to 4 orders of magnitude slower than with <code>Float64</code>.</p>
 </div>
-<hr />
-<p><a id='Ray-Splitting-Functions-1'></a></p>
-<h2 id="ray-splitting-functions">Ray-Splitting Functions</h2>
-<p>If <code>T</code> is the transmission probability function, then the condition for transmission is simply: <code>T(φ, pflag, ω) &gt; rand()</code>. If it returns <code>true</code>, transmission (i.e. ray-splitting) will happen. As it has already been discussed in the <a href="../tutorials/ray-splitting">Ray-Splitting tutorial</a>, the condition of total internal reflection must be taken care of by the user.</p>
-<p>The <a href="../tutorials/ray-splitting/#ray-splitting-functions">three key functions</a> given to the <code>ray-splitter</code> dictionary must have some properties in order to have physical meaning, like for example that the scattering probability function is even towards φ. One of these properties is absolutely <strong>mandatory</strong> for this package to work properly. This is the property of total internal reflection, i.e. if the refraction angle is calculated to be greater/equal than π/2, no transmission can happen. <strong>This condition is not assured internally</strong> and therefore you must be sure that your transmission probability function satisfies it. In the above example, the function <code>T</code> makes sure to return 0 in that case.</p>
-<p>In order to test if the <code>raysplitter</code> dictionary you have defined has physical meaning, the function <code>isphysical()</code> is provided:</p>
-<div class="codehilite"><pre><span></span><span class="n">isphysical</span><span class="p">(</span><span class="n">raysplitter</span><span class="o">::</span><span class="kt">Dict</span><span class="p">{</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Any</span><span class="p">};</span> <span class="n">only_mandatory</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Return <code>true</code> if the given ray-splitting dictionary has physically plausible properties.</p>
-<p>Specifically, check if (φ is the incidence angle, θ the refraction angle):</p>
-<ul>
-<li>Critical angle means total reflection: If θ(φ) ≥ π/2 then T(φ) = 0</li>
-<li>Transmission probability is even function: T(φ) ≈ T(-φ) at ω = 0</li>
-<li>Refraction angle is odd function: θ(φ) ≈ -θ(-φ) at ω = 0</li>
-<li>Ray reversal is true: θ(θ(φ, pflag, ω), !pflag, ω) ≈ φ</li>
-<li>Magnetic conservation is true: (ω_new(ω_new(ω, pflag), !pflag) ≈ ω</li>
-</ul>
-<p>The first property is mandatory and must hold for correct propagation. The above tests are done for all possible combinations of arguments.</p>
-<p>They keyword <code>only_mandatory</code> notes whether the rest of the properties should be tested or not.</p>
 <hr />
 <p><a id='Pinned-Particles-1'></a></p>
 <h2 id="pinned-particles">Pinned Particles</h2>
@@ -662,13 +627,13 @@ r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
           </a>
         
         
-          <a href="../lyapunovs/" title="Lyapunov Exponents" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../ray-splitting/" title="Ray-Splitting" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Lyapunov Exponents
+                Ray-Splitting
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

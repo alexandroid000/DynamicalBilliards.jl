@@ -317,18 +317,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../tutorials/ray-splitting/" title="Ray-Splitting" class="md-nav__link">
-      Ray-Splitting
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../tutorials/own_obstacle/" title="Creating your own Obstacle" class="md-nav__link">
       Creating your own Obstacle
     </a>
@@ -360,6 +348,18 @@
   <li class="md-nav__item">
     <a href="../physics/" title="Physics" class="md-nav__link">
       Physics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../ray-splitting/" title="Ray-Splitting" class="md-nav__link">
+      Ray-Splitting
     </a>
   </li>
 
@@ -414,14 +414,19 @@
 <span class="n">radius</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">l</span> <span class="o">=</span> <span class="mf">2.0</span>
 
-<span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">l</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span>
-<span class="n">disc</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">radius</span><span class="p">)</span>
-<span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">disc</span><span class="p">)</span>
+<span class="n">bt</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">l</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span><span class="o">...</span><span class="p">,</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">radius</span><span class="p">))</span>
 
 <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
 <span class="n">t</span> <span class="o">=</span> <span class="mf">1000.0</span>
 
 <span class="n">exps</span> <span class="o">=</span> <span class="n">lyapunovspectrum</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>0.694…
+0.0000395…
+-0.00128…
+-0.692…
 </pre></div>
 
 
@@ -470,7 +475,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../physics/" title="Physics" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../ray-splitting/" title="Ray-Splitting" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -479,7 +484,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Physics
+                Ray-Splitting
               </span>
             </div>
           </a>
