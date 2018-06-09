@@ -40,7 +40,7 @@
     
     
       
-        <title>Lyapunov Exponents - DynamicalBilliards.jl</title>
+        <title>MushroomTools - DynamicalBilliards.jl</title>
       
     
     
@@ -121,7 +121,7 @@
                 DynamicalBilliards.jl
               </span>
               <span class="md-header-nav__topic">
-                Lyapunov Exponents
+                MushroomTools
               </span>
             
           
@@ -368,6 +368,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
+      Lyapunov Exponents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -376,22 +388,10 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
-    <a href="./" title="Lyapunov Exponents" class="md-nav__link md-nav__link--active">
-      Lyapunov Exponents
-    </a>
-    
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../mushroomtools/" title="MushroomTools" class="md-nav__link">
+    <a href="./" title="MushroomTools" class="md-nav__link md-nav__link--active">
       MushroomTools
     </a>
+    
   </li>
 
     
@@ -407,66 +407,94 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/edit/master/docs/lyapunovs.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/edit/master/docs/mushroomtools.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Lyapunov Exponents</h1>
+                  <h1>MushroomTools</h1>
                 
-                <p>The Finite Time Lyapunov Spectrum (FTLS) for a 2D billiard system consists of a set of 4 numbers <span><span class="MathJax_Preview">\lambda_i \, , \{ i = 1, ...,4 \}</span><script type="math/tex">\lambda_i \, , \{ i = 1, ...,4 \}</script></span> that characterize the chaoticity of the billiard. They depend on the initial condition and the total time of integration.</p>
-<p>It can be shown theoretically that two of these exponents must be zero (<span><span class="MathJax_Preview">\lambda_2</span><script type="math/tex">\lambda_2</script></span> =<span><span class="MathJax_Preview">\lambda_3</span><script type="math/tex">\lambda_3</script></span> = 0) and the other two are paired in such a way that they sum up to zero, i.e. <span><span class="MathJax_Preview">\lambda_1 =  -\lambda_4</span><script type="math/tex">\lambda_1 =  -\lambda_4</script></span>).</p>
-<p>The function provided to calculate the FTLS is</p>
-<div class="codehilite"><pre><span></span><span class="n">lyapunovspectrum!</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">AbstractParticle</span><span class="p">,</span> <span class="n">bt</span><span class="o">::</span><span class="n">Billiard</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+                <p><a id='DynamicalBilliards.MushroomTools' href='#DynamicalBilliards.MushroomTools'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools</code></strong> &mdash; <em>Module</em>.</p>
+<div class="codehilite"><pre><span></span>MushroomTools
 </pre></div>
 
 
-<p>and it returns an array with the 4 Lyapunov exponents.</p>
-<p>Here its basic use is illustrated</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-
-<span class="n">radius</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">l</span> <span class="o">=</span> <span class="mf">2.0</span>
-
-<span class="n">bt</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">l</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span><span class="o">...</span><span class="p">,</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">radius</span><span class="p">))</span>
-
-<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="mf">1000.0</span>
-
-<span class="n">exps</span> <span class="o">=</span> <span class="n">lyapunovspectrum</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<p>Module containing many functions helpful in simulating (perfect) mushroom billiards, see <a href="../@ref"><code>billiard_mushrrom</code></a>. Contains stuff like initializing efficiently regular or chaotic particles and functions that return the corresponding chaotic or regular phase-space volumes or portions.</p>
+<p>Made by Lukas Hupe.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L1-L10' class='documenter-source'>source</a><br></p>
+<p>Notice that the name <code>MushroomTools</code> is exported by <code>DynamicalBilliards</code>. The functions within it are not though, so you have to access them like e.g. <code>MushroomTools.randomchaotic</code>.</p>
+<p><a id='DynamicalBilliards.MushroomTools.V_2D_tot-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.V_2D_tot-Tuple{Any,Any,Any}'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools.V_2D_tot</code></strong> &mdash; <em>Method</em>.</p>
+<div class="codehilite"><pre><span></span>V_2D_tot(l,w,r)
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>0.694…
-0.0000395…
--0.00128…
--0.692…
+<p>Return the total boundary map volume (2D) of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> parameterized by <code>(l,w,r)</code>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L64-L68' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.MushroomTools.V_3D_tot-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.V_3D_tot-Tuple{Any,Any,Any}'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools.V_3D_tot</code></strong> &mdash; <em>Method</em>.</p>
+<div class="codehilite"><pre><span></span>V_3D_tot(l,w,r)
 </pre></div>
 
 
-<p>The following code is for a family of polygonal billiards (hexagonal unit cell) parameterized by the space between the disks.</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-<span class="k">using</span> <span class="n">PyPlot</span>
-
-<span class="n">t</span> <span class="o">=</span> <span class="mf">5000.0</span>
-<span class="n">radius</span> <span class="o">=</span> <span class="mf">1.0</span>
-
-<span class="n">spaces</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">:</span><span class="mf">0.1</span><span class="o">:</span><span class="mf">4.4</span> <span class="c">#Distances between adjacent disks</span>
-<span class="n">lyap_time</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">spaces</span><span class="p">)</span> <span class="c">#Array where the exponents will be stored</span>
-
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">spaces</span><span class="p">)</span>
-    <span class="n">bt</span> <span class="o">=</span> <span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">space</span><span class="o">/</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span>
-    <span class="n">disc</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">radius</span><span class="p">)</span>
-    <span class="n">billiard</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">,</span> <span class="n">disc</span><span class="p">)</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">billiard</span><span class="p">)</span>
-    <span class="n">exps</span> <span class="o">=</span> <span class="n">lyapunovspectrum</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">billiard</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-    <span class="n">lyap_time</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">exps</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="k">end</span>
-
-<span class="n">plot</span><span class="p">(</span><span class="n">spaces</span><span class="p">,</span> <span class="n">lyap_time</span><span class="p">,</span> <span class="s">&quot;*-&quot;</span><span class="p">)</span>
+<p>Return the total phasespace volume (3D) of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> parameterized by <code>(l,w,r)</code>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L40-L44' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.MushroomTools.g_c_2D-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.g_c_2D-Tuple{Any,Any,Any}'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools.g_c_2D</code></strong> &mdash; <em>Method</em>.</p>
+<div class="codehilite"><pre><span></span>g_c_2D(l, w, r)
 </pre></div>
 
 
-<p>The plot of the maximum exponent is displayed below and it can be compared with the results reported by <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.51.5332">Gaspard et. al</a> (see figure 7, also displayed below) for the average over an ensemble.</p>
-<p><img alt="lyapunov" src="https://i.imgur.com/LuwksbL.png" /> <img alt="gaspard" src="https://i.imgur.com/kBDh0OJ.png" /></p>
+<p>Return the chaotic phasespace portion of the boundary map (2D) of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> with stem length <code>l</code>, stem width <code>w</code> and cap radious <code>r</code>. This result is known analytically, see <a href="./#DynamicalBilliards.MushroomTools"><code>MushroomTools</code></a> for references.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L80-L85' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.MushroomTools.g_c_3D-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.g_c_3D-Tuple{Any,Any,Any}'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools.g_c_3D</code></strong> &mdash; <em>Method</em>.</p>
+<div class="codehilite"><pre><span></span>g_c_3D(l, w, r)
+</pre></div>
+
+
+<p>Return the chaotic phasespace portion of the full (3D) phase-space of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> with stem length <code>l</code>, stem width <code>w</code> and cap radious <code>r</code>. This result is known analytically, see <a href="./#DynamicalBilliards.MushroomTools"><code>MushroomTools</code></a> for references.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L56-L61' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.MushroomTools.g_r_2D-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.g_r_2D-Tuple{Any,Any,Any}'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools.g_r_2D</code></strong> &mdash; <em>Method</em>.</p>
+<div class="codehilite"><pre><span></span>g_r_2D(l, w, r)
+</pre></div>
+
+
+<p>Return the regular phasespace portion of the boundary map (2D) of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> with stem length <code>l</code>, stem width <code>w</code> and cap radious <code>r</code>. This result is known analytically, see <a href="./#DynamicalBilliards.MushroomTools"><code>MushroomTools</code></a> for references.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L72-L77' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.MushroomTools.g_r_3D-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.g_r_3D-Tuple{Any,Any,Any}'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools.g_r_3D</code></strong> &mdash; <em>Method</em>.</p>
+<div class="codehilite"><pre><span></span>g_r_3D(l, w, r)
+</pre></div>
+
+
+<p>Return the regular phasespace portion of the full (3D) phase-space of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> with stem length <code>l</code>, stem width <code>w</code> and cap radious <code>r</code>. This result is known analytically, see <a href="./#DynamicalBilliards.MushroomTools"><code>MushroomTools</code></a> for references.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L48-L53' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.MushroomTools.randin_mushroom-Union{Tuple{T,T,T}, Tuple{T,T}, Tuple{T}, Tuple{T}, Tuple{}} where T<:AbstractFloat' href='#DynamicalBilliards.MushroomTools.randin_mushroom-Union{Tuple{T,T,T}, Tuple{T,T}, Tuple{T}, Tuple{T}, Tuple{}} where T<:AbstractFloat'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools.randin_mushroom</code></strong> &mdash; <em>Method</em>.</p>
+<div class="codehilite"><pre><span></span>randin_mushroom(l, w, r [, ω])
+</pre></div>
+
+
+<p>Generate a random particle within the <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> parameterised by <code>l</code>, <code>w</code> and <code>r</code>. If <code>ω</code> is given the particle is magnetic instead.</p>
+<p>This function is much more efficient than <a href="../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L111-L118' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.MushroomTools.randomchaotic-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.randomchaotic-Tuple{Any,Any,Any}'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools.randomchaotic</code></strong> &mdash; <em>Method</em>.</p>
+<div class="codehilite"><pre><span></span>randomchaotic(l, w, r)
+</pre></div>
+
+
+<p>Generate a chaotic particle, i.e. not trapped in the cap.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L141-L144' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.MushroomTools.randomregular-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.randomregular-Tuple{Any,Any,Any}'>#</a>
+<strong><code>DynamicalBilliards.MushroomTools.randomregular</code></strong> &mdash; <em>Method</em>.</p>
+<div class="codehilite"><pre><span></span>randomregular(l, w, r)
+</pre></div>
+
+
+<p>Generate a regular particle (i.e. trapped in the cap).</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/84c0b023292be8dd2fc0b0ad231591ab7713a732/src/mushroomtools.jl#L153-L156' class='documenter-source'>source</a><br></p>
                 
                   
                 
@@ -487,7 +515,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../ray-splitting/" title="Ray-Splitting" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../lyapunovs/" title="Lyapunov Exponents" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -496,25 +524,11 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Ray-Splitting
+                Lyapunov Exponents
               </span>
             </div>
           </a>
         
-        
-          <a href="../mushroomtools/" title="MushroomTools" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                MushroomTools
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
         
       </nav>
     </div>
