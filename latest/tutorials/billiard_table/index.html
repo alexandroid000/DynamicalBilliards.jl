@@ -525,13 +525,17 @@
 <li>the arc length measured counterclockwise from the open face in <code>Semicircle</code>s</li>
 <li>the arc length measured counterclockwise from the rightmost point in <code>Circular</code>s</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/96e56ed9670b7d10046dab4de4acb61c02e17315/src/billiards/billiardtable.jl#L22-L35' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/e790e7957a673c372ebf5776a26c9932c6b9326d/src/billiards/billiardtable.jl#L22-L35' class='documenter-source'>source</a><br></p>
 <hr />
 <p>A <code>Billiard</code> is a wrapper of a <code>Tuple</code> of <code>Obstacles</code>. The abstract Type <code>Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code>T</code>.</p>
 <p>There are many premade functions that construct well-known billiards, like the periodic Sinai billiard. You can find all of them at the <a href="../../basic/high_level/#standard-billiards-library">Standard Billiards Library</a>.</p>
 <p>To create a custom billiard from scratch, it is often convenient to start with an empty <code>Vector{Obstacle{T}}</code>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
 <span class="n">bd</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}[]</span>  <span class="c"># T&lt;: AbstractFloat</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>0-element Array{Obstacle{Float64},1}
 </pre></div>
 
 
@@ -558,6 +562,12 @@
   <span class="n">wall</span> <span class="o">=</span> <span class="n">InfiniteWall</span><span class="p">(</span><span class="n">starting</span><span class="p">,</span> <span class="n">ending</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="s">&quot;wall </span><span class="si">$i</span><span class="s">&quot;</span><span class="p">)</span>
   <span class="n">push!</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="n">wall</span><span class="p">)</span>
 <span class="k">end</span>
+
+<span class="n">summary</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>&quot;6-element Array{Obstacle{Float64},1}&quot;
 </pre></div>
 
 
@@ -570,6 +580,17 @@
 </pre></div>
 
 
+<div class="codehilite"><pre><span></span>Billiard{Float64} with 7 obstacles:
+  wall 1
+  wall 2
+  wall 3
+  wall 4
+  wall 5
+  wall 6
+  Disk
+</pre></div>
+
+
 <p>To make sure the billiard looks as you would expect, use the function <code>plot_billiard(bd)</code>. Create a particle inside that billiard and evolve it:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">PyPlot</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">billiard</span><span class="p">)</span>
@@ -577,9 +598,11 @@
 <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">billiard</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span>
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">billiard</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">)</span>
+<span class="n">plot_particle!</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </pre></div>
 
 
+<p><img alt="" src="../tut1.svg" /></p>
 <p>The billiard table now works for straight or magnetic propagation. To expand this to ray-splitting you have to use ray-splitting <code>Obstacle</code>s (<a href="../../tutorials/ray-splitting">see the tutorial on Ray-Splitting</a>). Additional information on how to define your own <code>Obstacle</code> sub-type is given in the tutorial on <a href="../../tutorials/own_obstacle">Defining your own Obstacles</a>.</p>
 <p>If you make <em>any</em> billiard system that you think is cool and missing from this package, you are more than welcome to submit a PR extending the Standard Billiards Library with your contribution!</p>
 <p><a id='Obstacle-order-1'></a></p>
