@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.0">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.1">
     
     
       
@@ -44,14 +44,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.4f4f49e8.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.ba0fd1a6.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
       
         
         
-        <meta name="theme-color" content="">
+        <meta name="theme-color" content="#7e57c2">
       
     
     
@@ -271,6 +271,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../basic/phasespaces/" title="Phase Spaces" class="md-nav__link">
+      Phase Spaces
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../visualizing/" title="Visualizing" class="md-nav__link">
       Visualizing
     </a>
@@ -298,13 +310,13 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
     
-    <label class="md-nav__link" for="nav-5">
+    <label class="md-nav__link" for="nav-6">
       Tutorials
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
+      <label class="md-nav__title" for="nav-6">
         Tutorials
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -506,20 +518,20 @@
 
 
 <p>Construct a <code>Billiard</code> from given <code>obstacles</code> (tuple, vector, varargs).</p>
-<p>If you want to use the <a href="../../basic/high_level/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a> function, then it is expected to provide the obstacles of the billiard in sorted order, such that the boundary coordinate (measured using <a href="../../basic/low_level/#DynamicalBilliards.arclength"><code>arclength</code></a>) around the billiard is increasing counter-clockwise.</p>
-<p>The boundary coordinate is measured as:</p>
+<p>For functions like <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a>, it is expected (if possible) that the obstacles of the billiard are sorted, such that the arc-coordinate <code>ξ</code> around the billiard is increasing counter-clockwise.</p>
+<p><code>ξ</code> is measured as:</p>
 <ul>
 <li>the distance from start point to end point in <code>Wall</code>s</li>
 <li>the arc length measured counterclockwise from the open face in <code>Semicircle</code>s</li>
 <li>the arc length measured counterclockwise from the rightmost point in <code>Circular</code>s</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/270792e2837cb389866d0671fdeabe2136334b2f/src/billiards/billiardtable.jl#L21-L34' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/5eeb784073e0fa8e7b10e8b41c7eb5a635fa5927/src/billiards/billiardtable.jl#L22-L35' class='documenter-source'>source</a><br></p>
 <hr />
-<p>A billiard <code>bt</code> is a wrapper of a <code>Tuple</code> of <code>Obstacles</code>. The abstract Type <code>Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code>T</code>.</p>
+<p>A <code>Billiard</code> is a wrapper of a <code>Tuple</code> of <code>Obstacles</code>. The abstract Type <code>Obstacle{T}</code> is the supertype of all objects that a particle may collide with, with global billiard precision of type <code>T</code>.</p>
 <p>There are many premade functions that construct well-known billiards, like the periodic Sinai billiard. You can find all of them at the <a href="../../basic/high_level/#standard-billiards-library">Standard Billiards Library</a>.</p>
 <p>To create a custom billiard from scratch, it is often convenient to start with an empty <code>Vector{Obstacle{T}}</code>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-<span class="n">bt</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}[]</span>  <span class="c"># T&lt;: AbstractFloat</span>
+<span class="n">bd</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}[]</span>  <span class="c"># T&lt;: AbstractFloat</span>
 </pre></div>
 
 
@@ -544,7 +556,7 @@
   <span class="n">w</span> <span class="o">=</span> <span class="n">ending</span> <span class="o">-</span> <span class="n">starting</span>
   <span class="n">normal</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
   <span class="n">wall</span> <span class="o">=</span> <span class="n">InfiniteWall</span><span class="p">(</span><span class="n">starting</span><span class="p">,</span> <span class="n">ending</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="s">&quot;wall </span><span class="si">$i</span><span class="s">&quot;</span><span class="p">)</span>
-  <span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">wall</span><span class="p">)</span>
+  <span class="n">push!</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="n">wall</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
 
@@ -552,13 +564,13 @@
 <p>The <code>normal</code> vector of a <code>Wall</code> obstacle is necessary to be supplemented by the user because it must point towards where the particle is expected to come from. If <code>w</code> is the vector (wall) pointing from start- to end-point then the vector <code>[-w[2], w[1]]</code> is pointing to the left of <code>w</code> and the vector <code>[w[2], -[w1]]</code> is pointing to the right. Both are normal to <code>w</code>, but you have to know which one to pick. In this case this is very easy, since the normal has to simply point towards the origin.</p>
 <p>We add a disk by specifying a center and radius (and optionally a name):</p>
 <div class="codehilite"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.8</span><span class="p">)</span>
-<span class="n">push!</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="n">push!</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
 <span class="c"># Make the structure required:</span>
-<span class="n">billiard</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bt</span><span class="p">)</span>
+<span class="n">billiard</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
 </pre></div>
 
 
-<p>To make sure the billiard looks as you would expect, use the function <code>plot_billiard(bt)</code>. Create a particle inside that billiard and evolve it:</p>
+<p>To make sure the billiard looks as you would expect, use the function <code>plot_billiard(bd)</code>. Create a particle inside that billiard and evolve it:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">PyPlot</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">billiard</span><span class="p">)</span>
 <span class="n">ω</span> <span class="o">=</span> <span class="mf">0.5</span>
@@ -574,7 +586,7 @@
 <h2 id="obstacle-order">Obstacle order</h2>
 <div class="admonition info">
 <p class="admonition-title">The obstacle order matters.</p>
-<p>The order that the obstacles are given to the constructor is important for the function <a href="../../basic/high_level/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a>. For any other functionality it is irrelevant.</p>
+<p>The order that the obstacles are given to the constructor is important for the function <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a>. For any other functionality it is irrelevant.</p>
 </div>
 <p><a id='Convex-Billiards-1'></a></p>
 <h2 id="convex-billiards">Convex Billiards</h2>
