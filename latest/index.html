@@ -284,13 +284,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" title="Usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#citing" title="Citing" class="md-nav__link">
     Citing
   </a>
@@ -518,13 +511,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" title="Usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#citing" title="Citing" class="md-nav__link">
     Citing
   </a>
@@ -592,7 +578,12 @@
 <h2 id="features">Features</h2>
 <ul>
 <li>Modular creation of a <a href="./basic/high_level/#billiard">billiard</a> from well defined obstacles. <strong>Arbitrary</strong> billiard shapes can be made and no shape is "hard coded".</li>
-<li>Full support for both <em>straight</em>  and <em>magnetic</em> propagation of a particle in a billiard table. During magnetic propagation the particle orbit is a circle instead of a line! All features exist for both types of propagation!</li>
+<li>
+<p>Full support for both <em>straight</em>  and <em>magnetic</em> propagation of a particle in a billiard table.</p>
+<ul>
+<li>During magnetic propagation the particle orbit is a circle instead of a line!</li>
+<li>All features exist for both types of propagation!</li>
+<li>See the <a href="./basic/high_level">high level API</a> to get started!</li>
 <li>Support for creating <a href="./basic/high_level/#random-initial-conditions">random initial conditions</a> in an arbitrary billiard.</li>
 <li><a href="./ray-splitting">Ray-splitting implementation</a>: a particle may propagate through an obstacle given arbitrary transmission and refraction laws. This is also known as a "semiclassical billiard".</li>
 <li><a href="./high_level/#poincare-sections">Poincaré surfaces of section</a> (intersections with arbitrary plane).</li>
@@ -605,15 +596,9 @@
 <li>Full support for <a href="./visualizing">visualizing and animating</a> billiards and motion in billiards.</li>
 <li>Brutal tests that confirm the package works and overcomes numerical precision issues.</li>
 </ul>
+</li>
+</ul>
 <p>This package does not support finite-sized particles and, as a result, there is also no support for collision between particles.</p>
-<hr />
-<p><a id='Usage-1'></a></p>
-<h2 id="usage">Usage</h2>
-<p>It is highly suggested to first read the <a href="./basic/high_level">High Level API</a>.</p>
-<p>See the <a href="./visualizing">Visualizing</a> page for plotting, animating, etc.</p>
-<p>For more advanced usage see the <a href="./basic/low_level">Low Level API</a> and all other sections of this documentation.</p>
-<p>The discussion about <a href="./physics/#numerical-precision">numerical precision</a> is done in the <a href="./physics">Physics</a> page.</p>
-<p>The <a href="./lyapunovs">Lyapunov Exponents</a> page has info on how to compute the Lyapunov spectrum of a billiard.</p>
 <hr />
 <p><a id='Citing-1'></a></p>
 <h2 id="citing">Citing</h2>
