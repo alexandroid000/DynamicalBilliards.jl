@@ -437,7 +437,7 @@
 
 <p>Module containing many functions helpful in simulating (perfect) mushroom billiards, see <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a>. Contains stuff like initializing efficiently regular or chaotic particles and functions that return the corresponding chaotic or regular phase-space volumes or portions.</p>
 <p>Made by Lukas Hupe.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L1-L10' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L1-L10' class='documenter-source'>source</a><br></p>
 <p>Notice that the name <code>MushroomTools</code> is exported by <code>DynamicalBilliards</code>. The functions within it are not though, so you have to access them like e.g. <code>MushroomTools.randomchaotic</code>.</p>
 <p><a id='DynamicalBilliards.MushroomTools.V_2D_tot-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.V_2D_tot-Tuple{Any,Any,Any}'>#</a>
 <strong><code>DynamicalBilliards.MushroomTools.V_2D_tot</code></strong> &mdash; <em>Method</em>.</p>
@@ -446,7 +446,7 @@
 
 
 <p>Return the total boundary map volume (2D) of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> parameterized by <code>(l,w,r)</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L65-L69' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L65-L69' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.MushroomTools.V_3D_tot-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.V_3D_tot-Tuple{Any,Any,Any}'>#</a>
 <strong><code>DynamicalBilliards.MushroomTools.V_3D_tot</code></strong> &mdash; <em>Method</em>.</p>
 <div class="codehilite"><pre><span></span>V_3D_tot(l,w,r)
@@ -454,7 +454,7 @@
 
 
 <p>Return the total phasespace volume (3D) of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> parameterized by <code>(l,w,r)</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L41-L45' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L41-L45' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.MushroomTools.g_c_2D-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.g_c_2D-Tuple{Any,Any,Any}'>#</a>
 <strong><code>DynamicalBilliards.MushroomTools.g_c_2D</code></strong> &mdash; <em>Method</em>.</p>
 <div class="codehilite"><pre><span></span>g_c_2D(l, w, r)
@@ -462,7 +462,7 @@
 
 
 <p>Return the chaotic phasespace portion of the boundary map (2D) of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> with stem length <code>l</code>, stem width <code>w</code> and cap radious <code>r</code>. This result is known analytically, see <a href="./#DynamicalBilliards.MushroomTools"><code>MushroomTools</code></a> for references.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L81-L86' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L81-L86' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.MushroomTools.g_c_3D-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.g_c_3D-Tuple{Any,Any,Any}'>#</a>
 <strong><code>DynamicalBilliards.MushroomTools.g_c_3D</code></strong> &mdash; <em>Method</em>.</p>
 <div class="codehilite"><pre><span></span>g_c_3D(l, w, r)
@@ -470,7 +470,7 @@
 
 
 <p>Return the chaotic phasespace portion of the full (3D) phase-space of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> with stem length <code>l</code>, stem width <code>w</code> and cap radious <code>r</code>. This result is known analytically, see <a href="./#DynamicalBilliards.MushroomTools"><code>MushroomTools</code></a> for references.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L57-L62' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L57-L62' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.MushroomTools.g_r_2D-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.g_r_2D-Tuple{Any,Any,Any}'>#</a>
 <strong><code>DynamicalBilliards.MushroomTools.g_r_2D</code></strong> &mdash; <em>Method</em>.</p>
 <div class="codehilite"><pre><span></span>g_r_2D(l, w, r)
@@ -478,7 +478,7 @@
 
 
 <p>Return the regular phasespace portion of the boundary map (2D) of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> with stem length <code>l</code>, stem width <code>w</code> and cap radious <code>r</code>. This result is known analytically, see <a href="./#DynamicalBilliards.MushroomTools"><code>MushroomTools</code></a> for references.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L73-L78' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L73-L78' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.MushroomTools.g_r_3D-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.g_r_3D-Tuple{Any,Any,Any}'>#</a>
 <strong><code>DynamicalBilliards.MushroomTools.g_r_3D</code></strong> &mdash; <em>Method</em>.</p>
 <div class="codehilite"><pre><span></span>g_r_3D(l, w, r)
@@ -486,7 +486,7 @@
 
 
 <p>Return the regular phasespace portion of the full (3D) phase-space of a <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> with stem length <code>l</code>, stem width <code>w</code> and cap radious <code>r</code>. This result is known analytically, see <a href="./#DynamicalBilliards.MushroomTools"><code>MushroomTools</code></a> for references.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L49-L54' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L49-L54' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.MushroomTools.randin_mushroom-Union{Tuple{}, Tuple{T}, Tuple{T}, Tuple{T,T}, Tuple{T,T,T}} where T<:AbstractFloat' href='#DynamicalBilliards.MushroomTools.randin_mushroom-Union{Tuple{}, Tuple{T}, Tuple{T}, Tuple{T,T}, Tuple{T,T,T}} where T<:AbstractFloat'>#</a>
 <strong><code>DynamicalBilliards.MushroomTools.randin_mushroom</code></strong> &mdash; <em>Method</em>.</p>
 <div class="codehilite"><pre><span></span>randin_mushroom(l, w, r [, ω])
@@ -495,7 +495,7 @@
 
 <p>Generate a random particle within the <a href="../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> parameterised by <code>l</code>, <code>w</code> and <code>r</code>. If <code>ω</code> is given the particle is magnetic instead.</p>
 <p>This function is much more efficient than <a href="../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L112-L119' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L112-L119' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.MushroomTools.randomchaotic-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.randomchaotic-Tuple{Any,Any,Any}'>#</a>
 <strong><code>DynamicalBilliards.MushroomTools.randomchaotic</code></strong> &mdash; <em>Method</em>.</p>
 <div class="codehilite"><pre><span></span>randomchaotic(l, w, r)
@@ -503,7 +503,7 @@
 
 
 <p>Generate a chaotic particle, i.e. not trapped in the cap.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L142-L145' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L142-L145' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.MushroomTools.randomregular-Tuple{Any,Any,Any}' href='#DynamicalBilliards.MushroomTools.randomregular-Tuple{Any,Any,Any}'>#</a>
 <strong><code>DynamicalBilliards.MushroomTools.randomregular</code></strong> &mdash; <em>Method</em>.</p>
 <div class="codehilite"><pre><span></span>randomregular(l, w, r)
@@ -511,7 +511,7 @@
 
 
 <p>Generate a regular particle (i.e. trapped in the cap).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/58c146b2b71d98b4c79f098d9d89873a0f80c608/src/mushroomtools.jl#L154-L157' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/54f732a867bc2a7f4b9c994b73dacbf66722ca6a/src/mushroomtools.jl#L154-L157' class='documenter-source'>source</a><br></p>
                 
                   
                 
