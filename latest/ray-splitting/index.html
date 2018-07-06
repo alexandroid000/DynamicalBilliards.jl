@@ -619,21 +619,21 @@
 <p>The above three functions use the <strong>same convention</strong>: the argument <code>pflag</code> is the one the obstacle has <strong>before transmission</strong>. For example, if a particle is outside an <a href="../basic/low_level/#DynamicalBilliards.Antidot"><code>Antidot</code></a> (with <code>pflag = true</code> here) and is transmitted inside the <code>Antidot</code> (<code>pflag</code> becomes <code>false</code> here), then all three functions will be given their second argument (the Boolean one) as <code>true</code>!</p>
 <p>Also notice that the call signature <strong>must</strong> be as stated, irrespectively of whether some of the arguments are used in the functions.</p>
 <p><code>affect</code> is a function, and denotes which obstacles of the billiard are affected when transmission occurs at obstacle <code>i</code> (for which obstacles should the field <code>pflag</code> be reversed). Defaults to <code>idxs = (i) -&gt; i</code>, i.e. only the colliding obstacle is affected. If you want many obstacles to be affected you could write <code>idxs = (i) -&gt; SVector(2,3,5)</code>, etc. Keep in mind that the only values of <code>i</code> that can be passed into this function are the ones that are given in the argument <code>idxs</code>!</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/af3ae9afc3eafda2e01b84136edca2b2e0aa0506/src/raysplitting.jl#L9-L45' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/22e0c3317e6c5938a1f20a2a4309a44e615f28bf/src/raysplitting.jl#L9-L45' class='documenter-source'>source</a><br></p>
 <hr />
 <p>If you want different type of transmission/refraction functions for different obstacles, then you define multiple <code>RaySplitter</code>s.</p>
 <p>Continuing from the above billiard, let's also create some <code>RaySplitter</code> instances for it.</p>
 <p>First define a refraction function</p>
-<div class="codehilite"><pre><span></span><span class="n">refraction</span> <span class="o">=</span> <span class="p">(</span><span class="nb">φ</span><span class="p">,</span> <span class="n">pflag</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pflag</span> <span class="o">?</span> <span class="mf">0.5</span><span class="nb">φ</span> <span class="o">:</span> <span class="mf">2.0</span><span class="nb">φ</span>
+<div class="codehilite"><pre><span></span><span class="n">refraction</span><span class="p">(</span><span class="nb">φ</span><span class="p">,</span> <span class="n">pflag</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span> <span class="o">=</span> <span class="n">pflag</span> <span class="o">?</span> <span class="mf">0.5</span><span class="nb">φ</span> <span class="o">:</span> <span class="mf">2.0</span><span class="nb">φ</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>#1 (generic function with 1 method)
+<div class="codehilite"><pre><span></span>refraction (generic function with 1 method)
 </pre></div>
 
 
 <p>Then, a transmission probability function. In this example, we want to create a function that given some factor <code>p</code>, it returns a probability weighted with <code>p</code> in one direction of ray-splitting and <code>1-p</code> in another direction.</p>
-<div class="codehilite"><pre><span></span><span class="n">transmission_p</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">φ</span><span class="p">,</span> <span class="n">pflag</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">begin</span>
+<div class="codehilite"><pre><span></span><span class="n">transmission_p</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nb">φ</span><span class="p">,</span> <span class="n">pflag</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">begin</span>
     <span class="k">if</span> <span class="n">pflag</span>
         <span class="n">p</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="nb">φ</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">(</span><span class="nb">π</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">else</span>
@@ -643,18 +643,18 @@
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>#3 (generic function with 1 method)
+<div class="codehilite"><pre><span></span>transmission_p (generic function with 1 method)
 </pre></div>
 
 
 <p>Notice also how we defined the function in such a way that critical refraction is respected, i.e. if <code>θ(φ) ≥ π/2</code> then <code>T(φ) = 0</code>. Although this is necessary from a physical perspective, the code does take care of it by clamping the refraction angle (see below).</p>
 <p>Lastly, for this example we will use magnetic propagation. We define functions such that the antidots also reverse the direction and magnitude of the magnetic field.</p>
-<div class="codehilite"><pre><span></span><span class="n">newoantidot</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">bool</span> <span class="o">?</span> <span class="o">-</span><span class="mf">2.0</span><span class="n">x</span> <span class="o">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="n">x</span><span class="p">)</span>
-<span class="n">newowall</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">bool</span> <span class="o">?</span> <span class="mf">0.5</span><span class="n">x</span> <span class="o">:</span> <span class="mf">2.0</span><span class="n">x</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">newoantidot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bool</span><span class="p">)</span> <span class="o">=</span>  <span class="n">bool</span> <span class="o">?</span> <span class="o">-</span><span class="mf">2.0</span><span class="n">x</span> <span class="o">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="n">x</span>
+<span class="n">newowall</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bool</span><span class="p">)</span> <span class="o">=</span> <span class="n">bool</span> <span class="o">?</span> <span class="mf">0.5</span><span class="n">x</span> <span class="o">:</span> <span class="mf">2.0</span><span class="n">x</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>#9 (generic function with 1 method)
+<div class="codehilite"><pre><span></span>newowall (generic function with 1 method)
 </pre></div>
 
 
@@ -665,9 +665,9 @@
 
 
 <div class="codehilite"><pre><span></span>RaySplitter for indices [1, 2]
- transmission: getfield(Main.ex-ray, Symbol(&quot;##4#6&quot;)){Float64}(0.8)
- refraction:   getfield(Main.ex-ray, Symbol(&quot;##1#2&quot;))()
- new angular:  getfield(Main.ex-ray, Symbol(&quot;##7#8&quot;))()
+ transmission: getfield(Main.ex-ray, Symbol(&quot;##1#2&quot;)){Float64}(0.8)
+ refraction:   Main.ex-ray.refraction
+ new angular:  Main.ex-ray.newoantidot
  affect:       default
 </pre></div>
 
@@ -682,6 +682,7 @@
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">tt</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">raysplitters</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">)</span>
+<span class="n">scatter</span><span class="p">(</span><span class="n">xt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">yt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -732,7 +733,7 @@
 <li>Ray reversal is true: θ(θ(φ, pflag, ω), !pflag, ω) ≈ φ</li>
 <li>Magnetic conservation is true: (ω<em>new(ω</em>new(ω, pflag), !pflag) ≈ ω</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/af3ae9afc3eafda2e01b84136edca2b2e0aa0506/src/raysplitting.jl#L380-L392' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/22e0c3317e6c5938a1f20a2a4309a44e615f28bf/src/raysplitting.jl#L380-L392' class='documenter-source'>source</a><br></p>
 <p><a id='Example-of-Affecting-Multiple-Obstacles-1'></a></p>
 <h2 id="example-of-affecting-multiple-obstacles">Example of Affecting Multiple Obstacles</h2>
 <p>Here we will show an application of <em>inverse</em> billiards, where particles go in and out of a billiard, while taking advantage of the existence of a magnetic field outside to return.</p>
@@ -757,7 +758,7 @@
  transmission: Main.ex-ray.trans
  refraction:   Main.ex-ray.refra
  new angular:  Main.ex-ray.neww
- affect:       getfield(Main.ex-ray, Symbol(&quot;##11#12&quot;))()
+ affect:       getfield(Main.ex-ray, Symbol(&quot;##3#4&quot;))()
 </pre></div>
 
 
@@ -768,6 +769,7 @@
 
 
 <p>and we animate its evolution, by first zooming out of the billiard</p>
+<p><strong>NEW FIGURE NEW COLORS</strong></p>
 <div class="codehilite"><pre><span></span><span class="n">plot_billiard</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
 <span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
 <span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="n">ray</span><span class="p">,);</span> <span class="n">newfig</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="n">savename</span> <span class="o">=</span> <span class="s">&quot;ray_anim&quot;</span><span class="p">)</span>
