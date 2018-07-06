@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="./assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.1">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.2">
     
     
       
@@ -572,18 +572,21 @@
 </div>
 <p><a id='About-Billiards-1'></a></p>
 <h2 id="about-billiards">About Billiards</h2>
-<p>A dynamical billiard is a system where a particle is propagating as a straight line from obstacle to obstacle, performing specular reflection at the boundary of the obstacles. Billiard systems have been used extensively in mathematics, nonlinear dynamics and chaos and played an important role in the development of nonlinear science.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Dynamical_billiards">wikipedia page</a> has many examples of different types of billiards. Also, the <a href="http://www.scholarpedia.org/article/Dynamical_billiards">scholarpedia</a> entry is a good read on the subject.</p>
+<p>A dynamical billiard is a system where a particle is propagating inside a domain, bouncing from obstacle to obstacle by a specular reflection at the boundary of the obstacles. This basic idea can be extended in many ways, one of which is replacing the particle orbit from a straight line to a circle.</p>
+<p>Billiard systems have been used extensively in mathematics, nonlinear dynamics and chaos and played an important role in the development of nonlinear science. The <a href="https://en.wikipedia.org/wiki/Dynamical_billiards">wikipedia page</a> has many examples of different types of billiards. Also, the <a href="http://www.scholarpedia.org/article/Dynamical_billiards">scholarpedia</a> entry is a good read on the subject.</p>
 <p><a id='Features-1'></a></p>
 <h2 id="features">Features</h2>
 <ul>
-<li>Modular creation of a <a href="./basic/high_level/#billiard">billiard</a> from well defined obstacles. <strong>Arbitrary</strong> billiard shapes can be made and no shape is "hard coded".</li>
-<li>
-<p>Full support for both <em>straight</em>  and <em>magnetic</em> propagation of a particle in a billiard table.</p>
+<li>Modular creation of a <a href="./basic/high_level/#billiard">billiard</a> from well defined obstacles. Arbitrary billiard shapes can be made and no shape is "hard coded".</li>
+<li>Full support for both <em>straight</em>  and <em>magnetic</em> propagation of a particle in a billiard table.</li>
+</ul>
+<div class="codehilite"><pre><span></span>* During magnetic propagation the particle orbit is a circle instead of a line!
+* All features exist for both types of propagation!
+* See the [high level API](basic/high_level) to get started!
+</pre></div>
+
+
 <ul>
-<li>During magnetic propagation the particle orbit is a circle instead of a line!</li>
-<li>All features exist for both types of propagation!</li>
-<li>See the <a href="./basic/high_level">high level API</a> to get started!</li>
 <li>Support for creating <a href="./basic/high_level/#random-initial-conditions">random initial conditions</a> in an arbitrary billiard.</li>
 <li><a href="./ray-splitting">Ray-splitting implementation</a>: a particle may propagate through an obstacle given arbitrary transmission and refraction laws. This is also known as a "semiclassical billiard".</li>
 <li><a href="./high_level/#poincare-sections">Poincaré surfaces of section</a> (intersections with arbitrary plane).</li>
@@ -595,8 +598,6 @@
 <li>Specialized tools for <a href="./mushroomtools">mushroom billiards</a>.</li>
 <li>Full support for <a href="./visualizing">visualizing and animating</a> billiards and motion in billiards.</li>
 <li>Brutal tests that confirm the package works and overcomes numerical precision issues.</li>
-</ul>
-</li>
 </ul>
 <p>This package does not support finite-sized particles and, as a result, there is also no support for collision between particles.</p>
 <hr />
@@ -625,7 +626,7 @@
 
 <p><a id='Installation-1'></a></p>
 <h2 id="installation">Installation</h2>
-<p>This package is registered, simply use <code>Pkg.add("DynamicalBilliards")</code> to install it. The <a href="https://juliadynamics.github.io/DynamicalBilliards.jl/stable/">stable documentation</a> accompanies the version installed with <code>Pkg.add()</code>.</p>
+<p>This package is registered, simply use <code>] add DynamicalBilliards</code> to install it. The <a href="https://juliadynamics.github.io/DynamicalBilliards.jl/stable/">stable documentation</a> accompanies the version installed with <code>add</code>.</p>
 <p>Plotting is done through the <code>PyPlot</code> module. All plotting functions are brought into scope when <code>using PyPlot</code> is done.</p>
 <hr />
 <p><a id='Support-1'></a></p>
