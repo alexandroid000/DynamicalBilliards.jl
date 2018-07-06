@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.2">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.2">
     
     
       
@@ -601,33 +601,33 @@
                 
                 <p>All plotting functionality of <code>DynamicalBilliards</code> lies within a few well-defined functions that use the <code>PyPlot</code> package to plot aspects of the system.</p>
 <p>All plotting functions are brought into scope when <code>using PyPlot</code>. The functions are:</p>
-<p><a id='DynamicalBilliards.plot_obstacle!' href='#DynamicalBilliards.plot_obstacle!'>#</a>
-<strong><code>DynamicalBilliards.plot_obstacle!</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">plot_obstacle</span><span class="o">!(</span><span class="nt">obst</span><span class="p">::</span><span class="nd">Obstacle</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span>
+<p><a id='DynamicalBilliards.plot_obstacle' href='#DynamicalBilliards.plot_obstacle'>#</a>
+<strong><code>DynamicalBilliards.plot_obstacle</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span><span class="nt">plot_obstacle</span><span class="o">(</span><span class="nt">obst</span><span class="p">::</span><span class="nd">Obstacle</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span>
 </pre></div>
 
 
 <p>Plot given obstacle on the current <code>PyPlot</code> axes.</p>
 <p>The default arguments for each type of obstacle have been chosen for maximum clarity and consistency.</p>
 <p>The <code>kwargs...</code> given by the user are keywords passed directly into PyPlot's constructors. For <code>Wall</code> obstacles, kwargs are passed into <code>PyPlot.plot()</code>. For <code>Circular</code> obstacles, kwargs are passed into <code>matplotlib.patches.Circle</code> or <code>Arc</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/9f9ebf88df18c154ef18a615a93669a94d30b4de/src/plotting/obstacles.jl#L14-L24' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.plot_particle!' href='#DynamicalBilliards.plot_particle!'>#</a>
-<strong><code>DynamicalBilliards.plot_particle!</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">plot_particle</span><span class="o">!(</span><span class="nt">p</span><span class="p">::</span><span class="nd">AbstractParticle</span><span class="o">;</span> <span class="nt">use_cell</span><span class="o">=</span><span class="nt">true</span><span class="o">,</span> <span class="nt">kwargs</span><span class="o">...)</span>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/49566d88d116215dde4d5b0d45473767e05e39ce/src/plotting/obstacles.jl#L14-L24' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.plot_particle' href='#DynamicalBilliards.plot_particle'>#</a>
+<strong><code>DynamicalBilliards.plot_particle</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span><span class="nt">plot_particle</span><span class="o">(</span><span class="nt">p</span><span class="p">::</span><span class="nd">AbstractParticle</span><span class="o">;</span> <span class="nt">use_cell</span><span class="o">=</span><span class="nt">true</span><span class="o">,</span> <span class="nt">kwargs</span><span class="o">...)</span>
 </pre></div>
 
 
 <p>Plot given particle on the current <code>PyPlot</code> axes. Optionally use <code>p.current_cell</code> for the particle's position. Given <code>kwargs...</code> are passed onto <code>PyPlot.scatter</code>.</p>
 <p>The particle is represented as a small ball (<code>PyPlot.scatter</code>) and a small arrow (<code>PyPlot.quiver</code>). All <code>kwargs...</code> are given to <code>scatter</code> but if a keyword argument <code>color</code> is given, it is also passed to <code>quiver</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/9f9ebf88df18c154ef18a615a93669a94d30b4de/src/plotting/particles.jl#L22-L31' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalBilliards.plot_cyclotron!' href='#DynamicalBilliards.plot_cyclotron!'>#</a>
-<strong><code>DynamicalBilliards.plot_cyclotron!</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">plot_cyclotron</span><span class="o">!(</span><span class="nt">p</span><span class="p">::</span><span class="nd">MagneticParticle</span><span class="o">;</span> <span class="nt">use_cell</span><span class="o">=</span><span class="nt">true</span><span class="o">,</span> <span class="nt">kwargs</span><span class="o">...)</span>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/49566d88d116215dde4d5b0d45473767e05e39ce/src/plotting/particles.jl#L22-L31' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalBilliards.plot_cyclotron' href='#DynamicalBilliards.plot_cyclotron'>#</a>
+<strong><code>DynamicalBilliards.plot_cyclotron</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span><span class="nt">plot_cyclotron</span><span class="o">(</span><span class="nt">p</span><span class="p">::</span><span class="nd">MagneticParticle</span><span class="o">;</span> <span class="nt">use_cell</span><span class="o">=</span><span class="nt">true</span><span class="o">,</span> <span class="nt">kwargs</span><span class="o">...)</span>
 </pre></div>
 
 
 <p>Plot the circle traced by the free particle motion. Optionally use <code>p.current_cell</code> for the particle's position. The user provided <code>kwargs...</code> are passed onto <code>PyPlot.plt[:Circle]</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/9f9ebf88df18c154ef18a615a93669a94d30b4de/src/plotting/particles.jl#L4-L9' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/49566d88d116215dde4d5b0d45473767e05e39ce/src/plotting/particles.jl#L4-L9' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.plot_billiard' href='#DynamicalBilliards.plot_billiard'>#</a>
 <strong><code>DynamicalBilliards.plot_billiard</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">plot_billiard</span><span class="o">(</span><span class="nt">bd</span><span class="p">::</span><span class="nd">Billiard</span><span class="o">;</span> <span class="nt">ax</span> <span class="o">=</span> <span class="o">(</span><span class="nt">figure</span><span class="o">();</span> <span class="nt">gca</span><span class="o">()))</span>
@@ -646,7 +646,7 @@
 
 <p>Plot the given <strong>periodic</strong> billiard <code>bd</code> using the limits defined by <code>xt</code> and <code>yt</code>.</p>
 <p>Set the keyword argument <code>plot_orbit = false</code> to not plot the orbit defined by <code>(xt, yt)</code> and only use the limits.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/9f9ebf88df18c154ef18a615a93669a94d30b4de/src/plotting/billiards.jl#L18-L36' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/49566d88d116215dde4d5b0d45473767e05e39ce/src/plotting/billiards.jl#L18-L36' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.animate_evolution' href='#DynamicalBilliards.animate_evolution'>#</a>
 <strong><code>DynamicalBilliards.animate_evolution</code></strong> &mdash; <em>Function</em>.</p>
 <p><strong>Keyword Arguments</strong></p>
@@ -662,7 +662,7 @@
 <li><code>figsize = (7.2, 7.2)</code> : <code>PyPlot</code> figure size. Width and height multiplied by 100 must be divisible by 2.</li>
 </ul>
 <p>The function returns <code>a, b, c</code>. Do <code>a[:remove](); b[:remove](); c[:remove]()</code> to clear the particle out of the figure.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/9f9ebf88df18c154ef18a615a93669a94d30b4de/src/plotting/animations.jl#L4-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/49566d88d116215dde4d5b0d45473767e05e39ce/src/plotting/animations.jl#L4-L29' class='documenter-source'>source</a><br></p>
 <p><a id='Examples-1'></a></p>
 <h2 id="examples">Examples</h2>
 <p><a id='Plotting-Obstacles-with-keywords-1'></a></p>
@@ -672,14 +672,9 @@
 <span class="n">bd</span> <span class="o">=</span> <span class="n">billiard_sinai</span><span class="p">()</span>
 
 <span class="n">figure</span><span class="p">()</span>
-<span class="n">plot_obstacle!</span><span class="p">(</span><span class="n">bd</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-<span class="n">plot_obstacle!</span><span class="p">(</span><span class="n">bd</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;blue&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s">&quot;dotted&quot;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">);</span>
-<span class="n">plot_obstacle!</span><span class="p">(</span><span class="n">bd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">);</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span>/home/travis/.julia/packages/Conda/S0nV/deps/usr/lib/python2.7/site-packages/matplotlib/cbook/__init__.py:2446: UserWarning: Saw kwargs [u&#39;ls&#39;, u&#39;linestyle&#39;] which are all aliases for u&#39;linestyle&#39;.  Kept value from u&#39;linestyle&#39;
-  seen=seen, canon=canonical, used=seen[-1]))
+<span class="n">plot_obstacle</span><span class="p">(</span><span class="n">bd</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<span class="n">plot_obstacle</span><span class="p">(</span><span class="n">bd</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;blue&quot;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s">&quot;dotted&quot;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">);</span>
+<span class="n">plot_obstacle</span><span class="p">(</span><span class="n">bd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">);</span>
 </pre></div>
 
 
@@ -716,11 +711,11 @@
 <h3 id="plotting-particles">Plotting particles</h3>
 <p>Following the above example, we create and plot a particle using the function <code>plot_particle</code>:</p>
 <div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
-<span class="n">plot_particle!</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">plot_particle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 <span class="c"># Plot one more particle with purple color,</span>
 <span class="c"># pentagon shape and bigger size (default is s=30):</span>
 <span class="n">p2</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
-<span class="n">plot_particle!</span><span class="p">(</span><span class="n">p2</span><span class="p">;</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="n">marker</span><span class="o">=</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">60.0</span><span class="p">)</span>
+<span class="n">plot_particle</span><span class="p">(</span><span class="n">p2</span><span class="p">;</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="n">marker</span><span class="o">=</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">60.0</span><span class="p">)</span>
 </pre></div>
 
 
@@ -731,13 +726,13 @@
 <p>The default plotting settings have been chosen for maximum clarity and consistency. The color conventions followed are:</p>
 <ul>
 <li>Particles are black.</li>
-<li>Particle orbits/trajectories are blue.</li>
 <li>Reflecting obstacles (e.g. <code>Disk</code>, <code>FiniteWall</code> etc.) are green.</li>
 <li>Randomly reflecting obstacles (e.g. <code>RandomDisk</code> or <code>RandomWall</code>) are purple.</li>
 <li>Ray-splitting obstacles are red with dashed linestyle.</li>
 <li>Periodicity enforcing obstacles are yellow with dotted linestyle (if and when plotted).</li>
 <li>Doors (<code>InfiniteWall</code> with <code>isdoor=true</code>) are plotted with alternating black and cyan dashed lines.</li>
 </ul>
+<p>Particle orbits use matplotlib's color cycle (first one is blue).</p>
 <p><a id='Animating-the-motion-of-a-particle-1'></a></p>
 <h2 id="animating-the-motion-of-a-particle">Animating the motion of a particle</h2>
 <p><strong>PRODUCE NEW ANIMATION, put it in the "tutorials" repo.</strong></p>
@@ -773,7 +768,7 @@
 <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">)</span>
-<span class="n">plot_particle!</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">plot_particle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </pre></div>
 
 
@@ -813,7 +808,7 @@
 <li><code>obstacleindices = true</code>: show obstacle indices above plot</li>
 <li>Any other keyword argument is passed to <code>PyPlot.plot</code> which plots the points of the section.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/9f9ebf88df18c154ef18a615a93669a94d30b4de/src/plotting/boundarymap_plots.jl#L4-L21' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/49566d88d116215dde4d5b0d45473767e05e39ce/src/plotting/boundarymap_plots.jl#L4-L21' class='documenter-source'>source</a><br></p>
 <p>Examples are shown in the <a href="../basic/phasespaces/">phase spaces</a> section.</p>
                 
                   
@@ -895,7 +890,7 @@
     
       <script src="../assets/javascripts/application.a59e2a89.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:".."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:".."}})</script>
       
         <script src="../assets\mathjaxhelper.js"></script>
       
