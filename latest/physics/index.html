@@ -546,7 +546,7 @@
 
 <p>Adjusting the global precision of <code>DynamicalBilliards</code> is very easy and can be done in two ways:</p>
 <ol>
-<li>Choose the floating precision you would like, by initializing your billiard table with parametric type <code>T</code>, e.g. <code>bt = billiard_sinai(Float16(0.3))</code>. This choice will propagate to the entire <code>bt</code>, all particles resulting from <code>randominside()</code>, <strong>as well as the entire evolution process</strong>.</li>
+<li>Choose the floating precision you would like, by initializing your billiard table with parametric type <code>T</code>, e.g. <code>bd = billiard_sinai(Float16(0.3))</code>. This choice will propagate to the entire <code>bd</code>, all particles resulting from <code>randominside()</code>, <strong>as well as the entire evolution process</strong>.</li>
 <li>Re-define the functions <code>timeprec(T)</code> and <code>timeprec_forward(T)</code>. Decreasing their values will make the evolution process slower, but the resulting numbers given by <code>evolve!()</code> will be more precise. There are no guarantees if you follow this method as it may lead to breaking code if <code>timeprec_forward</code> becomes too small.</li>
 </ol>
 <div class="admonition danger">
@@ -561,7 +561,7 @@
 <p><code>evolve!()</code> can be given an additional <code>warning</code> keyword argument in the case of magnetic propagation, e.g. <code>warning = true</code>. This optional argument throws a <code>warn()</code> message whenever a pinned particle is evolved.</p>
 <div class="admonition warning">
 <p class="admonition-title">Using <code>construct()</code></p>
-<p>When using the syntax <code>construct(evolve!(p, bt, t)...)</code> be sure that there aren't any pinned particles given to evolve. If there are any, construct will result in an error.</p>
+<p>When using the syntax <code>construct(evolve!(p, bd, t)...)</code> be sure that there aren't any pinned particles given to evolve. If there are any, construct will result in an error.</p>
 </div>
 <hr />
 <p><a id='Velocity-measure-1'></a></p>
@@ -588,7 +588,7 @@ r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
 </div>
 <p>After getting the timeseries from <code>construct()</code>:</p>
 <div class="codehilite"><pre><span></span><span class="c"># These are the &quot;code&quot;-data. |v| = 1 always</span>
-<span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span> <span class="o">=</span> <span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bt</span><span class="p">,</span> <span class="n">ttotal</span><span class="p">,</span> <span class="n">ray_splt</span><span class="p">)</span>
+<span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span> <span class="o">=</span> <span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="n">ttotal</span><span class="p">,</span> <span class="n">ray_splt</span><span class="p">)</span>
 <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span><span class="p">)</span>
 </pre></div>
 
