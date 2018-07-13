@@ -364,6 +364,54 @@
 
 
   <li class="md-nav__item">
+    <a href="ray-splitting/" title="Ray-Splitting" class="md-nav__link">
+      Ray-Splitting
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
+      Lyapunov Exponents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="mushroomtools/" title="MushroomTools" class="md-nav__link">
+      MushroomTools
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="physics/" title="Physics" class="md-nav__link">
+      Physics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="basic/low_level/" title="Low Level API" class="md-nav__link">
       Low Level API
     </a>
@@ -377,13 +425,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
     
-    <label class="md-nav__link" for="nav-6">
+    <label class="md-nav__link" for="nav-10">
       Tutorials
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
+      <label class="md-nav__title" for="nav-10">
         Tutorials
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -427,54 +475,6 @@
         
       </ul>
     </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="physics/" title="Physics" class="md-nav__link">
-      Physics
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="ray-splitting/" title="Ray-Splitting" class="md-nav__link">
-      Ray-Splitting
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
-      Lyapunov Exponents
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="mushroomtools/" title="MushroomTools" class="md-nav__link">
-      MushroomTools
-    </a>
   </li>
 
     
@@ -559,20 +559,21 @@
                 
                   <h1>Introduction</h1>
                 
-                <p><img alt="DynamicalBilliards Logo: The Julia billiard" src="http://i.imgur.com/NKgzYrt.gif" /></p>
+                <p><img alt="DynamicalBilliards v2.0 Logo: The Julia billiard" src="https://github.com/JuliaDynamics/Tutorials-and-Resources/blob/master/billiard_animations/DynamicalBilliards_logo_animated.gif?raw=true" /></p>
 <p><code>DynamicalBilliards</code> is an easy-to-use, modular and extendable Julia package for dynamical billiards in two dimensions.</p>
 <div class="admonition tldr">
 <p class="admonition-title">Welcome to <code>DynamicalBilliards</code> v2.0!</p>
 <p>The new version v2.0 of <code>DynamicalBilliards</code> brings massive performance increase, a ton of new features, a more intuitive and simpler low-level interface, automated animation production and much more stuff (also some minor breaking changes)! You can view the <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/master/CHANGELOG.md">changelog</a> for more.</p>
 <p>v2.0 also drops support for all Julia versions less than 0.7.</p>
+<p><em>we also have a cool new logo</em></p>
 </div>
 <div class="admonition tip">
-<p class="admonition-title">Julia Billiard animation</p>
+<p class="admonition-title">Julia Billiard logo animation</p>
 <p>Check out the example in the <a href="./tutorials/examples/#julia-logo-billiard">tutorials</a> page to see the code that created and animated the "Julia Billiard", which is the logo of our package!</p>
 </div>
 <p><a id='About-Billiards-1'></a></p>
 <h2 id="about-billiards">About Billiards</h2>
-<p>A dynamical billiard is a system where a particle is propagating inside a domain, bouncing from obstacle to obstacle by a specular reflection at the boundary of the obstacles. This basic idea can be extended in many ways, one of which is replacing the particle orbit from a straight line to a circle.</p>
+<p>A dynamical billiard is a system where a particle is propagating inside a domain, bouncing from obstacle to obstacle (i.e. the <em>boundary</em> of the domain) by a specular reflection at the boundary of the obstacles. This basic idea can be extended in many ways, one of which is replacing the particle orbit from a straight line to a circle.</p>
 <p>Billiard systems have been used extensively in mathematics, nonlinear dynamics and chaos and played an important role in the development of nonlinear science. The <a href="https://en.wikipedia.org/wiki/Dynamical_billiards">wikipedia page</a> has many examples of different types of billiards. Also, the <a href="http://www.scholarpedia.org/article/Dynamical_billiards">scholarpedia</a> entry is a good read on the subject.</p>
 <p><a id='Features-1'></a></p>
 <h2 id="features">Features</h2>
@@ -594,6 +595,7 @@
 <li><a href="./basic/phasespaces">Boundary maps</a>.</li>
 <li><a href="./basic/high_level/#escape-times">Escape times</a> &amp; <a href="./basic/high_level/#mean-collision-times">mean collision times</a>.</li>
 <li><a href="./lyapunovs">Lyapunov exponents</a>.</li>
+<li>Support for both <a href="./basic/phasespaces/#coordinate-systems">coordinate systems</a>: 3D real space and boundary coordinates.</li>
 <li>Novel algorithms that compute the portion of either the 2D boundary space or the 3D real space that an orbit covers as a particle evolves. See the <a href="./basic/phasespaces/#phase-space-portions">phase spaces</a> section.</li>
 <li>Easy to use <a href="./basic/low_level">low-level interface</a>.</li>
 <li>Specialized tools for <a href="./mushroomtools">mushroom billiards</a>.</li>
@@ -604,7 +606,7 @@
 <hr />
 <p><a id='Citing-1'></a></p>
 <h2 id="citing">Citing</h2>
-<p>If you have used this package for research that resulted in a publication, please be kind enough to cite the paper associated with DynamicalBilliards.jl. The DOI is https://doi.org/10.21105/joss.00458 and you can cite as:</p>
+<p>If you have used this package for research that resulted in a publication, please be kind enough to cite the paper associated with <code>DynamicalBilliards</code>. The DOI is https://doi.org/10.21105/joss.00458 and you can cite as:</p>
 <blockquote>
 <p>G. Datseris, [The Journal of Open Source Software <strong>2</strong>, 458</p>
 </blockquote>
@@ -632,7 +634,7 @@
 <hr />
 <p><a id='Support-1'></a></p>
 <h2 id="support">Support</h2>
-<p>If you are having problems with <code>DynamicalBilliards.jl</code> do not hesitate to seek for support! There are numerous ways to do that:</p>
+<p>If you are having problems with <code>DynamicalBilliards</code> do not hesitate to seek for support! There are numerous ways to do that:</p>
 <ol>
 <li>Visit our <a href="https://gitter.im/JuliaDynamics/Lobby">official chatroom</a> on Gitter: https://gitter.im/JuliaDynamics/Lobby</li>
 <li>Open a new issue at our <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/issues">GitHub issues page</a>.</li>
@@ -640,7 +642,7 @@
 <hr />
 <p><a id='Contributing-1'></a></p>
 <h2 id="contributing">Contributing</h2>
-<p>Everyone is welcomed to contribute to <code>DynamicalBilliards.jl</code>! If you have some new algorithm, types of Obstacles or anything new to add, do not hesitate! For formal questions about e.g. structuring of code it is best to contact us through the <a href="https://gitter.im/JuliaDynamics/Lobby">gitter chatroom</a> or by opening a new Pull Request and asking for a review of your code.</p>
+<p>Everyone is welcomed to contribute to <code>DynamicalBilliards</code>! If you have some new algorithm, types of Obstacles or anything new to add, do not hesitate! For formal questions about e.g. structuring of code it is best to contact us through the <a href="https://gitter.im/JuliaDynamics/Lobby">gitter chatroom</a> or by opening a new Pull Request and asking for a review of your code.</p>
 <p>If you would like to help but do not have anything new to contribute, please go ahead and take a look at the <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/issues">GitHub issues page</a> of the package. Some of the existing issues are easy to solve and are there specifically for people that would like to contribute.</p>
 <hr />
                 

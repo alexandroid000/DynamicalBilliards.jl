@@ -295,6 +295,54 @@
 
 
   <li class="md-nav__item">
+    <a href="../../ray-splitting/" title="Ray-Splitting" class="md-nav__link">
+      Ray-Splitting
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
+      Lyapunov Exponents
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../mushroomtools/" title="MushroomTools" class="md-nav__link">
+      MushroomTools
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../physics/" title="Physics" class="md-nav__link">
+      Physics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../basic/low_level/" title="Low Level API" class="md-nav__link">
       Low Level API
     </a>
@@ -310,13 +358,13 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10" checked>
     
-    <label class="md-nav__link" for="nav-6">
+    <label class="md-nav__link" for="nav-10">
       Tutorials
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
+      <label class="md-nav__title" for="nav-10">
         Tutorials
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -411,54 +459,6 @@
   </li>
 
     
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../physics/" title="Physics" class="md-nav__link">
-      Physics
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../ray-splitting/" title="Ray-Splitting" class="md-nav__link">
-      Ray-Splitting
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
-      Lyapunov Exponents
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../mushroomtools/" title="MushroomTools" class="md-nav__link">
-      MushroomTools
-    </a>
-  </li>
-
-    
   </ul>
 </nav>
                   </div>
@@ -522,58 +522,87 @@
                 <p>This section has some examples of usage of <code>DynamicalBilliards</code>, with some brief comments.</p>
 <p><a id='Julia-logo-Billiard-1'></a></p>
 <h2 id="julia-logo-billiard">Julia-logo Billiard</h2>
-<p>The "Julia-logo" billiard animation was made with:</p>
+<p>The "Julia-logo-billiard" animation that is the logo of our package was made with:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
-<span class="n">figure</span><span class="p">()</span>
-<span class="n">bd</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">()</span>
-<span class="c"># Plot walls:</span>
-<span class="k">for</span> <span class="n">w</span> <span class="kp">in</span> <span class="n">bd</span>
-  <span class="n">plot_obstacle</span><span class="p">(</span><span class="n">w</span><span class="p">;</span> <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">)</span>
+<span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="o">:</span> <span class="n">cross2D</span>
+
+<span class="c"># %%</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span> <span class="n">α</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">;</span> <span class="n">r</span> <span class="o">=</span> <span class="mf">0.18</span><span class="p">;</span> <span class="n">off</span> <span class="o">=</span> <span class="mf">0.25</span>
+<span class="c"># function billiards_logo(h=1.0, α=0.8, r=0.18, off=0.25)</span>
+
+    <span class="n">cos6</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="nb">π</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">β</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">-</span> <span class="n">cos6</span><span class="o">*</span><span class="n">α</span><span class="p">)</span><span class="o">/</span><span class="n">cos6</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">α</span> <span class="o">+</span> <span class="mi">2</span><span class="n">β</span>
+    <span class="n">center_of_mass</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">√</span><span class="mi">3</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">startloc</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">α</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+
+    <span class="c"># create directions of the hexagonal 6:</span>
+    <span class="n">hexvert</span> <span class="o">=</span> <span class="p">[(</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">dirs</span> <span class="o">=</span> <span class="p">[</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="n">hexvert</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">.-</span> <span class="n">hexvert</span><span class="p">[</span><span class="n">mod1</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)])</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">6</span><span class="p">]</span>
+
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">Obstacle</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}[]</span>
+
+    <span class="n">sp</span> <span class="o">=</span> <span class="n">startloc</span>
+    <span class="n">ep</span> <span class="o">=</span> <span class="n">startloc</span> <span class="o">+</span> <span class="n">α</span><span class="o">*</span><span class="n">dirs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">normal</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">.-</span> <span class="n">sp</span><span class="p">;</span> <span class="p">[</span><span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="n">push!</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">InfiniteWall</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="s">&quot;frame 1&quot;</span><span class="p">))</span>
+
+
+    <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">2</span><span class="o">:</span><span class="mi">6</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">iseven</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">?</span> <span class="n">β</span> <span class="o">:</span> <span class="n">α</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">InfiniteWall</span> <span class="c">#iseven(i) ? RandomWall : InfiniteWall</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ep</span>
+        <span class="n">ep</span> <span class="o">=</span> <span class="n">sp</span> <span class="o">+</span> <span class="n">s</span><span class="o">*</span><span class="n">dirs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">normal</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">.-</span> <span class="n">sp</span><span class="p">;</span> <span class="p">[</span><span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="n">push!</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">T</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="s">&quot;frame </span><span class="si">$</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="s">&quot;</span><span class="p">))</span>
+    <span class="k">end</span>
+
+
+    <span class="c"># Radii of circles that compose the Julia logo</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">off</span><span class="p">]</span>
+
+    <span class="n">R</span> <span class="o">=</span> <span class="p">[</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>
+         <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>  <span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="nb">π</span><span class="o">/</span><span class="mi">3</span><span class="p">)]</span>
+
+
+    <span class="n">green</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">(</span><span class="n">center_of_mass</span> <span class="o">.+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s">&quot;green&quot;</span><span class="p">)</span>
+    <span class="n">red</span> <span class="o">=</span> <span class="n">Antidot</span><span class="p">(</span><span class="n">center_of_mass</span> <span class="o">.+</span> <span class="n">R</span><span class="o">*</span><span class="n">offset</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s">&quot;red&quot;</span><span class="p">)</span>
+    <span class="n">purple</span> <span class="o">=</span> <span class="n">RandomDisk</span><span class="p">(</span><span class="n">center_of_mass</span> <span class="o">.+</span> <span class="n">R</span><span class="o">*</span><span class="n">R</span><span class="o">*</span><span class="n">offset</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s">&quot;purple&quot;</span><span class="p">)</span>
+
+    <span class="n">bd</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">green</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">purple</span><span class="p">,</span> <span class="n">frame</span><span class="o">...</span><span class="p">)</span>
+<span class="c"># end</span>
+<span class="c"># bd = billiards_logo(1.0, 0.8, 0.18, 0.25)</span>
+
+
+<span class="c"># %% Raysplitting functions for the red circle:</span>
+<span class="n">refraction</span> <span class="o">=</span> <span class="p">(</span><span class="nb">φ</span><span class="p">,</span> <span class="n">pflag</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pflag</span> <span class="o">?</span> <span class="mf">0.5</span><span class="nb">φ</span> <span class="o">:</span> <span class="mf">2.0</span><span class="nb">φ</span>
+<span class="n">transmission_p</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">φ</span><span class="p">,</span> <span class="n">pflag</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">begin</span>
+    <span class="k">if</span> <span class="n">pflag</span>
+        <span class="n">p</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="nb">φ</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">(</span><span class="nb">π</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span>
+        <span class="n">abs</span><span class="p">(</span><span class="nb">φ</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">π</span><span class="o">/</span><span class="mi">4</span> <span class="o">?</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="nb">φ</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">(</span><span class="nb">π</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">:</span> <span class="mf">0.0</span>
+    <span class="k">end</span>
 <span class="k">end</span>
+<span class="n">newoantidot</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">bool</span> <span class="o">?</span> <span class="o">-</span><span class="mf">2.0</span><span class="n">x</span> <span class="o">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="n">x</span><span class="p">)</span>
+<span class="n">raya</span> <span class="o">=</span> <span class="n">RaySplitter</span><span class="p">([</span><span class="mi">2</span><span class="p">],</span> <span class="n">transmission_p</span><span class="p">(</span><span class="mf">0.8</span><span class="p">),</span> <span class="n">refraction</span><span class="p">,</span> <span class="n">newoantidot</span><span class="p">)</span>
 
-<span class="c"># Create and plot the 3 disks:</span>
-<span class="n">r</span> <span class="o">=</span> <span class="mf">0.165</span>
-<span class="n">ewidth</span> <span class="o">=</span> <span class="mf">6.0</span>
-<span class="n">redcent</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.28</span><span class="p">,</span> <span class="mf">0.32</span><span class="p">]</span>
-<span class="n">red</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">(</span><span class="n">redcent</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s">&quot;red&quot;</span><span class="p">)</span>
-<span class="n">plot_obstacle</span><span class="p">(</span><span class="n">red</span><span class="p">;</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">203</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">60</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">51</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span>
-<span class="n">facecolor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">213</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">99</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">92</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="n">ewidth</span><span class="p">)</span>
+<span class="c"># %% Create and animate particle:</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
 
-<span class="n">purple</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mi">1</span> <span class="o">-</span> <span class="n">redcent</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">redcent</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="n">r</span><span class="p">,</span> <span class="s">&quot;purple&quot;</span><span class="p">)</span>
-<span class="n">plot_obstacle</span><span class="p">(</span><span class="n">purple</span><span class="p">;</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">149</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">88</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">178</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span>
-<span class="n">facecolor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">170</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">121</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">193</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="n">ewidth</span><span class="p">)</span>
+<span class="n">cd</span><span class="p">()</span>
+<span class="n">mkpath</span><span class="p">(</span><span class="s">&quot;dynamicalbilliards&quot;</span><span class="p">)</span>
+<span class="n">cd</span><span class="p">(</span><span class="s">&quot;dynamicalbilliards&quot;</span><span class="p">)</span>
 
-<span class="n">green</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">redcent</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="n">r</span><span class="p">,</span> <span class="s">&quot;green&quot;</span><span class="p">)</span>
-<span class="n">plot_obstacle</span><span class="p">(</span><span class="n">green</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">56</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">152</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">38</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span>
-<span class="n">facecolor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">96</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">173</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">81</span><span class="o">/</span><span class="mi">255</span><span class="p">),</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="n">ewidth</span><span class="p">)</span>
-
-<span class="c"># Create billiard</span>
-<span class="n">bd</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bd</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">purple</span><span class="p">,</span> <span class="n">green</span><span class="p">)</span>
-
-<span class="c"># Set axis</span>
+<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
+<span class="n">plot_billiard</span><span class="p">(</span><span class="n">bd</span><span class="p">;</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">gca</span><span class="p">())</span>
 <span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">gca</span><span class="p">()[</span><span class="o">:</span><span class="n">set_aspect</span><span class="p">](</span><span class="s">&quot;equal&quot;</span><span class="p">)</span>
-<span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.1</span><span class="p">)</span>
-<span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.1</span><span class="p">)</span>
-
-<span class="c"># Create a particle</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
-<span class="c"># particle colors</span>
-<span class="n">darkblue</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">99</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">216</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
-<span class="n">lightblue</span> <span class="o">=</span> <span class="p">(</span><span class="mi">102</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">130</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="mi">223</span><span class="o">/</span><span class="mi">255</span><span class="p">)</span>
-
-<span class="n">okwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">linewidth</span> <span class="o">=&gt;</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">:</span><span class="n">color</span> <span class="o">=&gt;</span> <span class="n">lightblue</span><span class="p">)</span>
-<span class="n">pkwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">color</span> <span class="o">=&gt;</span> <span class="n">darkblue</span><span class="p">,</span> <span class="o">:</span><span class="n">s</span> <span class="o">=&gt;</span> <span class="mf">150.0</span><span class="p">)</span>
-
-<span class="c"># create the animation:</span>
-<span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">200</span><span class="p">;</span> <span class="n">col_to_plot</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span>
-<span class="n">particle_kwargs</span> <span class="o">=</span> <span class="n">pkwargs</span><span class="p">,</span> <span class="n">orbit_kwargs</span> <span class="o">=</span> <span class="n">okwargs</span><span class="p">,</span> <span class="n">newfig</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+<span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">raya</span><span class="p">;</span>
+<span class="n">newfig</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s">&quot;logo&quot;</span><span class="p">,</span> <span class="n">deletefigs</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="n">col_to_plot</span> <span class="o">=</span> <span class="mi">7</span><span class="p">);</span>
 </pre></div>
 
 
-<p>and produces:</p>
-<p><img alt="Julia-logo billiard animation" src="http://i.imgur.com/EtKof48.gif" /></p>
+<video width="100%" height="auto" controls> <source src="https://github.com/JuliaDynamics/Tutorials-and-Resources/blob/master/billiard*animations/DynamicalBilliards*billiard_animation.mp4?raw=true" type="video/mp4"> </video>
+
 <p><a id='Mean-Free-Path-of-the-Lorentz-Gas-1'></a></p>
 <h2 id="mean-free-path-of-the-lorentz-gas">Mean Free Path of the Lorentz Gas</h2>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
@@ -582,7 +611,7 @@
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>2.1968035258697025
+<div class="codehilite"><pre><span></span>2.1848718894710113
 </pre></div>
 
 
@@ -660,20 +689,6 @@
             </div>
           </a>
         
-        
-          <a href="../../physics/" title="Physics" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Physics
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
         
       </nav>
     </div>

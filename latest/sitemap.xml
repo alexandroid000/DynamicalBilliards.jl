@@ -21,6 +21,26 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>/ray-splitting/</loc>
+     <lastmod>2018-07-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/lyapunovs/</loc>
+     <lastmod>2018-07-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/mushroomtools/</loc>
+     <lastmod>2018-07-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/physics/</loc>
+     <lastmod>2018-07-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>/basic/low_level/</loc>
      <lastmod>2018-07-13</lastmod>
      <changefreq>daily</changefreq>
@@ -37,26 +57,6 @@
     </url>
     <url>
      <loc>/tutorials/examples/</loc>
-     <lastmod>2018-07-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>/physics/</loc>
-     <lastmod>2018-07-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>/ray-splitting/</loc>
-     <lastmod>2018-07-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>/lyapunovs/</loc>
-     <lastmod>2018-07-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>/mushroomtools/</loc>
      <lastmod>2018-07-13</lastmod>
      <changefreq>daily</changefreq>
     </url>
