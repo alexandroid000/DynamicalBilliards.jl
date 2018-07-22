@@ -641,8 +641,8 @@
 
 
 <div class="codehilite"><pre><span></span>Particle{Float64}
-position: [0.713998, 0.206298]
-velocity: [-0.929482, 0.368868]
+position: [0.931758, 0.123275]
+velocity: [-0.355235, 0.934777]
 </pre></div>
 
 
@@ -653,8 +653,8 @@ velocity: [-0.929482, 0.368868]
 
 
 <div class="codehilite"><pre><span></span>MagneticParticle{Float64}
-position: [0.713998, 0.206298]
-velocity: [-0.929482, 0.368868]
+position: [0.931758, 0.123275]
+velocity: [-0.355235, 0.934777]
 ang. velocity: 0.5
 </pre></div>
 
@@ -677,7 +677,7 @@ ang. velocity: 0.5
 
 
 <p>Return a particle with random allowed initial conditions inside the given billiard. If supplied with a second argument the type of the returned particle is <code>MagneticParticle</code>, with angular velocity <code>ω</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/billiards/billiardtable.jl#L121-L126' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/billiards/billiardtable.jl#L121-L126' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
@@ -685,8 +685,8 @@ ang. velocity: 0.5
 
 
 <div class="codehilite"><pre><span></span>Particle{Float64}
-position: [0.869204, 0.907714]
-velocity: [-0.447733, -0.894167]
+position: [-0.420656, 0.408685]
+velocity: [0.764821, -0.644243]
 </pre></div>
 
 
@@ -696,8 +696,8 @@ velocity: [-0.447733, -0.894167]
 
 
 <div class="codehilite"><pre><span></span>MagneticParticle{Float64}
-position: [-0.0241938, 0.679984]
-velocity: [-0.0862391, 0.996274]
+position: [1.30285, 0.225705]
+velocity: [0.664578, -0.747219]
 ang. velocity: 0.5
 </pre></div>
 
@@ -731,7 +731,7 @@ ang. velocity: 0.5
 
 
 <p>To implement ray-splitting, the <code>evolve!</code> function is supplemented with a fourth argument, <code>raysplitters</code> which is a tuple of <a href="../../ray-splitting/#DynamicalBilliards.RaySplitter"><code>RaySplitter</code></a> instances. For more information and instructions on using ray-splitting please visit the official documentation.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/timeevolution/propagation.jl#L225-L264' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/timeevolution/propagation.jl#L225-L264' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Forget the ray-splitting part for now (see <a href="../../ray-splitting">Ray-Splitting</a>).</p>
 <p>Let's see an example:</p>
@@ -742,11 +742,11 @@ ang. velocity: 0.5
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>0.0  [0.869204, 0.907714]  [-0.447733, -0.894167]
-1.015  [0.414688, 1.11022e-16]  [-0.447733, 0.894167]
-1.111  [-0.0825983, 0.99313]  [-0.131928, -0.991259]
-0.956  [-0.208701, 0.0456392]  [0.666017, 0.745936]
-1.279  [0.64341, 1.0]  [0.666017, -0.745936]
+<div class="codehilite"><pre><span></span>0.0  [-0.420656, 0.408685]  [0.764821, -0.644243]
+0.634  [0.0645194, 5.55112e-17]  [0.764821, 0.644243]
+1.486  [1.2014, 0.957645]  [0.0416109, -0.999134]
+0.898  [1.23875, 0.0606862]  [-0.815741, 0.578418]
+1.614  [-0.0774472, 0.993966]  [-0.599573, -0.80032]
 </pre></div>
 
 
@@ -758,16 +758,16 @@ ang. velocity: 0.5
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>0.0  [-0.0241938, 0.679984]  [-0.0862391, 0.996274]
-0.319  [-0.0768296, 0.994062]  [0.0627555, -0.998029]
-1.063  [0.261954, 2.48357e-13]  [0.559786, 0.828637]
-1.069  [0.601103, 1.0]  [0.0597865, -0.998211]
-1.069  [0.940252, 2.22045e-16]  [0.559786, 0.828637]
-0.987  [1.27289, 0.918963]  [-0.869492, -0.493947]
-1.263  [0.436624, 2.22045e-16]  [-0.41001, 0.912081]
-1.181  [-0.328747, 0.87673]  [0.409646, -0.912245]
-1.18  [0.435785, 1.58651e-13]  [0.848011, 0.529979]
-1.254  [1.22921, 0.944369]  [-0.537218, -0.843444]
+<div class="codehilite"><pre><span></span>0.0  [1.30285, 0.225705]  [0.664578, -0.747219]
+0.092  [1.36532, 0.158621]  [-0.76159, 0.648059]
+1.984  [-0.49712, 0.553584]  [0.8767, -0.481038]
+2.082  [1.49171, 0.590659]  [-0.98482, 0.17358]
+1.881  [-0.241933, 0.0624289]  [0.203876, 0.978997]
+0.875  [-0.253704, 0.930853]  [0.73923, -0.673453]
+1.885  [1.49756, 0.450615]  [-0.920498, 0.390746]
+2.025  [-0.431599, 0.247566]  [0.901627, 0.432515]
+1.141  [0.40507, 1.0]  [0.52541, -0.850849]
+1.3  [1.38788, 0.184487]  [-0.541916, 0.840432]
 </pre></div>
 
 
@@ -789,7 +789,7 @@ ang. velocity: 0.5
 <li>y velocity time-series</li>
 <li>time vector</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/timeevolution/propagation.jl#L324-L341' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/timeevolution/propagation.jl#L324-L341' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The function is especially useful when one wants immediately the timeseries instead of the output of <code>evolve!</code>. Because of the simple syntax</p>
 <div class="codehilite"><pre><span></span><span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
@@ -800,11 +800,11 @@ ang. velocity: 0.5
 
 
 <div class="codehilite"><pre><span></span>5×5 Array{Float64,2}:
-  0.869204   0.907714     -0.447733  -0.894167  0.0
-  0.414688   1.11022e-16  -0.447733   0.894167  1.01515
- -0.0825983  0.99313      -0.131928  -0.991259  2.12583
- -0.208701   0.0456392     0.666017   0.745936  3.08167
-  0.64341    1.0           0.666017  -0.745936  4.36108
+ -0.420656   0.408685      0.764821   -0.644243  0.0
+  0.0645194  5.55112e-17   0.764821    0.644243  0.634364
+  1.2014     0.957645      0.0416109  -0.999134  2.12083
+  1.23875    0.0606862    -0.815741    0.578418  3.01857
+ -0.0774472  0.993966     -0.599573   -0.80032   4.63207
 </pre></div>
 
 
@@ -818,11 +818,11 @@ ang. velocity: 0.5
 
 
 <div class="codehilite"><pre><span></span>5×5 Array{Float64,2}:
- -0.0241938  0.679984  -0.0862391  0.996274  0.0
- -0.0250811  0.689944  -0.0912194  0.995831  0.01
- -0.0260182  0.6999    -0.0961974  0.995362  0.02
- -0.0270051  0.709852  -0.101173   0.994869  0.03
- -0.0280416  0.719798  -0.106146   0.994351  0.04
+ 1.30285  0.225705  0.664578  -0.747219  0.0
+ 1.30951  0.218249  0.668306  -0.743887  0.01
+ 1.31621  0.210827  0.672017  -0.740536  0.02
+ 1.32295  0.203439  0.675711  -0.737167  0.03
+ 1.32973  0.196084  0.679388  -0.733779  0.04
 </pre></div>
 
 
@@ -848,7 +848,7 @@ ang. velocity: 0.5
 </ul>
 <p>Return the positions <code>poss</code> and velocities <code>vels</code> at the instances of crossing the <code>plane</code>. If given more than one particle, the result is a vector of vectors of vectors.</p>
 <p><em>Notice</em> - This function can handle pinned particles. If a pinned particle can intersect with the <code>plane</code>, then the intersection is returned. If however it can't then empty vectors are returned.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/poincare.jl#L17-L38' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/poincare.jl#L17-L38' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, the surface of section in the periodic Sinai billiard with magnetic field reveals the mixed nature of the phase-space:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
@@ -902,7 +902,7 @@ ang. velocity: 0.5
 <p>Calculate the escape time of a particle <code>p</code> in the billiard <code>bd</code>, which is the time until colliding with any "door" in <code>bd</code>. As a "door" is considered any <a href="../low_level/#DynamicalBilliards.FiniteWall"><code>FiniteWall</code></a> with field <code>isdoor = true</code>.</p>
 <p>If the particle performs more than <code>maxiter</code> collisions without colliding with the <code>Door</code> (i.e. escaping) the returned result is <code>Inf</code>.</p>
 <p>A warning can be thrown if the result is <code>Inf</code>. Enable this using the keyword <code>warning = true</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/highleveltimes.jl#L18-L30' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/highleveltimes.jl#L18-L30' class='documenter-source'>source</a><br></p>
 <div class="admonition tip">
 <p class="admonition-title">Creating a door</p>
 <p>To create a "door" simply visit the <a href="../library">library page</a> to learn more about the individual obstacle types (specifically <a href="../low_level/#DynamicalBilliards.FiniteWall"><code>FiniteWall</code></a>). To be able to combine them into a <a href="../../tutorials/billiard_table/#DynamicalBilliards.Billiard"><code>Billiard</code></a> you should also check out the tutorial on <a href="../tutorials/billiard_table">defining your own billiard</a>.</p>
@@ -920,8 +920,8 @@ ang. velocity: 0.5
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>Out of 100 particles, 35 escaped
-Mean escape time was 5.210277663964276
+<div class="codehilite"><pre><span></span>Out of 100 particles, 23 escaped
+Mean escape time was 3.7213847872812855
 </pre></div>
 
 
@@ -930,7 +930,7 @@ Mean escape time was 5.210277663964276
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>109.41780999384417
+<div class="codehilite"><pre><span></span>285.0022539758644
 </pre></div>
 
 
@@ -945,14 +945,14 @@ Mean escape time was 5.210277663964276
 
 <p>Compute the mean collision time <code>κ</code> of the particle <code>p</code> in the billiard <code>bd</code> by evolving for total amount <code>t</code> (either float for time or integer for collision number).</p>
 <p>Collision times are counted only between obstacles that are <em>not</em> <a href="../low_level/#DynamicalBilliards.PeriodicWall"><code>PeriodicWall</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/highleveltimes.jl#L104-L111' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/highleveltimes.jl#L104-L111' class='documenter-source'>source</a><br></p>
 <p>For example,</p>
 <div class="codehilite"><pre><span></span><span class="n">bd</span> <span class="o">=</span> <span class="n">billiard_sinai</span><span class="p">()</span>
 <span class="n">meancollisiontime</span><span class="p">(</span><span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">),</span> <span class="n">bd</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>0.4496747506706514
+<div class="codehilite"><pre><span></span>0.4492325557109581
 </pre></div>
 
 
@@ -972,7 +972,7 @@ Mean escape time was 5.210277663964276
 <li>"random" : The velocity is randomized upon collision.</li>
 <li>"ray-splitting" : All obstacles in the billiard allow for ray-splitting.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/billiards/standard_billiards.jl#L10-L22' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/billiards/standard_billiards.jl#L10-L22' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.billiard_sinai' href='#DynamicalBilliards.billiard_sinai'>#</a>
 <strong><code>DynamicalBilliards.billiard_sinai</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">billiard_sinai</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;standard&quot;</span><span class="p">)</span>
@@ -988,7 +988,7 @@ Mean escape time was 5.210277663964276
 <li>"random" : The velocity is randomized upon collision.</li>
 <li>"ray-splitting" : All obstacles in the billiard allow for ray-splitting.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/billiards/standard_billiards.jl#L70-L85' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/billiards/standard_billiards.jl#L70-L85' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.billiard_bunimovich' href='#DynamicalBilliards.billiard_bunimovich'>#</a>
 <strong><code>DynamicalBilliards.billiard_bunimovich</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>billiard_bunimovich(l=1.0, w=1.0)
@@ -997,7 +997,7 @@ Mean escape time was 5.210277663964276
 
 <p>Return a vector of <code>Obstacle</code>s that define a Buminovich billiard, also called a stadium. The length is considered <em>without</em> the attached semicircles, meaning that the full length of the billiard is <code>l + w</code>. The left and right edges of the stadium are <a href="../low_level/#DynamicalBilliards.Semicircle"><code>Semicircle</code></a>s.</p>
 <p><code>billiard_stadium</code> is an alias of <code>billiard_bunimovich</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/billiards/standard_billiards.jl#L257-L265' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/billiards/standard_billiards.jl#L257-L265' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.billiard_mushroom' href='#DynamicalBilliards.billiard_mushroom'>#</a>
 <strong><code>DynamicalBilliards.billiard_mushroom</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>billiard_mushroom(l = 1.0, w = 0.2, r = 1.0, sloc = 0.0; door = true)
@@ -1006,7 +1006,7 @@ Mean escape time was 5.210277663964276
 
 <p>Create a mushroom billiard with cap radius <code>r</code>, stem width <code>w</code> and step height <code>l</code>. The center of the cap (which is Semicircle) is always at <code>[0, l]</code>. The center of the stem is located at <code>sloc</code>.</p>
 <p>Optionally, the bottom-most <code>Wall</code> is a <code>Door</code> (see <a href="./#DynamicalBilliards.escapetime"><code>escapetime</code></a>).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/billiards/standard_billiards.jl#L218-L225' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/billiards/standard_billiards.jl#L218-L225' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.billiard_lorentz' href='#DynamicalBilliards.billiard_lorentz'>#</a>
 <strong><code>DynamicalBilliards.billiard_lorentz</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>billiard_lorentz(r=0.25, x=1.0, y=1.0)
@@ -1014,7 +1014,7 @@ Mean escape time was 5.210277663964276
 
 
 <p>Alias for <code>billiard_sinai(r,x,y; setting = "periodic")</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/billiards/standard_billiards.jl#L107-L110' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/billiards/standard_billiards.jl#L107-L110' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.billiard_polygon' href='#DynamicalBilliards.billiard_polygon'>#</a>
 <strong><code>DynamicalBilliards.billiard_polygon</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">billiard_polygon</span><span class="o">(</span><span class="nt">n</span><span class="p">::</span><span class="nd">Int</span><span class="o">,</span> <span class="nt">R</span><span class="o">,</span> <span class="nt">center</span> <span class="o">=</span> <span class="cp">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="cp">]</span><span class="o">;</span> <span class="nt">setting</span> <span class="o">=</span> <span class="s2">&quot;standard&quot;</span><span class="o">)</span>
@@ -1029,7 +1029,7 @@ Mean escape time was 5.210277663964276
 <li>"periodic" : The walls are <code>PeriodicWall</code> type, enforcing periodicity at the boundaries. Only available for <code>n=4</code> or <code>n=6</code>.</li>
 <li>"random" : The velocity is randomized upon collision.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/billiards/standard_billiards.jl#L113-L125' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/billiards/standard_billiards.jl#L113-L125' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.billiard_hexagonal_sinai' href='#DynamicalBilliards.billiard_hexagonal_sinai'>#</a>
 <strong><code>DynamicalBilliards.billiard_hexagonal_sinai</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>billiard_hexagonal_sinai(r, R, center = [0,0]; setting = &quot;standard&quot;)
@@ -1037,7 +1037,7 @@ Mean escape time was 5.210277663964276
 
 
 <p>Create a sinai-like billiard, which is a hexagon of outer radius <code>R</code>, containing at its center (given by <code>center</code>) a disk of radius <code>r</code>. The <code>setting</code> keyword is passed to <code>billiard_polygon</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/06aa7642d7d03921fcc25df10d4f61e0de84184b/src/billiards/standard_billiards.jl#L163-L168' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a2667a96ee6c7432ee566917550bfcaa19cc4ca8/src/billiards/standard_billiards.jl#L163-L168' class='documenter-source'>source</a><br></p>
                 
                   
                 
