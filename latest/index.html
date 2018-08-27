@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="./assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.2">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,9 @@
       
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application.ba0fd1a6.css">
+      <link rel="stylesheet" href="./assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="./assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="./assets/stylesheets/application-palette.22915126.css">
       
       
         
@@ -209,11 +209,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href="." title="DynamicalBilliards.jl" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     DynamicalBilliards.jl
   </label>
   
@@ -294,6 +294,19 @@
   <a href="#installation" title="Installation" class="md-nav__link">
     Installation
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plotting" title="Plotting" class="md-nav__link">
+    Plotting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -522,6 +535,19 @@
     Installation
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plotting" title="Plotting" class="md-nav__link">
+    Plotting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -571,6 +597,13 @@
 <p class="admonition-title">Julia Billiard logo animation</p>
 <p>Check out the example in the <a href="./tutorials/examples/#julia-logo-billiard">tutorials</a> page to see the code that created and animated the "Julia Billiard", which is the logo of our package!</p>
 </div>
+<p>This documentation was built with the following stable versions:</p>
+<div class="codehilite"><pre><span></span> * DynamicalBilliards ........ 2.2.0+
+ * StaticArrays .............. 0.8.3
+ * PyPlot .................... 2.6.1
+</pre></div>
+
+
 <p><a id='About-Billiards-1'></a></p>
 <h2 id="about-billiards">About Billiards</h2>
 <p>A dynamical billiard is a system where a particle is propagating inside a domain, bouncing from obstacle to obstacle (i.e. the <em>boundary</em> of the domain) by a specular reflection at the boundary of the obstacles. This basic idea can be extended in many ways, one of which is replacing the particle orbit from a straight line to a circle.</p>
@@ -629,12 +662,16 @@
 
 <p><a id='Installation-1'></a></p>
 <h2 id="installation">Installation</h2>
-<p>This package is registered, simply use <code>] add DynamicalBilliards</code> to install it. The <a href="https://juliadynamics.github.io/DynamicalBilliards.jl/stable/">stable documentation</a> accompanies the version installed with <code>add</code>.</p>
+<p>This package is registered, simply use <code>]</code> to get into the package manager mode and then type <code>add DynamicalBilliards</code> to install it. The <a href="https://juliadynamics.github.io/DynamicalBilliards.jl/stable/">stable documentation</a> accompanies the version installed with <code>add</code>.</p>
+<p>To confirm the validity of your installation you can run the tests of <code>DynamicalBilliards</code>. This can be done via <code>] test DynamicalBilliards</code>.</p>
+<p><a id='Plotting-1'></a></p>
+<h3 id="plotting">Plotting</h3>
 <p>Plotting is done through the <code>PyPlot</code> module. All plotting functions are brought into scope when <code>using PyPlot</code> is done.</p>
+<p>In addition, for animations using the function <a href="visualizing/#DynamicalBilliards.animate_evolution"><code>animate_evolution</code></a> the <code>ffmpeg</code> software must be accessible from the command line.</p>
 <hr />
 <p><a id='Support-1'></a></p>
 <h2 id="support">Support</h2>
-<p>If you are having problems with <code>DynamicalBilliards</code> do not hesitate to seek for support! There are numerous ways to do that:</p>
+<p>If you are having any kind of problems with <code>DynamicalBilliards</code> do not hesitate to seek for support! There are numerous ways to do that:</p>
 <ol>
 <li>Visit our <a href="https://gitter.im/JuliaDynamics/Lobby">official chatroom</a> on Gitter: https://gitter.im/JuliaDynamics/Lobby</li>
 <li>Open a new issue at our <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/issues">GitHub issues page</a>.</li>
@@ -709,7 +746,7 @@
       
     </div>
     
-      <script src="./assets/javascripts/application.a59e2a89.js"></script>
+      <script src="./assets/javascripts/application.30f6b8b1.js"></script>
       
       <script>app.initialize({version:"0.17.5",url:{base:"."}})</script>
       
