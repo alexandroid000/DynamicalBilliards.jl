@@ -556,11 +556,20 @@
 <hr />
 <p><a id='Pinned-Particles-1'></a></p>
 <h2 id="pinned-particles">Pinned Particles</h2>
-<p>In the case of propagation with magnetic field, a particle may be "pinned" (collision-less): There are no possible collisions that take place and the particle will revolve in circles forever. This can happen for specific initial conditions depending on your billiard table and the angular velocity ω.</p>
-<p>In such event, the convention followed by <code>DynamicalBilliards</code> is the following: <code>evolve!()</code> returns the expected output, however all returned vectors have only 2 entries. The collision times always have the entries <code>0.0, Inf</code>. All other returned vectors have the initial conditions, repeated once.</p>
-<p><code>evolve!()</code> can be given an additional <code>warning</code> keyword argument in the case of magnetic propagation, e.g. <code>warning = true</code>. This optional argument throws a <code>warn()</code> message whenever a pinned particle is evolved.</p>
+<p>In the case of propagation with magnetic field, a particle may be "pinned" (collision-less): There are no possible collisions that take place and the particle will revolve in circles forever. This can happen for specific initial conditions depending on your billiard table and the angular velocity ω. The function <a href="./#DynamicalBilliards.ispinned"><code>ispinned</code></a> shows you whether a particle meets the conditions.</p>
+<p><a id='DynamicalBilliards.ispinned' href='#DynamicalBilliards.ispinned'>#</a>
+<strong><code>DynamicalBilliards.ispinned</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>ispinned(p::MagneticParticle, bd::Billiard)
+</pre></div>
+
+
+<p>Return <code>true</code> if the particle is pinned with respect to the billiard. Pinned particles either have no valid collisions (go in circles forever) or all their valid collisions are with periodic walls, which again means that they go in cirles for ever.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/34b3659dd59832ced2b71bc4fea8bb100dbca063/src/timeevolution/propagation.jl#L225-L231' class='documenter-source'>source</a><br></p>
+<hr />
+<p>In such event, the convention followed by <code>DynamicalBilliards</code> is the following: <a href="../basic/high_level/#DynamicalBilliards.evolve!"><code>evolve!</code></a> returns the expected output, however all returned vectors have only 2 entries. The collision times always have the entries <code>0.0, Inf</code>. All other returned vectors have the initial conditions, repeated once.</p>
+<p><a href="../basic/high_level/#DynamicalBilliards.evolve!"><code>evolve!</code></a> can be given an additional <code>warning</code> keyword argument in the case of magnetic propagation, e.g. <code>warning = true</code> that throws a  message whenever a pinned particle is evolved.</p>
 <div class="admonition warning">
-<p class="admonition-title">Using <code>construct()</code></p>
+<p class="admonition-title">Using <a href="../@ref"><code>construct</code></a></p>
 <p>When using the syntax <code>construct(evolve!(p, bd, t)...)</code> be sure that there aren't any pinned particles given to evolve. If there are any, construct will result in an error.</p>
 </div>
 <hr />
