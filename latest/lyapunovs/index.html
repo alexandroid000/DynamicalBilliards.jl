@@ -441,50 +441,38 @@
 <p>Returns the finite time lyapunov exponents (averaged over time <code>t</code>) for a given particle in a billiard table.</p>
 <p>Returns zeros for pinned particles.</p>
 <p>If a particle is not given, a random one is picked through <a href="../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/23e27da1479f9c5f4d28a4e4f5a4e47cbcfe9bb2/src/lyapunov_spectrum.jl#L282-L290' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/d09466ba69b74fa8b5ff63a6c1dc46d8487acb0c/src/lyapunov_spectrum.jl#L282-L290' class='documenter-source'>source</a><br></p>
 <p>Here its basic use is illustrated</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-
-<span class="n">radius</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">l</span> <span class="o">=</span> <span class="mf">2.0</span>
-
-<span class="n">bd</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">l</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span><span class="o">...</span><span class="p">,</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">radius</span><span class="p">))</span>
-
-<span class="n">par</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="mf">1000.0</span>
-
-<span class="n">exps</span> <span class="o">=</span> <span class="n">lyapunovspectrum</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-</pre></div>
+<p>```@example lyaps
+using DynamicalBilliards</p>
+<p>radius = 1.0; l = 2.0</p>
+<p>b = Billiard(billiard_polygon(6, l; setting = "periodic")...,
+             Disk([0., 0.], radius))</p>
+<p>par = randominside(b)
+exps = lyapunovspectrum(par, b, t = 1000.0)</p>
+<div class="codehilite"><pre><span></span>In the following example we compute the change of $\lambda_1\$ versus the distance between the disks in a hexagonal periodic billiard.
 
 
-<div class="codehilite"><pre><span></span>4-element Array{Float64,1}:
-  0.6299599252727885
-  5.527791690528953e-5
- -0.001127990958614318
- -0.6288872122310798
-</pre></div>
+```julia
+using DynamicalBilliards
+using PyPlot
 
+t = 5000.0
+radius = 1.0
 
-<p>In the following example we compute the change of <span><span class="MathJax_Preview">\lambda_1\</span><script type="math/tex">\lambda_1\</script></span> versus the distance between the disks in a hexagonal periodic billiard.</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
-<span class="k">using</span> <span class="n">PyPlot</span>
+spaces = 2.0:0.1:4.4 #Distances between adjacent disks
+lyap_time = zero(spaces) #Array where the exponents will be stored
 
-<span class="n">t</span> <span class="o">=</span> <span class="mf">5000.0</span>
-<span class="n">radius</span> <span class="o">=</span> <span class="mf">1.0</span>
-
-<span class="n">spaces</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">:</span><span class="mf">0.1</span><span class="o">:</span><span class="mf">4.4</span> <span class="c">#Distances between adjacent disks</span>
-<span class="n">lyap_time</span> <span class="o">=</span> <span class="n">zero</span><span class="p">(</span><span class="n">spaces</span><span class="p">)</span> <span class="c">#Array where the exponents will be stored</span>
-
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">spaces</span><span class="p">)</span>
-    <span class="n">bd</span> <span class="o">=</span> <span class="n">billiard_polygon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">space</span><span class="o">/</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span>
-    <span class="n">disc</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">radius</span><span class="p">)</span>
-    <span class="n">billiard</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bd</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">,</span> <span class="n">disc</span><span class="p">)</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">billiard</span><span class="p">)</span>
-    <span class="n">lyap_time</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lyapunovspectrum</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">billiard</span><span class="p">,</span> <span class="n">t</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-<span class="k">end</span>
-<span class="n">figure</span><span class="p">()</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">spaces</span><span class="p">,</span> <span class="n">lyap_time</span><span class="p">,</span> <span class="s">&quot;*-&quot;</span><span class="p">)</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">w</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$\\</span><span class="s">lambda_1</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">)</span>
+for (i, space) in enumerate(spaces)
+    bd = billiard_polygon(6, space/(sqrt(3)); setting = &quot;periodic&quot;)
+    disc = Disk([0., 0.], radius)
+    billiard = Billiard(bd.obstacles..., disc)
+    p = randominside(billiard)
+    lyap_time[i] = lyapunovspectrum(p, billiard, t)[1]
+end
+figure()
+plot(spaces, lyap_time, &quot;*-&quot;)
+xlabel(&quot;\$w\$&quot;); ylabel(&quot;\$\\lambda_1\$&quot;)
 </pre></div>
 
 

@@ -526,9 +526,10 @@
                 <p><a id='Creating-your-own-Obstacle-Type-1'></a></p>
 <h1 id="creating-your-own-obstacle-type">Creating your own <code>Obstacle</code> Type</h1>
 <p>In this tutorial we will go through the processes of creating a new obstacle type, a <code>Semicircle</code>. This type is already used in the <a href="../../basic/high_level/#DynamicalBilliards.billiard_bunimovich"><code>billiard_bunimovich</code></a> and <a href="../../basic/high_level/#DynamicalBilliards.billiard_mushroom"><code>billiard_mushroom</code></a> functions.</p>
+<p>In addition to this tutorial, you can follow <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/pull/144">PR#144</a>, which followed the same process for the <a href="../../basic/low_level/#DynamicalBilliards.Ellipse"><code>Ellipse</code></a> obstacle.</p>
 <div class="admonition info">
 <p class="admonition-title">Everything uses <code>SVector{2}</code></p>
-<p>Fields of <code>Particle</code>s and <code>Obstacle</code>s contain all their information in 2-dimensional static vectors from module <code>StaticArrays</code>. This is important to keep in mind when extending new methods.</p>
+<p>Fields of <code>Particle</code>s and <code>Obstacle</code>s contain all their vector-related information in 2-dimensional static vectors from module <code>StaticArrays</code>. This is important to keep in mind when extending new methods.</p>
 </div>
 <p><a id='Type-Definition-1'></a></p>
 <h2 id="type-definition">Type Definition</h2>
@@ -557,7 +558,7 @@
 <p>so that constructing a <code>Semicircle</code> is possible from arbitrary vectors.</p>
 <p><a id='Necessary-Methods-1'></a></p>
 <h2 id="necessary-methods">Necessary Methods</h2>
-<p>The following functions must obtain methods for <code>Semicircle</code> (or any other custom <code>Obstacle</code>) in order for it to work with <code>DynamicalBilliards</code>:</p>
+<p>The following functions must obtain methods for your custom <code>Obstacle</code> in order for it to work with <code>DynamicalBilliards</code>:</p>
 <ol>
 <li><a href="../../basic/low_level/#DynamicalBilliards.normalvec"><code>normalvec</code></a></li>
 <li><a href="../../basic/low_level/#DynamicalBilliards.distance"><code>distance</code></a> (with arguments <code>(position, obstacle)</code>)</li>
@@ -631,14 +632,15 @@
 </pre></div>
 
 
-<p>And that is all. The obstacle now works perfectly fine for straight propagation.</p>
+<p>And that is all. The obstacle now works perfectly fine for straight propagation of any kind! This includes periodic billiards (both rectangular and hexagonal).</p>
 <p><a id='Optional-Methods-1'></a></p>
 <h2 id="optional-methods">Optional Methods</h2>
 <ol>
-<li><a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>cellsize</code></a> : Enables <a href="../../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a> with this obstacle.</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>cellsize</code></a> : Enables <a href="../../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a> with this obstacle</li>
 <li><a href="../../basic/low_level/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> with <a href="../../basic/high_level/#particles"><code>MagneticParticle</code></a> : enables magnetic propagation</li>
-<li><a href="../../visualizing/#DynamicalBilliards.plot_obstacle"><code>plot_obstacle</code></a> : enables plotting (used in <a href="../../visualizing/#DynamicalBilliards.plot_billiard"><code>plot_billiard</code></a>)</li>
-<li><a href="../../basic/phasespaces/#DynamicalBilliards.to_bcoords"><code>to_bcoords</code></a> : Allows the <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a> and <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap_portion"><code>boundarymap_portion</code></a> to be computed.</li>
+<li><a href="../../visualizing/#DynamicalBilliards.plot_obstacle"><code>plot_obstacle</code></a> : enables plotting (requires <a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>cellsize</code></a> to be already implemented, because <a href="../../visualizing/#DynamicalBilliards.plot_billiard"><code>plot_billiard</code></a> also does automatic axis limits configuration)</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.translate"><code>translate</code></a> : Enables plotting the obstacle with periodic billiards (you can still use the obstacle with periodic billiards even without <code>translate</code>)</li>
+<li><a href="../../basic/phasespaces/#DynamicalBilliards.to_bcoords"><code>to_bcoords</code></a> &amp; <a href="../../basic/phasespaces/#DynamicalBilliards.totallength"><code>totallength</code></a> : Allows the <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a> and <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap_portion"><code>boundarymap_portion</code></a> to be computed.</li>
 <li><a href="../../basic/phasespaces/#DynamicalBilliards.from_bcoords"><code>from_bcoords</code></a> : Allows <a href="../../basic/phasespaces/#DynamicalBilliards.phasespace_portion"><code>phasespace_portion</code></a> to be computed.</li>
 </ol>
 <p>The <a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>cellsize</code></a> method is kinda trivial:</p>
