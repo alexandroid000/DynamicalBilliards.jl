@@ -343,8 +343,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../basic/low_level/" title="Low Level API" class="md-nav__link">
-      Low Level API
+    <a href="../../basic/low_level/" title="Internals" class="md-nav__link">
+      Internals
     </a>
   </li>
 
@@ -530,6 +530,14 @@
 <p class="admonition-title">Everything uses <code>SVector{2}</code></p>
 <p>Fields of <code>Particle</code>s and <code>Obstacle</code>s contain all their information in 2-dimensional static vectors from module <code>StaticArrays</code>. This is important to keep in mind when extending new methods.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">Extends internal APIs</p>
+<p>Notice that implementing your own obstacle requires you to extend methods that <em>do not</em> belong to the public API.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">See also the <code>Ellipse</code> PR</p>
+<p>Pull Request <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/pull/159">#159</a> implements the <a href="../billiard_table/#DynamicalBilliards.Ellipse"><code>Ellipse</code></a> obstacle, step by step, by following the tutorial of this page. All commits are commented and it can be a second helpful guide on how to implement an obstacle.</p>
+</div>
 <p><a id='Type-Definition-1'></a></p>
 <h2 id="type-definition">Type Definition</h2>
 <p>The first thing you have to do is make your new type a sub-type of <code>Obstacle{T}</code> (or any other abstract sub-type of it). We will do:</p>
@@ -559,23 +567,23 @@
 <h2 id="necessary-methods">Necessary Methods</h2>
 <p>The following functions must obtain methods for <code>Semicircle</code> (or any other custom <code>Obstacle</code>) in order for it to work with <code>DynamicalBilliards</code>:</p>
 <ol>
-<li><a href="../../basic/low_level/#DynamicalBilliards.normalvec"><code>normalvec</code></a></li>
-<li><a href="../../basic/low_level/#DynamicalBilliards.distance"><code>distance</code></a> (with arguments <code>(position, obstacle)</code>)</li>
-<li><a href="../../basic/low_level/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> with <code>Particle</code></li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.normalvec"><code>DynamicalBilliards.normalvec</code></a></li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.distance"><code>DynamicalBilliards.distance</code></a> (with arguments <code>(position, obstacle)</code>)</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.collision"><code>DynamicalBilliards.collision</code></a> with <code>Particle</code></li>
 </ol>
-<p>Assuming that upon collision a specular reflection happens, then you don't need to define a method for <a href="../../basic/low_level/#DynamicalBilliards.resolvecollision!"><code>resolvecollision!</code></a>. You can however define custom methods for <a href="../../basic/low_level/#DynamicalBilliards.resolvecollision!"><code>resolvecollision!</code></a>, which is what we have done e.g. for <a href="../../basic/low_level/#DynamicalBilliards.RandomDisk"><code>RandomDisk</code></a>.</p>
+<p>Assuming that upon collision a specular reflection happens, then you don't need to define a method for <a href="../../basic/low_level/#DynamicalBilliards.resolvecollision!"><code>DynamicalBilliards.resolvecollision!</code></a>. You can however define custom methods for <a href="../../basic/low_level/#DynamicalBilliards.resolvecollision!"><code>DynamicalBilliards.resolvecollision!</code></a>, which is what we have done e.g. for <a href="../billiard_table/#DynamicalBilliards.RandomDisk"><code>RandomDisk</code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Use <code>import</code>!</p>
 <p>Notice that you have to properly <code>import</code> the methods to extend them. For example, do <code>import DynamicalBilliards: normalvec, distance, collision</code> time.</p>
 </div>
 <p>The first method is very simple, just do:</p>
-<div class="codehilite"><pre><span></span><span class="k">import</span> <span class="n">DynamicalBilliards</span><span class="o">:</span> <span class="n">normalvec</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">collisiontime</span>
+<div class="codehilite"><pre><span></span><span class="k">import</span> <span class="n">DynamicalBilliards</span><span class="o">:</span> <span class="n">normalvec</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">collision</span>
 <span class="n">normalvec</span><span class="p">(</span><span class="n">d</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="n">pos</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Since the function is only used during <a href="../../basic/low_level/#DynamicalBilliards.distance"><code>distance</code></a> and <a href="../../basic/low_level/#DynamicalBilliards.resolvecollision!"><code>resolvecollision!</code></a> and since we will be writing explicit methods for the first, we don't have to care about what happens when the particle is far away from the boundary.</p>
-<p>The <a href="../../basic/low_level/#DynamicalBilliards.distance"><code>distance</code></a> method is a bit tricky. Since the type already subtypes <code>Circular</code>, the following definition from <code>DynamicalBilliards</code> applies:</p>
+<p>Since the function is only used during <code>distance</code> and <a href="../../basic/low_level/#DynamicalBilliards.resolvecollision!"><code>DynamicalBilliards.resolvecollision!</code></a> and since we will be writing explicit methods for the first, we don't have to care about what happens when the particle is far away from the boundary.</p>
+<p>The <code>distance</code> method is a bit tricky. Since the type already subtypes <code>Circular</code>, the following definition from <code>DynamicalBilliards</code> applies:</p>
 <div class="codehilite"><pre><span></span><span class="n">distance</span><span class="p">(</span><span class="n">pos</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">d</span><span class="o">::</span><span class="n">Circular</span><span class="p">)</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">r</span>
 </pre></div>
 
@@ -598,8 +606,8 @@
 
 
 <p>Notice that this definition always returns positive distance when the particle is on the "other side".</p>
-<p>Finally, the method for <a href="../../basic/low_level/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> is by far the most <em>trickiest</em>. But, with pen, paper and a significant amount of patience, one can find a way:</p>
-<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">collisiontime</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">Particle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">d</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span><span class="o">::</span><span class="n">T</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
+<p>Finally, the method for <a href="../../basic/low_level/#DynamicalBilliards.collision"><code>collision</code></a> is by far the most <em>trickiest</em>. But, with pen, paper and a significant amount of patience, one can find a way:</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">collision</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">Particle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">d</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span><span class="o">::</span><span class="n">T</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
 
     <span class="n">dc</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">pos</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">c</span>
     <span class="n">B</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">,</span> <span class="n">dc</span><span class="p">)</span>         <span class="c">#velocity towards circle center: B &gt; 0</span>
@@ -632,16 +640,20 @@
 
 
 <p>And that is all. The obstacle now works perfectly fine for straight propagation.</p>
+<div class="admonition note">
+<p class="admonition-title">Ray-Splitting support</p>
+<p>Supporting ray-splitting for your custom obstacle is very easy. The first step is to give it a field called <code>pflag</code>, which is a <code>Bool</code>. The second step is to ensure that <code>collisiontime</code> works properly for particles coming from both directions of the obstacle! Both inside or outside! This is implemented for <code>Ellipse</code> in Pull Request <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/pull/159">#159</a>.</p>
+</div>
 <p><a id='Optional-Methods-1'></a></p>
 <h2 id="optional-methods">Optional Methods</h2>
 <ol>
-<li><a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>cellsize</code></a> : Enables <a href="../../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a> with this obstacle.</li>
-<li><a href="../../basic/low_level/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> with <a href="../../basic/high_level/#particles"><code>MagneticParticle</code></a> : enables magnetic propagation</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>DynamicalBilliards.cellsize</code></a> : Enables <a href="../../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a> with this obstacle.</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.collision"><code>collision</code></a> with <a href="../../basic/high_level/#particles"><code>MagneticParticle</code></a> : enables magnetic propagation</li>
 <li><a href="../../visualizing/#DynamicalBilliards.plot_obstacle"><code>plot_obstacle</code></a> : enables plotting (used in <a href="../../visualizing/#DynamicalBilliards.plot_billiard"><code>plot_billiard</code></a>)</li>
 <li><a href="../../basic/phasespaces/#DynamicalBilliards.to_bcoords"><code>to_bcoords</code></a> : Allows the <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a> and <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap_portion"><code>boundarymap_portion</code></a> to be computed.</li>
 <li><a href="../../basic/phasespaces/#DynamicalBilliards.from_bcoords"><code>from_bcoords</code></a> : Allows <a href="../../basic/phasespaces/#DynamicalBilliards.phasespace_portion"><code>phasespace_portion</code></a> to be computed.</li>
 </ol>
-<p>The <a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>cellsize</code></a> method is kinda trivial:</p>
+<p>The <a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>DynamicalBilliards.cellsize</code></a> method is kinda trivial:</p>
 <div class="codehilite"><pre><span></span><span class="k">import</span> <span class="n">DynamicalBilliards</span><span class="o">:</span> <span class="n">cellsize</span><span class="p">,</span> <span class="n">plot_obstacle</span><span class="p">,</span> <span class="n">to_bcoords</span><span class="p">,</span> <span class="n">from_bcoords</span>
 
 <span class="k">function</span> <span class="n">cellsize</span><span class="p">(</span><span class="n">a</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
@@ -652,8 +664,8 @@
 </pre></div>
 
 
-<p>The <a href="../../basic/low_level/#DynamicalBilliards.collisiontime"><code>collisiontime</code></a> method for <a href="../../basic/high_level/#particles"><code>MagneticParticle</code></a> is also tricky, however it is almost identical with the method for the general <a href="../../basic/low_level/#DynamicalBilliards.Circular"><code>Circular</code></a> obstacle:</p>
-<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">collisiontime</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">MagneticParticle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">o</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span><span class="o">::</span><span class="n">T</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
+<p>The <a href="../../basic/low_level/#DynamicalBilliards.collision"><code>collision</code></a> method for <a href="../../basic/high_level/#particles"><code>MagneticParticle</code></a> is also tricky, however it is almost identical with the method for the general <code>Circular</code> obstacle:</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">collision</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">MagneticParticle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">o</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">{</span><span class="n">T</span><span class="p">})</span><span class="o">::</span><span class="n">T</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="p">}</span>
     <span class="n">ω</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">omega</span>
     <span class="n">pc</span><span class="p">,</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">cyclotron</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
     <span class="n">p1</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">c</span>

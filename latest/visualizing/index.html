@@ -432,8 +432,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../basic/low_level/" title="Low Level API" class="md-nav__link">
-      Low Level API
+    <a href="../basic/low_level/" title="Internals" class="md-nav__link">
+      Internals
     </a>
   </li>
 
@@ -610,7 +610,7 @@
 <p>Plot given obstacle on the current <code>PyPlot</code> axes.</p>
 <p>The default arguments for each type of obstacle have been chosen for maximum clarity and consistency.</p>
 <p>The <code>kwargs...</code> given by the user are keywords passed directly into PyPlot's constructors. For <code>Wall</code> obstacles, kwargs are passed into <code>PyPlot.plot()</code>. For <code>Circular</code> obstacles, kwargs are passed into <code>matplotlib.patches.Circle</code> or <code>Arc</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/1dcb4af15a8345b265213c9204eda96dc881aa97/src/plotting/obstacles.jl#L13-L23' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/5bdeb5108105405a1293b0c32f15cd5db633c48c/src/plotting/obstacles.jl#L13-L23' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.plot_particle' href='#DynamicalBilliards.plot_particle'>#</a>
 <strong><code>DynamicalBilliards.plot_particle</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">plot_particle</span><span class="o">(</span><span class="nt">p</span><span class="p">::</span><span class="nd">AbstractParticle</span><span class="o">;</span> <span class="nt">use_cell</span><span class="o">=</span><span class="nt">true</span><span class="o">,</span> <span class="nt">kwargs</span><span class="o">...)</span>
@@ -619,7 +619,7 @@
 
 <p>Plot given particle on the current <code>PyPlot</code> axes. Optionally use <code>p.current_cell</code> for the particle's position. Given <code>kwargs...</code> are passed onto <code>PyPlot.scatter</code>.</p>
 <p>The particle is represented as a small ball (<code>PyPlot.scatter</code>) and a small arrow (<code>PyPlot.quiver</code>). All <code>kwargs...</code> are given to <code>scatter</code> but if a keyword argument <code>color</code> is given, it is also passed to <code>quiver</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/1dcb4af15a8345b265213c9204eda96dc881aa97/src/plotting/particles.jl#L21-L30' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/5bdeb5108105405a1293b0c32f15cd5db633c48c/src/plotting/particles.jl#L21-L30' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.plot_cyclotron' href='#DynamicalBilliards.plot_cyclotron'>#</a>
 <strong><code>DynamicalBilliards.plot_cyclotron</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">plot_cyclotron</span><span class="o">(</span><span class="nt">p</span><span class="p">::</span><span class="nd">MagneticParticle</span><span class="o">;</span> <span class="nt">use_cell</span><span class="o">=</span><span class="nt">true</span><span class="o">,</span> <span class="nt">kwargs</span><span class="o">...)</span>
@@ -627,7 +627,7 @@
 
 
 <p>Plot the circle traced by the free particle motion. Optionally use <code>p.current_cell</code> for the particle's position. The user provided <code>kwargs...</code> are passed onto <code>PyPlot.plt[:Circle]</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/1dcb4af15a8345b265213c9204eda96dc881aa97/src/plotting/particles.jl#L3-L8' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/5bdeb5108105405a1293b0c32f15cd5db633c48c/src/plotting/particles.jl#L3-L8' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.plot_billiard' href='#DynamicalBilliards.plot_billiard'>#</a>
 <strong><code>DynamicalBilliards.plot_billiard</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">plot_billiard</span><span class="o">(</span><span class="nt">bd</span><span class="p">::</span><span class="nd">Billiard</span><span class="o">;</span> <span class="nt">ax</span> <span class="o">=</span> <span class="o">(</span><span class="nt">figure</span><span class="o">();</span> <span class="nt">gca</span><span class="o">()))</span>
@@ -647,7 +647,7 @@
 
 <p>Plot the given <strong>periodic</strong> billiard <code>bd</code> using the limits defined by <code>xt</code> and <code>yt</code>.</p>
 <p>Set the keyword argument <code>plot_orbit = false</code> to not plot the orbit defined by <code>(xt, yt)</code> and only use the limits.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/1dcb4af15a8345b265213c9204eda96dc881aa97/src/plotting/billiards.jl#L18-L37' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/5bdeb5108105405a1293b0c32f15cd5db633c48c/src/plotting/billiards.jl#L18-L37' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalBilliards.animate_evolution' href='#DynamicalBilliards.animate_evolution'>#</a>
 <strong><code>DynamicalBilliards.animate_evolution</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>animate_evolution(p, bd, colnumber [, raysplit]; kwargs...)
@@ -670,7 +670,7 @@
 </ul>
 <p><strong>Return</strong></p>
 <p>The function returns <code>a, b, c</code>. Do <code>a[:remove](); b[:remove](); c[:remove]()</code> to clear the particle out of the figure.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/1dcb4af15a8345b265213c9204eda96dc881aa97/src/plotting/animations.jl#L3-L31' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/5bdeb5108105405a1293b0c32f15cd5db633c48c/src/plotting/animations.jl#L3-L31' class='documenter-source'>source</a><br></p>
 <p><a id='Examples-1'></a></p>
 <h2 id="examples">Examples</h2>
 <p><a id='Plotting-Obstacles-with-keywords-1'></a></p>
@@ -753,7 +753,7 @@
 </pre></div>
 
 
-<video width="100%" height="auto" controls> <source src="https://github.com/JuliaDynamics/Tutorials-and-Resources/blob/master/billiard_animations/penta.mp4?raw=true" type="video/mp4"> </video>
+<video width="100%" height="auto" controls> <source src="https://raw.githubusercontent.com/JuliaDynamics/JuliaDynamicsDocumentation.jl/master/animations/billiards/penta.mp4?raw=true" type="video/mp4"> </video>
 
 <p><a id='Periodic-Billiards-1'></a></p>
 <h2 id="periodic-billiards">Periodic Billiards</h2>
@@ -768,11 +768,11 @@
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
 <span class="n">r</span> <span class="o">=</span> <span class="mf">0.25</span>
 <span class="n">bd</span> <span class="o">=</span> <span class="n">billiard_rectangle</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">RandomDisk</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">r</span><span class="p">)</span>
-<span class="n">d2</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">r</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">r</span><span class="p">)</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">Ellipse</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">r</span><span class="p">,</span> <span class="mi">2</span><span class="n">r</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">bd</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bd</span><span class="o">.</span><span class="n">obstacles</span><span class="o">...</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">d2</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">)</span>
-<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Particle</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">)</span>
 <span class="n">plot_particle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </pre></div>
@@ -781,15 +781,13 @@
 <p><img alt="" src="../rectperiodic.svg" /></p>
 <p>And, you can also periodically plot billiards with hexagonal periodicity. Only give the keyword argument <code>hexagonal = true</code> to <a href="./#DynamicalBilliards.plot_billiard"><code>plot_billiard</code></a>. As an example:</p>
 <div class="codehilite"><pre><span></span><span class="n">bd</span> <span class="o">=</span> <span class="n">billiard_hexagonal_sinai</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.50</span><span class="p">;</span> <span class="n">setting</span> <span class="o">=</span> <span class="s">&quot;periodic&quot;</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">RandomDisk</span><span class="p">([</span><span class="mf">0.62</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mf">0.2</span><span class="p">)</span>
-<span class="n">d2</span> <span class="o">=</span> <span class="n">Antidot</span><span class="p">([</span><span class="mf">0.62</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="mf">0.25</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">Disk</span><span class="p">([</span><span class="mf">0.7</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">Antidot</span><span class="p">([</span><span class="mf">0.7</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">],</span> <span class="mf">0.35</span><span class="p">)</span>
 <span class="n">bd</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">bd</span><span class="o">...</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">d2</span><span class="p">)</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
-<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">MagneticParticle</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nb">π</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
-<span class="n">xmin</span> <span class="o">=</span> <span class="n">minimum</span><span class="p">(</span><span class="n">xt</span><span class="p">);</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">maximum</span><span class="p">(</span><span class="n">xt</span><span class="p">)</span>
-<span class="n">ymin</span> <span class="o">=</span> <span class="n">minimum</span><span class="p">(</span><span class="n">yt</span><span class="p">);</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">maximum</span><span class="p">(</span><span class="n">yt</span><span class="p">)</span>
+<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">evolve</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
 
 <span class="n">plot_billiard</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">;</span> <span class="n">hexagonal</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
 </pre></div>
@@ -814,7 +812,7 @@
 <li><code>obstacleindices = true</code>: show obstacle indices above plot</li>
 <li>Any other keyword argument is passed to <code>PyPlot.plot</code> which plots the points of the section.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/1dcb4af15a8345b265213c9204eda96dc881aa97/src/plotting/boundarymap_plots.jl#L3-L20' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/5bdeb5108105405a1293b0c32f15cd5db633c48c/src/plotting/boundarymap_plots.jl#L3-L20' class='documenter-source'>source</a><br></p>
 <p>Examples are shown in the <a href="../basic/phasespaces/">phase spaces</a> section.</p>
                 
                   
