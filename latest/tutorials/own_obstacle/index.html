@@ -650,6 +650,7 @@
 <li><a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>DynamicalBilliards.cellsize</code></a> : Enables <a href="../../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a> with this obstacle.</li>
 <li><a href="../../basic/low_level/#DynamicalBilliards.collision"><code>collision</code></a> with <a href="../../basic/high_level/#particles"><code>MagneticParticle</code></a> : enables magnetic propagation</li>
 <li><a href="../../visualizing/#PyPlot.plot-Tuple{Obstacle}"><code>plot</code></a> : enables plotting (used in <a href="../../visualizing/#PyPlot.plot-Tuple{Obstacle}"><code>plot</code></a>)</li>
+<li><a href="../@ref"><code>specular!</code></a> with <code>offset</code> : Allows <a href="../@ref"><code>lyapunovspectrum!</code></a> to be computed.</li>
 <li><a href="../../basic/phasespaces/#DynamicalBilliards.to_bcoords"><code>to_bcoords</code></a> : Allows the <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a> and <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap_portion"><code>boundarymap_portion</code></a> to be computed.</li>
 <li><a href="../../basic/phasespaces/#DynamicalBilliards.from_bcoords"><code>from_bcoords</code></a> : Allows <a href="../../basic/phasespaces/#DynamicalBilliards.phasespace_portion"><code>phasespace_portion</code></a> to be computed.</li>
 </ol>
@@ -718,7 +719,40 @@
 </pre></div>
 
 
+<p>To enable computation of Lyapunov exponents in billiards with your obstacle, you have to write another method for <code>specular!</code> that also handles the evolution of perturbation vectors in tangent space. For this, the method has to  accept an argument of type <code>Vector{SVector{4, T}}</code>, which contains the four  perturbation vectors corresponding to the four Lyapunov exponents.</p>
+<p>Finding a formula for the evolution of the perturbations requires some tricky  calculations. Fortunately for us, the results for general circular obstacles  were already determined by Dellago, Posch and Hoover [1] – we just have to  implement them.</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">specular!</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">Particle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">o</span><span class="o">::</span><span class="n">Circular</span><span class="p">{</span><span class="n">T</span><span class="p">},</span>
+    <span class="n">offset</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">SVector</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="n">T</span><span class="p">}})</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="kt">AbstractFloat</span><span class="p">}</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">normalvec</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
+    <span class="n">ti</span> <span class="o">=</span> <span class="n">SV</span><span class="p">{</span><span class="n">T</span><span class="p">}(</span><span class="o">-</span><span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">cosa</span> <span class="o">=</span> <span class="o">-</span><span class="n">dot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">vel</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">vel</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">cosa</span><span class="o">*</span><span class="n">n</span>
+
+    <span class="n">tf</span> <span class="o">=</span> <span class="n">SV</span><span class="p">{</span><span class="n">T</span><span class="p">}(</span><span class="o">-</span><span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">4</span>
+        <span class="n">δqprev</span> <span class="o">=</span> <span class="n">offset</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">δqind</span><span class="p">]</span>
+        <span class="n">δpprev</span> <span class="o">=</span> <span class="n">offset</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">δpind</span><span class="p">]</span>
+        <span class="c"># Formulas from Dellago, Posch and Hoover, PRE 53, 2, 1996: 1485-1501 (eq. 27)</span>
+        <span class="c"># with norm(p) = 1</span>
+        <span class="n">δq</span>  <span class="o">=</span> <span class="n">δqprev</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">dot</span><span class="p">(</span><span class="n">δqprev</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">n</span>
+        <span class="n">δp</span>  <span class="o">=</span> <span class="n">δpprev</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">dot</span><span class="p">(</span><span class="n">δpprev</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">n</span> <span class="o">-</span> <span class="n">curvature</span><span class="p">(</span><span class="n">o</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="n">o</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="n">dot</span><span class="p">(</span><span class="n">δqprev</span><span class="p">,</span><span class="n">ti</span><span class="p">)</span><span class="o">/</span><span class="n">cosa</span><span class="o">*</span><span class="n">tf</span>
+        <span class="c">###</span>
+        <span class="n">offset</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">vcat</span><span class="p">(</span><span class="n">δq</span><span class="p">,</span> <span class="n">δp</span><span class="p">)</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nd">@inline</span> <span class="n">curvature</span><span class="p">(</span><span class="o">::</span><span class="n">Semicircle</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="nd">@inline</span> <span class="n">curvature</span><span class="p">(</span><span class="o">::</span><span class="n">Disk</span><span class="p">)</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Note that calculating Lyapunov exponents for magnetic particles requires a  separate method, as the formulas are different for magnetic propagation. </p>
 <p>Finally, we also add a methods for <a href="../../basic/phasespaces/#DynamicalBilliards.to_bcoords"><code>to_bcoords</code></a> and <a href="../../basic/phasespaces/#DynamicalBilliards.from_bcoords"><code>from_bcoords</code></a>. For them, see the <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/master/src/boundary/boundarymap.jl">relevant source file</a>.</p>
+<p>References</p>
+<p>[1] Ch. Dellago et al., Phys. Rev. E 53, 1485 (1996).</p>
                 
                   
                 
