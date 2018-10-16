@@ -434,14 +434,14 @@
 <p>The function provided to calculate the FTLS is</p>
 <p><a id='DynamicalBilliards.lyapunovspectrum' href='#DynamicalBilliards.lyapunovspectrum'>#</a>
 <strong><code>DynamicalBilliards.lyapunovspectrum</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>lyapunovspectrum([p::AbstractParticle,] bd::Billiard, t::Float)
+<div class="codehilite"><pre><span></span>lyapunovspectrum([p::AbstractParticle,] bd::Billiard, t)
 </pre></div>
 
 
 <p>Returns the finite time lyapunov exponents (averaged over time <code>t</code>) for a given particle in a billiard table.</p>
 <p>Returns zeros for pinned particles.</p>
-<p>If a particle is not given, a random one is picked through <a href="../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/3907efc0096f60759b5d9508bba9e4d915b3ba20/src/lyapunov_spectrum.jl#L273-L281' class='documenter-source'>source</a><br></p>
+<p>If a particle is not given, a random one is picked through <a href="../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a>. See <a href="../basic/high_level/#DynamicalBilliards.parallelize"><code>parallelize</code></a> for a parallelized version.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/2cdb96b5a19c2e712a27ce99f03c29bcae330408/src/lyapunov_spectrum.jl#L273-L282' class='documenter-source'>source</a><br></p>
 <p>Here its basic use is illustrated</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span>
 
@@ -458,10 +458,10 @@
 
 
 <div class="codehilite"><pre><span></span>4-element Array{Float64,1}:
-  0.6309936493374295
-  8.914429134057052e-6
- -0.0020164579325098165
- -0.6289861058340533
+  0.5754595768105172
+  0.008104176631910045
+ -4.56075279177805e-11
+ -0.5835637533968199
 </pre></div>
 
 
