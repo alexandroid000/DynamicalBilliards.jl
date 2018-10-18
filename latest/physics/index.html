@@ -514,14 +514,10 @@
 
 
 <p>Return <code>true</code> if the particle is pinned with respect to the billiard. Pinned particles either have no valid collisions (go in circles forever) or all their valid collisions are with periodic walls, which again means that they go in cirles for ever.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/ebb65fd77ce03c9536c214d9dd270c06749d7d8c/src/timeevolution/propagation.jl#L160-L166' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a35ae86e3dcd84511aa30eed41780cdac2926f59/src/timeevolution/propagation.jl#L160-L166' class='documenter-source'>source</a><br></p>
 <hr />
 <p>In such event, the convention followed by <code>DynamicalBilliards</code> is the following: <a href="../basic/high_level/#DynamicalBilliards.evolve!"><code>evolve!</code></a> returns the expected output, however all returned vectors have only 2 entries. The collision times always have the entries <code>0.0, Inf</code>. All other returned vectors have the initial conditions, repeated once.</p>
 <p><a href="../basic/high_level/#DynamicalBilliards.evolve!"><code>evolve!</code></a> can be given an additional <code>warning</code> keyword argument in the case of magnetic propagation, e.g. <code>warning = true</code> that throws a  message whenever a pinned particle is evolved.</p>
-<div class="admonition warning">
-<p class="admonition-title">Using <a href="../@ref"><code>construct</code></a></p>
-<p>When using the syntax <code>construct(evolve!(p, bd, t)...)</code> be sure that there aren't any pinned particles given to evolve. If there are any, construct will result in an error.</p>
-</div>
 <hr />
 <p><a id='Velocity-measure-1'></a></p>
 <h2 id="velocity-measure">Velocity measure</h2>
@@ -545,10 +541,10 @@ r = \frac{1}{\omega_\text{code}} = \frac{v_\text{real}}{\omega_\text{real}}
 \omega_\text{code} = \frac{\omega_\text{real}}{v_\text{real}}
 </script>
 </div>
-<p>After getting the timeseries from <code>construct()</code>:</p>
+<p>After getting the timeseries:</p>
 <div class="codehilite"><pre><span></span><span class="c"># These are the &quot;code&quot;-data. |v| = 1 always</span>
-<span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span> <span class="o">=</span> <span class="n">evolve!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="n">ttotal</span><span class="p">,</span> <span class="n">ray_splt</span><span class="p">)</span>
-<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">construct</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span><span class="p">)</span>
+<span class="n">ct</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">vels</span><span class="p">,</span> <span class="n">omegas</span> <span class="o">=</span> <span class="n">evolve</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="n">ttotal</span><span class="p">)</span>
+<span class="n">xt</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">vxt</span><span class="p">,</span> <span class="n">vyt</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="n">ttotal</span><span class="p">)</span>
 </pre></div>
 
 
