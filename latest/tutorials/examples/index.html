@@ -524,7 +524,6 @@
 <h2 id="julia-logo-billiard">Julia-logo Billiard</h2>
 <p>The "Julia-logo-billiard" animation that is the logo of our package was made with the following code. The function <a href="../../basic/high_level/#DynamicalBilliards.billiard_logo"><code>billiard_logo</code></a> also exports the same result.</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
-<span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="o">:</span> <span class="n">cross2D</span>
 
 <span class="c"># %%</span>
 <span class="n">h</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span> <span class="n">α</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">;</span> <span class="n">r</span> <span class="o">=</span> <span class="mf">0.18</span><span class="p">;</span> <span class="n">off</span> <span class="o">=</span> <span class="mf">0.25</span>
@@ -565,7 +564,7 @@
 
 <span class="n">bd</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">green</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">purple</span><span class="p">,</span> <span class="n">frame</span><span class="o">...</span><span class="p">)</span>
 
-<span class="c"># %% Raysplitting functions for the red circle:</span>
+<span class="c"># Raysplitting functions for the red circle:</span>
 <span class="n">refraction</span> <span class="o">=</span> <span class="p">(</span><span class="nb">φ</span><span class="p">,</span> <span class="n">pflag</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pflag</span> <span class="o">?</span> <span class="mf">0.5</span><span class="nb">φ</span> <span class="o">:</span> <span class="mf">2.0</span><span class="nb">φ</span>
 <span class="n">transmission_p</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">φ</span><span class="p">,</span> <span class="n">pflag</span><span class="p">,</span> <span class="n">ω</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">begin</span>
     <span class="k">if</span> <span class="n">pflag</span>
@@ -575,24 +574,19 @@
     <span class="k">end</span>
 <span class="k">end</span>
 <span class="n">newoantidot</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">bool</span> <span class="o">?</span> <span class="o">-</span><span class="mf">2.0</span><span class="n">x</span> <span class="o">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="n">x</span><span class="p">)</span>
-<span class="n">raya</span> <span class="o">=</span> <span class="n">RaySplitter</span><span class="p">([</span><span class="mi">2</span><span class="p">],</span> <span class="n">transmission_p</span><span class="p">(</span><span class="mf">0.8</span><span class="p">),</span> <span class="n">refraction</span><span class="p">,</span> <span class="n">newoantidot</span><span class="p">)</span>
+<span class="n">raya</span> <span class="o">=</span> <span class="n">RaySplitter</span><span class="p">([</span><span class="mi">2</span><span class="p">],</span> <span class="n">transmission_p</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">refraction</span><span class="p">,</span> <span class="n">newoantidot</span><span class="p">)</span>
 
-<span class="c"># %% Create and animate particle:</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">randominside</span><span class="p">(</span><span class="n">bd</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+<span class="c"># Create and animate particles</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">particles</span> <span class="o">=</span> <span class="p">[</span><span class="n">MagneticParticle</span><span class="p">(</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span> <span class="o">+</span> <span class="mf">0.0005</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">N</span><span class="p">]</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="o">/</span><span class="n">N</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">N</span><span class="p">]</span>
 
-<span class="n">cd</span><span class="p">()</span>
-<span class="n">mkpath</span><span class="p">(</span><span class="s">&quot;dynamicalbilliards&quot;</span><span class="p">)</span>
-<span class="n">cd</span><span class="p">(</span><span class="s">&quot;dynamicalbilliards&quot;</span><span class="p">)</span>
-
-<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">bd</span><span class="p">;</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">gca</span><span class="p">())</span>
-<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">animate_evolution</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">raya</span><span class="p">;</span>
-<span class="n">newfig</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s">&quot;logo&quot;</span><span class="p">,</span> <span class="n">deletefigs</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="n">col_to_plot</span> <span class="o">=</span> <span class="mi">7</span><span class="p">);</span>
+<span class="n">animate_evolution</span><span class="p">(</span><span class="n">particles</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="p">(</span><span class="n">raya</span><span class="p">,);</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">cs</span><span class="p">,</span> <span class="n">disable_axis</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
 </pre></div>
 
 
-<video width="100%" height="auto" controls> <source src="https://raw.githubusercontent.com/JuliaDynamics/JuliaDynamicsDocumentation.jl/master/animations/billiards/DynamicalBilliards*billiard*animation.mp4?raw=true" type="video/mp4"> </video>
+<video width="100%" height="auto" controls> <source src="https://raw.githubusercontent.com/JuliaDynamics/JuliaDynamicsDocumentation.jl/master/animations/billiards/DynamicalBilliards_v3.mp4?raw=true" type="video/mp4"> </video>
 
 <p><a id='Mean-Free-Path-of-the-Lorentz-Gas-1'></a></p>
 <h2 id="mean-free-path-of-the-lorentz-gas">Mean Free Path of the Lorentz Gas</h2>
@@ -602,7 +596,7 @@
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>2.1824046432149045
+<div class="codehilite"><pre><span></span>2.181336469858461
 </pre></div>
 
 
