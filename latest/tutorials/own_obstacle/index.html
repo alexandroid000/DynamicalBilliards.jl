@@ -571,7 +571,7 @@
 <li><a href="../../basic/low_level/#DynamicalBilliards.distance"><code>DynamicalBilliards.distance</code></a> (with arguments <code>(position, obstacle)</code>)</li>
 <li><a href="../../basic/low_level/#DynamicalBilliards.collision"><code>DynamicalBilliards.collision</code></a> with <code>Particle</code></li>
 </ol>
-<p>Assuming that upon collision a specular reflection happens, then you don't need to define a method for <a href="../../basic/low_level/#DynamicalBilliards.resolvecollision!"><code>DynamicalBilliards.resolvecollision!</code></a>. You can however define custom methods for <a href="../../basic/low_level/#DynamicalBilliards.resolvecollision!"><code>DynamicalBilliards.resolvecollision!</code></a>, which is what we have done e.g. for <a href="../billiard_table/#DynamicalBilliards.RandomDisk"><code>RandomDisk</code></a>.</p>
+<p>Assuming that upon collision a specular reflection happens, then you don't need to define a method for <a href="../../basic/low_level/#DynamicalBilliards.specular!"><code>DynamicalBilliards.specular!</code></a>. You can however define custom methods for <a href="../../basic/low_level/#DynamicalBilliards.specular!"><code>DynamicalBilliards.specular!</code></a>, which is what we have done e.g. for <a href="../billiard_table/#DynamicalBilliards.RandomDisk"><code>RandomDisk</code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Use <code>import</code>!</p>
 <p>Notice that you have to properly <code>import</code> the methods to extend them. For example, do <code>import DynamicalBilliards: normalvec, distance, collision</code> time.</p>
@@ -611,10 +611,10 @@
 
     <span class="n">dc</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">pos</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">c</span>
     <span class="n">B</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">,</span> <span class="n">dc</span><span class="p">)</span>         <span class="c">#velocity towards circle center: B &gt; 0</span>
-    <span class="n">C</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">dc</span><span class="p">)</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">r</span><span class="o">^</span><span class="mi">2</span>    <span class="c">#being outside of circle: C &gt; 0</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">dc</span><span class="p">)</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">r</span>    <span class="c">#being outside of circle: C &gt; 0</span>
     <span class="n">Δ</span> <span class="o">=</span> <span class="n">B</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="n">C</span>
 
-    <span class="n">Δ</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="k">return</span> <span class="nb">Inf</span>
+    <span class="n">Δ</span> <span class="o">≤</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="k">return</span> <span class="n">nocollision</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
     <span class="n">sqrtD</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Δ</span><span class="p">)</span>
 
     <span class="n">nn</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">facedir</span><span class="p">)</span>
@@ -622,19 +622,19 @@
         <span class="c"># Return most positive time</span>
         <span class="n">t</span> <span class="o">=</span> <span class="o">-</span><span class="n">B</span> <span class="o">+</span> <span class="n">sqrtD</span>
     <span class="k">else</span> <span class="c"># I am inside semicircle:</span>
-        <span class="c"># these lines make sure that the code works for ANY starting position:</span>
         <span class="n">t</span> <span class="o">=</span> <span class="o">-</span><span class="n">B</span> <span class="o">-</span> <span class="n">sqrtD</span>
-        <span class="k">if</span> <span class="n">t</span> <span class="o">≤</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="o">≤</span> <span class="n">distancecheck</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="c"># these lines make sure that the code works for ANY starting position:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">≤</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="o">≤</span> <span class="n">accuracy</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
             <span class="n">t</span> <span class="o">=</span> <span class="o">-</span><span class="n">B</span> <span class="o">+</span> <span class="n">sqrtD</span>
         <span class="k">end</span>
     <span class="k">end</span>
     <span class="c"># This check is necessary to not collide with the non-existing side</span>
-    <span class="n">newpos</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">vel</span> <span class="o">.*</span> <span class="n">t</span>
+    <span class="n">newpos</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">vel</span> <span class="o">*</span> <span class="n">t</span>
     <span class="k">if</span> <span class="n">dot</span><span class="p">(</span><span class="n">newpos</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">facedir</span><span class="p">)</span> <span class="o">≥</span> <span class="mi">0</span> <span class="c"># collision point on BAD HALF;</span>
-        <span class="k">return</span> <span class="nb">Inf</span>
+        <span class="k">return</span> <span class="n">nocollision</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
     <span class="k">end</span>
     <span class="c"># If collision time is negative, return Inf:</span>
-    <span class="n">t</span> <span class="o">≤</span> <span class="mf">0.0</span> <span class="o">?</span> <span class="nb">Inf</span> <span class="o">:</span> <span class="n">t</span>
+    <span class="n">t</span> <span class="o">≤</span> <span class="mf">0.0</span> <span class="o">?</span> <span class="n">nocollision</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">t</span><span class="o">*</span><span class="n">p</span><span class="o">.</span><span class="n">vel</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
 
@@ -649,8 +649,8 @@
 <ol>
 <li><a href="../../basic/low_level/#DynamicalBilliards.cellsize"><code>DynamicalBilliards.cellsize</code></a> : Enables <a href="../../basic/high_level/#DynamicalBilliards.randominside"><code>randominside</code></a> with this obstacle.</li>
 <li><a href="../../basic/low_level/#DynamicalBilliards.collision"><code>collision</code></a> with <a href="../../basic/high_level/#particles"><code>MagneticParticle</code></a> : enables magnetic propagation</li>
-<li><a href="../../visualizing/#PyPlot.plot-Tuple{Obstacle}"><code>plot</code></a> : enables plotting (used in <a href="../../visualizing/#PyPlot.plot-Tuple{Obstacle}"><code>plot</code></a>)</li>
-<li><a href="../@ref"><code>specular!</code></a> with <code>offset</code> : Allows <a href="../@ref"><code>lyapunovspectrum!</code></a> to be computed.</li>
+<li><a href="../../visualizing/#PyPlot.plot-Tuple{Obstacle}"><code>plot</code></a> with <code>obstacle</code> : enables plotting</li>
+<li><a href="../../basic/low_level/#DynamicalBilliards.specular!"><code>DynamicalBilliards.specular!</code></a> with <code>offset</code> : Allows <a href="../@ref"><code>lyapunovspectrum!</code></a> to be computed.</li>
 <li><a href="../../basic/phasespaces/#DynamicalBilliards.to_bcoords"><code>to_bcoords</code></a> : Allows the <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap"><code>boundarymap</code></a> and <a href="../../basic/phasespaces/#DynamicalBilliards.boundarymap_portion"><code>boundarymap_portion</code></a> to be computed.</li>
 <li><a href="../../basic/phasespaces/#DynamicalBilliards.from_bcoords"><code>from_bcoords</code></a> : Allows <a href="../../basic/phasespaces/#DynamicalBilliards.phasespace_portion"><code>phasespace_portion</code></a> to be computed.</li>
 </ol>
@@ -673,7 +673,7 @@
     <span class="n">r1</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">r</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">pc</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="n">rc</span> <span class="o">+</span> <span class="n">r1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">d</span> <span class="o">&lt;=</span> <span class="n">abs</span><span class="p">(</span><span class="n">rc</span><span class="o">-</span><span class="n">r1</span><span class="p">))</span>
-        <span class="k">return</span> <span class="nb">Inf</span>
+        <span class="k">return</span> <span class="n">nocollision</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
     <span class="k">end</span>
     <span class="c"># Solve quadratic:</span>
     <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">rc</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r1</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="n">d</span>
@@ -690,15 +690,18 @@
     <span class="c"># Only consider intersections on the &quot;correct&quot; side of Semicircle:</span>
     <span class="n">cond1</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">I1</span><span class="o">-</span><span class="n">o</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">facedir</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span>
     <span class="n">cond2</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">I2</span><span class="o">-</span><span class="n">o</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">facedir</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span>
+    <span class="c"># Collision time, equiv. to arc-length until collision point:</span>
+    <span class="n">θ</span><span class="p">,</span> <span class="nb">I</span> <span class="o">=</span> <span class="n">nocollision</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">cond1</span> <span class="o">||</span> <span class="n">cond2</span>
-        <span class="c"># Calculate real angle until intersection:</span>
-        <span class="n">θ1</span> <span class="o">=</span> <span class="n">cond1</span> <span class="o">?</span> <span class="n">realangle</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">I1</span><span class="p">)</span> <span class="o">:</span> <span class="n">T</span><span class="p">(</span><span class="nb">Inf</span><span class="p">)</span>
-        <span class="n">θ2</span> <span class="o">=</span> <span class="n">cond2</span> <span class="o">?</span> <span class="n">realangle</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">I2</span><span class="p">)</span> <span class="o">:</span> <span class="n">T</span><span class="p">(</span><span class="nb">Inf</span><span class="p">)</span>
-        <span class="c"># Collision time, equiv. to arc-length until collision point:</span>
-        <span class="k">return</span> <span class="n">min</span><span class="p">(</span><span class="n">θ1</span><span class="p">,</span> <span class="n">θ2</span><span class="p">)</span><span class="o">*</span><span class="n">rc</span>
-    <span class="k">else</span>
-        <span class="k">return</span> <span class="nb">Inf</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">cond</span><span class="p">)</span> <span class="kp">in</span> <span class="p">((</span><span class="n">I1</span><span class="p">,</span> <span class="n">cond1</span><span class="p">),</span> <span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">cond2</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">cond</span>
+                <span class="nb">φ</span> <span class="o">=</span> <span class="n">realangle</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+                <span class="nb">φ</span> <span class="o">&lt;</span> <span class="n">θ</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">θ</span> <span class="o">=</span> <span class="nb">φ</span><span class="p">;</span> <span class="nb">I</span> <span class="o">=</span> <span class="n">Y</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
     <span class="k">end</span>
+    <span class="c"># Collision time = arc-length until collision point</span>
+    <span class="k">return</span> <span class="n">θ</span><span class="o">*</span><span class="n">rc</span><span class="p">,</span> <span class="nb">I</span>
 <span class="k">end</span>
 </pre></div>
 
@@ -719,8 +722,8 @@
 </pre></div>
 
 
-<p>To enable computation of Lyapunov exponents in billiards with your obstacle, you have to write another method for <code>specular!</code> that also handles the evolution of perturbation vectors in tangent space. For this, the method has to  accept an argument of type <code>Vector{SVector{4, T}}</code>, which contains the four  perturbation vectors corresponding to the four Lyapunov exponents.</p>
-<p>Finding a formula for the evolution of the perturbations requires some tricky  calculations. Fortunately for us, the results for general circular obstacles  were already determined by Dellago, Posch and Hoover [1] – we just have to  implement them.</p>
+<p>To enable computation of Lyapunov exponents in billiards with your obstacle, you have to write another method for <code>specular!</code> that also handles the evolution of perturbation vectors in tangent space. For this, the method has to accept an argument of type <code>Vector{SVector{4, T}}</code>, which contains the four perturbation vectors corresponding to the four Lyapunov exponents.</p>
+<p>Finding a formula for the evolution of the perturbations requires some tricky calculations. Fortunately for us, the results for general circular obstacles were already determined by Dellago, Posch and Hoover [1] – we just have to implement them.</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">specular!</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="n">Particle</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">o</span><span class="o">::</span><span class="n">Circular</span><span class="p">{</span><span class="n">T</span><span class="p">},</span>
     <span class="n">offset</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">SVector</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="n">T</span><span class="p">}})</span> <span class="n">where</span> <span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="kt">AbstractFloat</span><span class="p">}</span>
 
@@ -749,10 +752,10 @@
 </pre></div>
 
 
-<p>Note that calculating Lyapunov exponents for magnetic particles requires a  separate method, as the formulas are different for magnetic propagation. </p>
-<p>Finally, we also add a methods for <a href="../../basic/phasespaces/#DynamicalBilliards.to_bcoords"><code>to_bcoords</code></a> and <a href="../../basic/phasespaces/#DynamicalBilliards.from_bcoords"><code>from_bcoords</code></a>. For them, see the <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/master/src/boundary/boundarymap.jl">relevant source file</a>.</p>
-<p>References</p>
-<p>[1] Ch. Dellago et al., Phys. Rev. E 53, 1485 (1996).</p>
+<p>Note that calculating Lyapunov exponents for magnetic particles requires a separate method, as the formulas are different for magnetic propagation.</p>
+<p>Finally, we also add a methods for <a href="../../basic/phasespaces/#DynamicalBilliards.to_bcoords"><code>to_bcoords</code></a> and <a href="../../basic/phasespaces/#DynamicalBilliards.from_bcoords"><code>from_bcoords</code></a>. For them, see the relevant source file (use <code>@which</code>).</p>
+<p><strong>References</strong></p>
+<p>[1] : Ch. Dellago et al., Phys. Rev. E 53, 1485 (1996).</p>
                 
                   
                 
