@@ -357,6 +357,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#snells-law" title="Snell's Law" class="md-nav__link">
+    Snell's Law
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example-of-affecting-multiple-obstacles" title="Example of Affecting Multiple Obstacles" class="md-nav__link">
     Example of Affecting Multiple Obstacles
   </a>
@@ -538,6 +545,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#snells-law" title="Snell's Law" class="md-nav__link">
+    Snell's Law
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example-of-affecting-multiple-obstacles" title="Example of Affecting Multiple Obstacles" class="md-nav__link">
     Example of Affecting Multiple Obstacles
   </a>
@@ -618,7 +632,7 @@
 </ol>
 <p>The above three functions use the <strong>same convention</strong>: the argument <code>pflag</code> is the one the obstacle has <strong>before transmission</strong>. For example, if a particle is outside an <a href="../tutorials/billiard_table/#DynamicalBilliards.Antidot"><code>Antidot</code></a> (with <code>pflag = true</code> here) and is transmitted inside the <code>Antidot</code> (<code>pflag</code> becomes <code>false</code> here), then all three functions will be given their second argument (the Boolean one) as <code>true</code>!</p>
 <p><code>affect</code> is a function, and denotes which obstacles of the billiard are affected when transmission occurs at obstacle <code>i</code> (for which obstacles should the field <code>pflag</code> be reversed). Defaults to <code>idxs = (i) -&gt; i</code>, i.e. only the colliding obstacle is affected. If you want many obstacles to be affected you could write <code>idxs = (i) -&gt; SVector(2,3,5)</code>, etc. Keep in mind that the only values of <code>i</code> that can be passed into this function are the ones that are given in the argument <code>idxs</code>!</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/14d690e4e555a459a311f66e9ae9d871036cd39d/src/raysplitting.jl#L7-L37' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a7fbd7f583e1627fe4e04c2eabcead6fb48842bb/src/raysplitting.jl#L8-L38' class='documenter-source'>source</a><br></p>
 <hr />
 <p>If you want different type of transmission/refraction functions for different obstacles, then you define multiple <code>RaySplitter</code>s.</p>
 <p>Continuing from the above billiard, let's also create some <code>RaySplitter</code> instances for it.</p>
@@ -732,7 +746,57 @@
 <li>Ray reversal is true: θ(θ(φ, pflag, ω), !pflag, ω) ≈ φ</li>
 <li>Magnetic conservation is true: (ω<em>new(ω</em>new(ω, pflag), !pflag) ≈ ω</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/14d690e4e555a459a311f66e9ae9d871036cd39d/src/raysplitting.jl#L326-L338' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a7fbd7f583e1627fe4e04c2eabcead6fb48842bb/src/raysplitting.jl#L327-L339' class='documenter-source'>source</a><br></p>
+<p><a id='Snell's-Law-1'></a></p>
+<h2 id="snells-law">Snell's Law</h2>
+<p>In classical geometric optics, the refraction of a ray of light moving from one  medium to another is described by Snell's law. For an angle of incidence of  <span><span class="MathJax_Preview">\phi</span><script type="math/tex">\phi</script></span>, the refraction angle <span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> is determined by the equation</p>
+<div>
+<div class="MathJax_Preview">
+\frac{sin(\phi)}{\sin(\theta)} = \frac{n'}{n}
+</div>
+<script type="math/tex; mode=display">
+\frac{sin(\phi)}{\sin(\theta)} = \frac{n'}{n}
+</script>
+</div>
+<p>where <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> and <span><span class="MathJax_Preview">n'</span><script type="math/tex">n'</script></span> are the respective refractive indices of the media. </p>
+<p>To easily simulate these relations in <code>DynamicalBilliards</code>, the function <code>law_of_refraction</code> can be used to set up ray-splitting according to this law.</p>
+<p><a id='DynamicalBilliards.law_of_refraction' href='#DynamicalBilliards.law_of_refraction'>#</a>
+<strong><code>DynamicalBilliards.law_of_refraction</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>law_of_refraction(n1, n2 = 1.0) -&gt; t, r
+</pre></div>
+
+
+<p>Create transmission and refraction functions <code>t, r</code> that follow Snell's law, i.e. the transmission probability is set to 1.0 except for the case of total internal reflection. </p>
+<p><code>n1</code> is the index of refraction for the <code>pflag = false</code> side of an obstacle, while <code>n2</code> is the index of refraction for <code>pflag = true</code>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalBilliards.jl/blob/a7fbd7f583e1627fe4e04c2eabcead6fb48842bb/src/raysplitting.jl#L400-L409' class='documenter-source'>source</a><br></p>
+<p>Using the functions returned by <code>law_of_refraction</code>, we can set up a  <code>RaySplitter</code> for a billiard. </p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalBilliards</span><span class="p">,</span> <span class="n">PyPlot</span>
+<span class="c"># Create a circular &quot;lens&quot;</span>
+<span class="n">o</span> <span class="o">=</span> <span class="n">Antidot</span><span class="p">(</span><span class="n">SVector</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="c"># in a rectangular box</span>
+<span class="n">bd</span> <span class="o">=</span> <span class="n">Billiard</span><span class="p">(</span><span class="n">billiard_rectangle</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span><span class="o">...</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
+<span class="c"># create a RaySplitter using law of refraction</span>
+<span class="n">trans</span><span class="p">,</span> <span class="n">refra</span> <span class="o">=</span> <span class="n">law_of_refraction</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="p">(</span><span class="n">RaySplitter</span><span class="p">([</span><span class="mi">5</span><span class="p">],</span> <span class="n">trans</span><span class="p">,</span> <span class="n">refra</span><span class="p">),)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>(RaySplitter for indices [5],)
+</pre></div>
+
+
+<p>We now animate the evolution of an array of particles on parallel trajectories to  demonstrate the refractive properties of the spherical lens</p>
+<div class="codehilite"><pre><span></span><span class="c"># create parallel particles</span>
+<span class="n">ps</span> <span class="o">=</span> <span class="p">[</span><span class="n">Particle</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="kp">in</span> <span class="mf">0.4</span><span class="o">:</span><span class="mf">0.05</span><span class="o">:</span><span class="mf">1.1</span><span class="p">]</span>
+
+<span class="c"># animate </span>
+<span class="n">animate_evolution</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;C0&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="o">∈</span> <span class="mi">1</span><span class="o">:</span><span class="n">length</span><span class="p">(</span><span class="n">ps</span><span class="p">)],</span>
+    <span class="n">tailtime</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">savename</span> <span class="o">=</span> <span class="s">&quot;lens&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<video width="100%" height="auto" controls> <source src="https://raw.githubusercontent.com/JuliaDynamics/JuliaDynamicsDocumentation.jl/master/animations/billiards/lens.mp4?raw=true" type="video/mp4"> </video>
+
 <p><a id='Example-of-Affecting-Multiple-Obstacles-1'></a></p>
 <h2 id="example-of-affecting-multiple-obstacles">Example of Affecting Multiple Obstacles</h2>
 <p>Here we will show an application of <em>inverse</em> billiards, where particles go in and out of a billiard, while taking advantage of the existence of a magnetic field outside to return.</p>
