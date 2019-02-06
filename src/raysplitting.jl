@@ -202,8 +202,24 @@ function resolvecollision!(p::AbstractParticle{T}, bd::Billiard{T}, colidx::Int,
         end
     else # No ray-splitting:
         #perform specular
-        specular!(p, a)
+        # specular!(p, a)
+                #perform specular
+        # specular!(p, a)
+
+        theta = angleclamp(rayspl.refraction(φ, a.pflag, ω))
+        n = normalvec(a, p.pos) #notice that this is reversed! It's the new normalvec!
+        Θ = theta + atan(n[2], n[1])
+
+        # Raysplit Algorithm step 9: Perform refraction
+        p.vel = SVector{2,T}(cos(Θ), sin(Θ))
+
+        # Raysplit Algorithm step 10: Set new angular velocity
+        if ismagnetic
+            ω = rayspl.newω(p.omega, !a.pflag)  # notice the exclamation mark
+            p.omega = ω
+            p.r = abs(1/ω)
         end
+    end
     return
 end
 
