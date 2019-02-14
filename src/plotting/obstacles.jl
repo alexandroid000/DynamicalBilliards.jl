@@ -1,11 +1,11 @@
 obcolor(::Obstacle) = (0,0.6,0)
 obcolor(::Union{RandomWall, RandomDisk}) = (149/255, 88/255, 178/255)
-obcolor(::Union{SplitterWall, Antidot, Ellipse}) = (0.8,0.0,0)
+obcolor(::Union{SplitterWall, Antidot, Ellipse, LaserWall}) = (0.8,0.0,0)
 obcolor(::PeriodicWall) = (0.8,0.8,0)
 obalpha(::Obstacle) = 0.5
 obalpha(::Union{Antidot, Ellipse}) = 0.1
 obls(::Obstacle) = "solid"
-obls(::Union{SplitterWall, Antidot, Ellipse}) = "dashed"
+obls(::Union{SplitterWall, Antidot, Ellipse, LaserWall}) = "dashed"
 obls(::PeriodicWall) = "dotted"
 
 """
@@ -45,6 +45,11 @@ function plot(w::Wall; kwargs...)
        color="black", linestyle = "-", lw = 2.0, kwargs...)
        PyPlot.plot([w.sp[1],w.ep[1]],[w.sp[2],w.ep[2]];
        color=(0, 0.9, 0.9), linestyle = "--", lw = 2.0, kwargs...)
+    elseif typeof(w) <: LaserWall
+        PyPlot.plot([w.sp[1],w.ep[1]],[w.sp[2],w.ep[2]];
+        color="green", linestyle = "-", lw = 2.0, kwargs...)
+        PyPlot.plot([w.sp[1],w.ep[1]],[w.sp[2],w.ep[2]];
+        color=(0, 0.9, 0.9), linestyle = "--", lw = 2.0, kwargs...)
     else
         PyPlot.plot([w.sp[1],w.ep[1]],[w.sp[2],w.ep[2]];
         color=obcolor(w),

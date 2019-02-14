@@ -1,6 +1,5 @@
 export Obstacle, Disk, Antidot, RandomDisk, Wall, Circular,
-InfiniteWall, PeriodicWall, RandomWall, SplitterWall, FiniteWall,
-Semicircle, Ellipse
+InfiniteWall, PeriodicWall, RandomWall, SplitterWall, FiniteWall, LaserWall, Semicircle, Ellipse
 export translate
 
 using InteractiveUtils
@@ -312,7 +311,45 @@ SplitterWall(sp, ep, n, true, name)
 show(io::IO, w::Wall{T}) where {T} = print(io, "$(w.name) {$T}\n",
 "start point: $(w.sp)\nend point: $(w.ep)\nnormal vector: $(w.normal)")
 
-
+"""
+    LaserWall{T<:AbstractFloat} <: Wall{T}
+Wall obstacle that report collision but do not alter the particle(immutable type).
+### Fields:
+* `sp::SVector{2,T}` : Starting point of the Wall.
+* `ep::SVector{2,T}` : Ending point of the Wall.
+* `normal::SVector{2,T}` : Normal vector to the wall, pointing to where the
+  particle *will come from* (to the inside the billiard).
+  The size of the vector is **important**!
+  This vector is added to a particle's `pos` during collision. Therefore the
+  size of the normal vector must be correctly associated with the size of the
+  periodic cell.
+* `name::String` : Name of the obstacle, given for user convenience.
+  Defaults to "Periodic wall".
+"""
+mutable struct LaserWall{T<:AbstractFloat} <: Wall{T}
+    sp::SVector{2,T}
+    ep::SVector{2,T}
+    normal::SVector{2,T}
+    pflag::Bool
+    name::String
+end
+function LaserWall(sp::AbstractVector, ep::AbstractVector,
+    normal::AbstractVector, pflag::Bool = true, name::String = "Laser wall")
+    T = eltype(sp)
+    n = normalize(normal)
+    d = dot(n, ep-sp)
+    if abs(d) > 10eps(T)
+        error("Normal vector is not actually normal to the wall")
+    end
+    T = eltype(sp) <: Integer ? Float64 : eltype(sp)
+    return LaserWall{T}(
+    SVector{2,T}(sp), SVector{2,T}(ep), SVector{2,T}(n), pflag, name)
+end
+LaserWall(sp, ep, n, name::String = "Laser wall") =
+LaserWall(sp, ep, n, true, name)
+#pretty print:
+show(io::IO, w::Wall{T}) where {T} = print(io, "$(w.name) {$T}\n",
+"start point: $(w.sp)\nend point: $(w.ep)\nnormal vector: $(w.normal)")
 """
     Ellipse{T<:AbstractFloat}  <: Obstacle{T}
 Ellipse obstacle that also allows ray-splitting. The ellipse is always oriented
@@ -386,6 +423,7 @@ assumed to be very close to the obstacle's boundary).
 @inline normalvec(wall::Wall, pos) = wall.normal
 @inline normalvec(w::PeriodicWall, pos) = normalize(w.normal)
 @inline normalvec(w::SplitterWall, pos) = w.pflag ? w.normal : -w.normal
+@inline normalvec(w::LaserWall, pos) =  w.pflag ? w.normal : -w.normal
 @inline normalvec(disk::Circular, pos) = normalize(pos - disk.c)
 @inline normalvec(a::Antidot, pos) =
     a.pflag ? normalize(pos - a.c) : -normalize(pos - a.c)

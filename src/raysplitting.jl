@@ -178,7 +178,9 @@ function resolvecollision!(p::AbstractParticle{T}, bd::Billiard{T}, colidx::Int,
 
     if trans #perform raysplitting
         # Raysplit Algorithm step 6: find transmission angle in relative angles
+        # Samara comment: there is a bug in the angleclamp function
         theta = angleclamp(rayspl.refraction(φ, a.pflag, ω))
+        # theta = rayspl.refraction(φ, a.pflag, ω)
 
         # Raysplit Algorithm step 7: reverse the Obstacle propagation flag
         # for all obstacles dictated by the RaySplitter

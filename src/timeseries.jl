@@ -183,7 +183,9 @@ function timeseries!(p::AbstractParticle{T}, bd::Billiard{T}, t, raysplitters = 
         ismagnetic && isray && (prevω = p.ω)
         i, ct = bounce!(p, bd, raysidx, raysplitters)
         t_to_write += ct
-
+        if bd[i] isa LaserWall
+            print("Laser wall: $i ")
+        end
         if isperiodic(i, bd)
             # do nothing at periodic obstacles
             continue
