@@ -1,5 +1,6 @@
 using InteractiveUtils
-
+using Plots
+export plots_plot
 function nonperiodic(bd::Billiard)
     toplot = Obstacle{eltype(bd)}[]
     for obst in bd
@@ -171,4 +172,33 @@ function plot_periodic_hexagon(bd, xmin, ymin, xmax, ymax)
             end
         end
     end
+end
+
+""" Samara: Ploting with julia Plots library so that we can fade out old path
+"""
+function plots_plot(bd::Billiard) end
+
+function plots_plot(bd::Billiard{T}) where {T}
+    for w in bd
+        if typeof(w) <: FiniteWall &&  w.isdoor
+           Plots.plot!([w.sp[1],w.ep[1]],[w.sp[2],w.ep[2]];
+           color=:black, linestyle = :dash, linewidth = 2.0)
+        elseif typeof(w) <: LaserWall
+            Plots.plot!([w.sp[1],w.ep[1]],[w.sp[2],w.ep[2]];
+            color=:green, linestyle = :dash, linewidth = 2.0)
+        else
+            Plots.plot!([w.sp[1],w.ep[1]],[w.sp[2],w.ep[2]];
+            color=:red, linestyle = :dash, linewidth = 2.0)
+        end
+    end
+end
+
+function plots_plot(bd, xt::AbstractVector, yt::AbstractVector, file_name::String;
+    hexagonal = false)
+    plots_plot(bd)
+    Plots.scatter!([xt[1]], [yt[1]], color = :black)
+    alphas = range(0, 1, length = length(xt))
+    Plots.plot!(xt, yt, aspect_ratio = :equal, axis = nothing, ticks = false, foreground_color = :white, color = :blue, linewidth = 2, legend = false)
+    Plots.savefig(file_name)
+    return nothing
 end
